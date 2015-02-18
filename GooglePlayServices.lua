@@ -1,3 +1,7 @@
+--------------------------------------------------------------------
+-- Este código ainda não está funcionando. 
+-- Foi criada a classe mas ainda não está implementada corretamente
+--------------------------------------------------------------------
 local gameNetwork = require("gameNetwork")
 
 function login ()
