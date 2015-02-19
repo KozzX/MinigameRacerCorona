@@ -5,6 +5,7 @@ local Carro = require( "Carro" )
 local Obstaculo = require( "Obstaculo" )
 local physics = require( "physics" )
 local Explosao = require("Explosao")
+local Google = require("GooglePlayServices")
 
 
 physics.start( )
