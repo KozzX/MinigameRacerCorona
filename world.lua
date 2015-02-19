@@ -5,21 +5,9 @@ local Carro = require( "Carro" )
 local Obstaculo = require( "Obstaculo" )
 local physics = require( "physics" )
 local Explosao = require("Explosao")
-local Google = require("GooglePlayServices")
-
 
 physics.start( )
 physics.setGravity( 0, 0 )
-vezes = -1
-
-local function handleButtonEvent( event )
-    if ( "ended" == event.phase ) then
-        --storyboard.gotoScene( self, transitionOptions )
-        storyboard.reloadScene()
-
-        print( "Foi" )
-    end
-end
 
 ---------------------------------------------------------------------------------
 -- SCENE EVENTS
@@ -29,12 +17,7 @@ end
 function scene:createScene( event )
 	local group = self.view
 
-	-----------------------------------------------------------------------------
-		
-	--	CREATE display objects and add them to 'group' here.
-	--	Example use-case: Restore 'group' from previously saved state.
-	
-	-----------------------------------------------------------------------------
+
 	background = display.newImage( "img/background.png", true);
 	background.anchorX, background.anchorY = 0,0
 
@@ -67,39 +50,22 @@ function scene:createScene( event )
 
 		local obstaculo = Obstaculo.new(math.random(-1,14))
 	end
-	timer1 = timer.performWithDelay( 1000, carregarObstaculo, vezes )
+	timer1 = timer.performWithDelay( 1000, carregarObstaculo, -1 )
 
 
 	local function onCollision( event )
 		if event.phase == "began" then
        		local agro = event.object1
        		local hit = event.object2
-       		print(event.x, event.name, event.contact, event.element2)
  
-        if agro.type == "carro" and hit.type == "obstaculo" then
-          	print("Bateu")
-			timer.cancel( timer1 )
-			local explosao = Explosao.new(carro.x, carro.y)
-			carro:removeSelf( )
-			transition.pause( obstaculo )
-
-				-- Create the widget
-			local btn = widget.newButton
-			{
-	    		x = display.contentCenterX,
-	    		y = display.contentCenterY,
-	    		id = "playBtn",
-	    		label = "Play",
-	    		fontSize = 50,
-	    		widget = 100,
-	    		height = 100,
-	    		labelColor = { default={ 0, 0, 0 }, over={ 1, 1, 1, 0.5 } },
-	    		onEvent = handleButtonEvent
-			}
- 
-        end
-    end
-
+        	if agro.type == "carro" and hit.type == "obstaculo" then
+          		print("Bateu")
+				timer.cancel( timer1 )
+				local explosao = Explosao.new(carro.x, carro.y)
+				carro:removeSelf( )
+				transition.pause( obstaculo )
+        	end
+    	end
 	end
 	Runtime:addEventListener( "collision", onCollision )
 

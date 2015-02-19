@@ -2,12 +2,17 @@
 local storyboard = require( "storyboard" )
 local widget = require( "widget" )
 local scene = storyboard.newScene()
+local Google = require("Google")
 
+
+loginGooglePlay()
 
 local transitionOptions = {
 	effect = "fade",
     time = 1000
 }
+
+
 
 local function handleButtonEvent( event )
     if ( "ended" == event.phase ) then
@@ -23,12 +28,6 @@ end
 function scene:createScene( event )
 	local group = self.view
 
-	-----------------------------------------------------------------------------
-		
-	--	CREATE display objects and add them to 'group' here.
-	--	Example use-case: Restore 'group' from previously saved state.
-	
-	-----------------------------------------------------------------------------
 	
 	local bg = display.newImage( "img/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
