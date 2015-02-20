@@ -21,9 +21,10 @@ function scene:createScene( event )
 	background = display.newImage( "img/background.png", true);
 	background.anchorX, background.anchorY = 0,0
 
+
 	local carro = Carro.new(5,19)
 
-	local textOptions = 
+	local textPontos = 
 	{
 	    text = 0,     
 	    x = display.contentCenterX,
@@ -32,23 +33,25 @@ function scene:createScene( event )
 	    fontSize = 50 
 	}
 
-	local title = display.newText( textOptions )
-	title:setFillColor( 0/255, 0/255, 0/255 )
-
-	
+	local pontos = display.newText( textPontos )
+	pontos:setFillColor( 0/255, 0/255, 0/255 )
 
 	transition.to( background, {time=0,alpha=0} )
 	transition.to( carro, {time=0,alpha=0} )
+
+	
 	
 	local function carregarCena( event )
     	transition.to( background, {time=500,alpha=1} )
     	transition.to( carro, {time=500,alpha=1} )
 	end
 	timer.performWithDelay( 1500, carregarCena )
-	i = 0
+	
 	function carregarObstaculo( event )
 
 		local obstaculo = Obstaculo.new(math.random(-1,14))
+		pontos.text = pontos.text + 1
+
 	end
 	timer1 = timer.performWithDelay( 1000, carregarObstaculo, -1 )
 
@@ -59,7 +62,6 @@ function scene:createScene( event )
        		local hit = event.object2
  
         	if agro.type == "carro" and hit.type == "obstaculo" then
-          		print("Bateu")
 				timer.cancel( timer1 )
 				local explosao = Explosao.new(carro.x, carro.y)
 				carro:removeSelf( )
@@ -68,6 +70,13 @@ function scene:createScene( event )
     	end
 	end
 	Runtime:addEventListener( "collision", onCollision )
+
+	local function enterFrameListener( event )
+		
+		pontos.text = event.time/1000
+
+	end
+	Runtime:addEventListener("enterFrame",enterFrameListener)
 
 end
 

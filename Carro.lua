@@ -13,11 +13,9 @@ function new( x,y )
 		if(event.phase == "began") then
 			if event.x < _W / 2 then
 				x = x - 3
-				print( "funciona esquerda" )
 				transition.moveTo( carro, {x = _W / 16 * x - 1, y = carro.y, time = 50} )
 			else
 				x = x + 3
-				print( "funciona direita" )
 				transition.moveTo( carro, {x = _W / 16 * x - 1, y = carro.y, time = 50} )
 			end
 		end

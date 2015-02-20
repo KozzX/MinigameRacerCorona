@@ -57,10 +57,10 @@ function scene:createScene( event )
 	    labelColor = { default={ 0, 0, 0 }, over={ 1, 1, 1, 0.5 } },
 	    onEvent = handleButtonEvent
 	}
-
 	group:insert( bg )
 	group:insert( title )
 	group:insert( btn )
+
 
 end
 
