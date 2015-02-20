@@ -48,12 +48,17 @@ function scene:createScene( event )
 	timer.performWithDelay( 1500, carregarCena )
 	
 	function carregarObstaculo( event )
-
 		local obstaculo = Obstaculo.new(math.random(-1,14))
-		pontos.text = pontos.text + 1
-
+		local obstaculo = Obstaculo.new(math.random(-1,14))
 	end
 	timer1 = timer.performWithDelay( 1000, carregarObstaculo, -1 )
+
+	function enterFrameListener( event )
+		pontos.text = pontos.text + (10/500);
+	end
+	
+	
+	
 
 
 	local function onCollision( event )
@@ -63,6 +68,7 @@ function scene:createScene( event )
  
         	if agro.type == "carro" and hit.type == "obstaculo" then
 				timer.cancel( timer1 )
+				Runtime:removeEventListener( "enterFrame", enterFrameListener )
 				local explosao = Explosao.new(carro.x, carro.y)
 				carro:removeSelf( )
 				transition.pause( obstaculo )
@@ -71,12 +77,8 @@ function scene:createScene( event )
 	end
 	Runtime:addEventListener( "collision", onCollision )
 
-	local function enterFrameListener( event )
-		
-		pontos.text = event.time/1000
+	
 
-	end
-	Runtime:addEventListener("enterFrame",enterFrameListener)
 
 end
 
@@ -89,6 +91,7 @@ function scene:enterScene( event )
 	--	INSERT code here (e.g. start timers, load audio, start listeners, etc.)
 	
 	-----------------------------------------------------------------------------
+	Runtime:addEventListener("enterFrame",enterFrameListener)
 end
 
 
