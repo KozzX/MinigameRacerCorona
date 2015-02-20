@@ -54,7 +54,7 @@ function scene:createScene( event )
 	timer1 = timer.performWithDelay( 1000, carregarObstaculo, -1 )
 
 	function enterFrameListener( event )
-		pontos.text = pontos.text + (10/500);
+		pontos.text = pontos.text + (0.016);
 	end
 	
 	
