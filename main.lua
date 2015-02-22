@@ -4,9 +4,9 @@
 --
 -----------------------------------------------------------------------------------------
 
-local storyboard = require "storyboard"
+local composer = require "composer"
 
 -- load scenetemplate.lua
-storyboard.gotoScene( "mainmenu" )
+composer.gotoScene( "scripts.cenas.mainmenu" )
 
 -- Add any objects that should appear on all scenes below (e.g. tab bar, hud, etc.):

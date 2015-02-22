@@ -25,4 +25,8 @@ function logoutGooglePlay()
    end
 end
 
+function submitHighScore( leaderboard, pontos )	
+	gameNetwork.request( "setHighScore",{localPlayerScore = { category=leaderboard, value=pontos }})
+end
+
 

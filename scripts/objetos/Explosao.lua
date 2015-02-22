@@ -7,7 +7,7 @@ function new( x,y )
 		sheetContentHeight=130
 	}
 
-	local explosaoSheet = graphics.newImageSheet( "img/explosao.png", sheetData )
+	local explosaoSheet = graphics.newImageSheet( "images/explosao.png", sheetData )
 
 	local sequenceData = {
 		{name = "explosao",
