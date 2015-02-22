@@ -8,7 +8,7 @@ function newPlayButton()
 	    --baseDir = "images/",
 	    defaultFile = "images/play.png",
 	    overFile = "images/playPressed.png",
-	    --onEvent = handleButtonEvent
+	    --onEvent = esperaBotao
 	}
 	btn.width = display.contentWidth / 16 * 5
 	btn.height = display.contentHeight / 25 * 3

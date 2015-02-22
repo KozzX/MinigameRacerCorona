@@ -6,12 +6,15 @@ local Explosao = require("scripts.objetos.Explosao")
 local Pontos = require( "scripts.objetos.PontosHUD" )
 local Carro = require( "scripts.objetos.Carro" )
 local Background = require ("scripts.objetos.Background")
---local Obstaculo = require( "scripts.objetos.Obstaculo" )
+local Pista = require("scripts.objetos.Pista")
+local Botao = require("scripts.objetos.Botao")
 
 physics.start( )
 physics.setGravity( 0, 0 )
 
-
+function esperaBotao( event )
+	print( "apertou" )
+end
 ---------------------------------------------------------------------------------
 -- SCENE EVENTS
 ---------------------------------------------------------------------------------
@@ -33,10 +36,16 @@ function scene:show( event )
 		local bg = Background.new()
 		local carro = Carro.newCarro(5,19)
 		local pontos = Pontos.new()
+		local pista1 = Pista.new(posX(1),posY(0))
+		local pista2 = Pista.new(posX(14),posY(0))
+
+
 	
 		function carregarObstaculo( event )
-			local obstaculo = Carro.newObstaculo(math.random(-1,14))
-			local obstaculo = Carro.newObstaculo(math.random(-1,14))
+			local obstaculo = Carro.newObstaculo(math.random(1,4))
+			local obstaculo = Carro.newObstaculo(math.random(1,4))
+			local obstaculo = Carro.newObstaculo(math.random(1,4))
+			local obstaculo = Carro.newObstaculo(math.random(1,4))
 		end
 		timerObstaculo = timer.performWithDelay( 1000, carregarObstaculo, -1 )
 
@@ -52,19 +61,20 @@ function scene:show( event )
         		if agro.type == "carro" and hit.type == "obstaculo" then
 					timer.cancel( timerObstaculo )
 					Runtime:removeEventListener( "enterFrame", enterFrameListener )
-					pontos:mudarCor()
 					local explosao = Explosao.new(carro.x, carro.y)
 					carro:removeSelf( )
 					carro = nil
-					local pts = tonumber( pontos.text ) * 1000
-					print(pts)
-					submitHighScore("CgkIi7_A79oJEAIQBQ",pts)
-					showLeaderboards()
 					transition.pause( obstaculo )
+					pista1:pause( )
+					pista2:pause( )
+					local botao = Botao.newPlayButton()
+					botao:addEventListener("tap",esperaBotao)
+					pontos:submitScore()
         		end
     		end
 		end
 		Runtime:addEventListener( "collision", onCollision )
+
 	end
 end
 --------------------------------------------------------------------------------

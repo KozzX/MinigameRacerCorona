@@ -1,12 +1,19 @@
------------------------------------------------------------------------------------------
---
--- main.lua
---
------------------------------------------------------------------------------------------
 
 local composer = require "composer"
+local Google = require("scripts.util.Google")
+local Explosao = require("scripts.objetos.Explosao")
+--local performance = require('performance')
+--performance:newPerformanceMeter()
 
--- load scenetemplate.lua
-composer.gotoScene( "scripts.cenas.mainmenu" )
+loginGooglePlay()
+local explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
 
--- Add any objects that should appear on all scenes below (e.g. tab bar, hud, etc.):
+function start( event )
+	loadHighScore("CgkIi7_A79oJEAIQBQ")
+	composer.gotoScene( "scripts.cenas.mainmenu" )
+	explosao:removeSelf( )
+	explosao = nil
+end
+timerstart = timer.performWithDelay( 5000, start, 1 )
+
+

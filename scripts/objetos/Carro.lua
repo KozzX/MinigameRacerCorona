@@ -23,11 +23,11 @@ function newCarro( x,y )
 
 	function onTouch(event)
 		if(event.phase == "began") then
-			if (event.x < telaX / 2) and (x >= 2) then
-				x = x - 2
+			if (event.x < telaX / 2) and (x >= 3) then
+				x = x - 3
 				transition.moveTo( carro, {x = posX(x), y = carro.y, time = 50} )
-			elseif (event.x > telaX / 2) and (x <= 11) then
-				x = x + 2
+			elseif (event.x > telaX / 2) and (x <= 10) then
+				x = x + 3
 				transition.moveTo( carro, {x = posX(x), y = carro.y, time = 50} )
 			end
 		end
@@ -38,6 +38,15 @@ function newCarro( x,y )
 end
 
 function newObstaculo( x )
+	if x == 1 then
+		x = 2
+	elseif x == 2 then
+		x = 5
+	elseif x == 3 then
+		x = 8
+	elseif x == 4 then
+		x = 11
+	end 
 	local obstaculo = new(x,-5)
 	local obstaculoShape = {-10,-65, 10,-65, -10,-30, 10,-30, -40,-30, 40,-30, -40,65, 40,65}
 	physics.addBody( obstaculo, "dynamic", {isSensor = true, shape=obstaculoShape})

@@ -1,16 +1,12 @@
-
 local composer = require( "composer" )
 local widget = require( "widget" )
 local scene = composer.newScene()
-local Google = require("scripts.util.Google")
-
-loginGooglePlay()
+local Botao = require( "scripts.objetos.Botao" )
 
 local transitionOptions = {
 	effect = "fade",
     time = 1000
 }
-
 
 
 local function handleButtonEvent( event )
@@ -27,46 +23,39 @@ end
 function scene:create( event )
 	local group = self.view
 	
-	local bg = display.newImage( "images/background.png", true)
-	bg.anchorX, bg.anchorY = 0, 0
-
-	local titleTable = display.newImage( "images/title.png",true )
-	--titleTable.anchorX, titleTable.anchorY = 0,0
-	titleTable.x = display.contentCenterX
-	titleTable.y = display.contentCenterY
-	titleTable.width = display.contentWidth / 16 * 12
-	titleTable.height = display.contentHeight / 25 * 13
-
-
-
-
-	-- Create the widget
-	local btn = widget.newButton
-	{
-	    id = "playBtn",
-	    defaultFile = "images/play.png",
-	    overFile = "images/playPressed.png",
-	    onEvent = handleButtonEvent
-	}
-	btn.width = display.contentWidth / 16 * 5
-	btn.height = display.contentHeight / 25 * 3
-	btn.x = display.contentCenterX
-	btn.anchorY = 0
-	btn.y = display.contentHeight / 25 * 15
-
-	group:insert( bg )
-	group:insert( titleTable )
-	group:insert( btn )
-	group.alpha = 0
-	transition.to( group, {time=1000, alpha =1} )
-
-
 end
 
 
 -- Called immediately after scene has moved onscreen:
 function scene:show( event )
 	local group = self.view
+
+	if event.phase == "will" then
+
+	elseif event.phase == "did" then
+		local bg = display.newImage( "images/background.png", true)
+		bg.anchorX, bg.anchorY = 0, 0
+
+		local titleTable = display.newImage( "images/title.png",true )
+		--titleTable.anchorX, titleTable.anchorY = 0,0
+		titleTable.x = display.contentCenterX
+		titleTable.y = display.contentCenterY
+		titleTable.width = display.contentWidth / 16 * 12
+		titleTable.height = display.contentHeight / 25 * 13
+
+
+
+
+		-- Create the widget
+		local btn = Botao.newPlayButton()
+		btn:addEventListener( "touch", handleButtonEvent )
+	
+		group:insert( bg )
+		group:insert( titleTable )
+		group:insert( btn )
+		group.alpha = 0
+		transition.to( group, {time=1000, alpha =1} )
+	end 
 
 
 	
