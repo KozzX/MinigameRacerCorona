@@ -9,11 +9,15 @@ loginGooglePlay()
 local explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
 
 function start( event )
-	loadHighScore("CgkIi7_A79oJEAIQBQ")
-	composer.gotoScene( "scripts.cenas.mainmenu" )
-	explosao:removeSelf( )
-	explosao = nil
+	--if (gameNetwork.request("isConnected")) then	
+		--loadHighScore("CgkIi7_A79oJEAIQBQ")
+		composer.gotoScene( "scripts.cenas.mainmenu" )
+		explosao:removeSelf( )
+		explosao = nil
+		timer.cancel( timerstart )
+	--end
 end
-timerstart = timer.performWithDelay( 5000, start, 1 )
+timerstart = timer.performWithDelay( 1000, start, -1 )
+--Runtime:addEventListener( "enterFrame", start )
 
 

@@ -10,6 +10,7 @@ function newPlayButton()
 	    overFile = "images/playPressed.png",
 	    --onEvent = esperaBotao
 	}
+	btn.alpha = 0
 	btn.width = display.contentWidth / 16 * 5
 	btn.height = display.contentHeight / 25 * 3
 	btn.x = display.contentCenterX

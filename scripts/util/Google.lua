@@ -6,8 +6,21 @@ globalGoogleScore = 5
 gameNetwork.init("google")
 
 function loginGooglePlay()
+   local function loginCallBack( event1 )
+   		if event1.isError then
+			print( "erro" )
+		else
+			--loginLogoutButton:setLabel("Logout")
+		end
+   end
    print( "loginGooglePlay" )
-   gameNetwork.request("login",{userInitiated = true})
+   gameNetwork.request("login",{userInitiated = true, listener = loadHighScore})
+end
+
+function loginGooglePlayCallback( event )
+	--gameNetwork.request("loadLocalPlayer", {listener = loadPlayer})
+
+	return true
 end
 
 function showLeaderboards()
@@ -24,12 +37,12 @@ function showHighScore( event )
 	globalGoogleScore = event.data[1].value / 1000
 end
 
-function loadHighScore( leaderboard )
+function loadHighScore(  )
 	gameNetwork.request("loadScores", 
 	{
 		leaderboard = 
 		{
-			category=leaderboard, 
+			category="CgkIi7_A79oJEAIQBQ", 
 			playerScope = "Global",
 			timeScope = "Today",
 			range = { 1,2 },
@@ -37,7 +50,10 @@ function loadHighScore( leaderboard )
 		},
 		listener = showHighScore
 	})
+end
 
+function loadPlayer( event )
+	--globalGoogleScore = event.data.alias
 end
 
 function logoutGooglePlay()

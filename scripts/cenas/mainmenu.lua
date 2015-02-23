@@ -49,6 +49,7 @@ function scene:show( event )
 		-- Create the widget
 		local btn = Botao.newPlayButton()
 		btn:addEventListener( "touch", handleButtonEvent )
+		transition.to( btn, {time = 1000, alpha = 1} )
 	
 		group:insert( bg )
 		group:insert( titleTable )
