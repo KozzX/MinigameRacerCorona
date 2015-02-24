@@ -46,7 +46,7 @@ function scene:show( event )
 			local obstaculo = Carro.newObstaculo(math.random(1,4))
 			local obstaculo = Carro.newObstaculo(math.random(1,4))
 			local obstaculo = Carro.newObstaculo(math.random(1,4))
-			local obstaculo = Carro.newObstaculo(math.random(1,4))
+			--local obstaculo = Carro.newObstaculo(math.random(1,4))
 		end
 		timerObstaculo = timer.performWithDelay( 1000, carregarObstaculo, -1 )
 
