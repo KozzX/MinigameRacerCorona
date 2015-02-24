@@ -1,5 +1,4 @@
 local composer = require( "composer" )
-local widget = require( "widget" )
 local scene = composer.newScene()
 local Botao = require( "scripts.objetos.Botao" )
 
@@ -37,16 +36,11 @@ function scene:show( event )
 		bg.anchorX, bg.anchorY = 0, 0
 
 		local titleTable = display.newImage( "images/title.png",true )
-		--titleTable.anchorX, titleTable.anchorY = 0,0
 		titleTable.x = display.contentCenterX
 		titleTable.y = display.contentCenterY
 		titleTable.width = display.contentWidth / 16 * 12
 		titleTable.height = display.contentHeight / 25 * 13
 
-
-
-
-		-- Create the widget
 		local btn = Botao.newPlayButton()
 		btn:addEventListener( "touch", handleButtonEvent )
 		transition.to( btn, {time = 1000, alpha = 1} )
@@ -67,24 +61,12 @@ end
 function scene:hide( event )
 	local group = self.view
 	
-	-----------------------------------------------------------------------------
-	
-	--	INSERT code here (e.g. stop timers, remove listeners, unload sounds, etc.)
-	
-	-----------------------------------------------------------------------------
-	
 end
 
 
 -- Called prior to the removal of scene's "view" (display group)
 function scene:destroy( event )
 	local group = self.view
-	
-	-----------------------------------------------------------------------------
-	
-	--	INSERT code here (e.g. remove listeners, widgets, save state, etc.)
-	
-	-----------------------------------------------------------------------------
 	
 end
 

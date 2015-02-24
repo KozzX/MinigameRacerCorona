@@ -56,6 +56,9 @@ function newObstaculo( x )
 	function removeObstaculo(  )
 		obstaculo:removeSelf( )
 	end
+
+	return obstaculo
+
 end
 
 return {

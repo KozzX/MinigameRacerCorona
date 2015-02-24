@@ -19,14 +19,14 @@ local function verificar( event )
 	end
 end
 
-alert = native.showAlert( "Minigame Racer","Para que todos os recursos do jogo estejam disponíveis, é necessário fazer o login com o Google Play Games", { "Login","Cancel" }, verificar)
+native.showAlert( "Minigame Racer","Para que todos os recursos do jogo estejam disponíveis, é necessário fazer o login com o Google Play Games", { "Login","Cancel" }, verificar)
 
 
 
 
 function start( event )
 	if(logado==true) then
-		native.showAlert( "Erro", "Logado " .. playerName .. " " .. globalGoogleScore, { "Ok" })
+		--native.showAlert( "Erro", "Logado " .. playerName .. " " .. globalGoogleScore, { "Ok" })
 		composer.gotoScene( "scripts.cenas.mainmenu" )
 		explosao:removeSelf( )
 		explosao = nil

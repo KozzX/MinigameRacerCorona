@@ -12,7 +12,7 @@ function new( x,y )
 	local sequenceData = {
 		{name = "pista",
 		frames = {1,2,3},
-		time = 150,
+		time = 100,
 		loopCount = 0
 		}	
 	}

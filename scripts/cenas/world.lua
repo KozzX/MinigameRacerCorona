@@ -68,9 +68,9 @@ function scene:show( event )
 					transition.pause( obstaculo )
 					pista1:pause( )
 					pista2:pause( )
-					--local botao = Botao.newPlayButton()
-					--transition.to( botao, {time = 1000, alpha = 1} )
-					--botao:addEventListener("tap",esperaBotao)
+					local botao = Botao.newPlayButton()
+					transition.to( botao, {time = 1000, alpha = 1} )
+					botao:addEventListener("tap",esperaBotao)
 					--pontos:submitScore()
         		end
     		end

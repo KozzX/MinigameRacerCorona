@@ -5,10 +5,8 @@ function newPlayButton()
 	local btn = widget.newButton
 	{
 	    id = "playBtn",
-	    --baseDir = "images/",
 	    defaultFile = "images/play.png",
 	    overFile = "images/playPressed.png",
-	    --onEvent = esperaBotao
 	}
 	btn.alpha = 0
 	btn.width = display.contentWidth / 16 * 5

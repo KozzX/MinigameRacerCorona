@@ -7,7 +7,6 @@ playerName = ""
 function gameNetworkSetup()
    if ( system.getInfo("platformName") == "Android" ) then
       gameNetwork.init( "google", loginGooglePlay )
-      --caminho = caminho + "setup "
    else
       gameNetwork.init( "gamecenter", gameNetworkLoginCallback )
    end
@@ -15,12 +14,10 @@ end
 
 function loginGooglePlay(event)
    gameNetwork.request( "login", { userInitiated=true, listener=loginGooglePlayCallback } )
-   --caminho = caminho + "login"
 end
 
 function loginGooglePlayCallback( event )
 	gameNetwork.request( "loadLocalPlayer", { listener=loadPlayer } )
-	--caminho = caminho + "LoginCallBack"
     return true
 end
 
@@ -61,7 +58,6 @@ end
 
 function loadPlayer( event )
 	playerName = event.data.alias
-	--native.showAlert( "Erro", playerName, { "Ok" })
 	loadHighScore("CgkIi7_A79oJEAIQBQ")
 end
 
