@@ -4,20 +4,27 @@ local Google = require("scripts.util.Google")
 local Explosao = require("scripts.objetos.Explosao")
 --local performance = require('performance')
 --performance:newPerformanceMeter()
+--loginGooglePlay()
+gameNetworkSetup()
 
-loginGooglePlay()
 local explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
 
 function start( event )
-	--if (gameNetwork.request("isConnected")) then	
-		--loadHighScore("CgkIi7_A79oJEAIQBQ")
-		composer.gotoScene( "scripts.cenas.mainmenu" )
-		explosao:removeSelf( )
-		explosao = nil
+	if(logado==true) then
+		native.showAlert( "Erro", "Logado " .. playerName .. " " .. globalGoogleScore, { "Ok" })
 		timer.cancel( timerstart )
-	--end
+	end
+
+	--if (playerConnected()) then	
+	--loadHighScore("CgkIi7_A79oJEAIQBQ")
+	--composer.gotoScene( "scripts.cenas.mainmenu" )
+	--explosao:removeSelf( )
+	--explosao = nil
+	--timer.cancel( timerstart )
 end
-timerstart = timer.performWithDelay( 1000, start, -1 )
---Runtime:addEventListener( "enterFrame", start )
+timerstart = timer.performWithDelay( 1, start, -1 )
+
+
+
 
 

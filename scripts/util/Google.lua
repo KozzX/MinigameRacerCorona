@@ -1,26 +1,31 @@
 local gameNetwork = require( "gameNetwork" )
 local widget = require("widget")
-
+logado = false
 globalGoogleScore = 5
+playerName = ""
 
-gameNetwork.init("google")
-
-function loginGooglePlay()
-   local function loginCallBack( event1 )
-   		if event1.isError then
-			print( "erro" )
-		else
-			--loginLogoutButton:setLabel("Logout")
-		end
+function gameNetworkSetup()
+   if ( system.getInfo("platformName") == "Android" ) then
+      gameNetwork.init( "google", loginGooglePlay )
+      --caminho = caminho + "setup "
+   else
+      gameNetwork.init( "gamecenter", gameNetworkLoginCallback )
    end
-   print( "loginGooglePlay" )
-   gameNetwork.request("login",{userInitiated = true, listener = loadHighScore})
+end
+
+function loginGooglePlay(event)
+   gameNetwork.request( "login", { userInitiated=true, listener=loginGooglePlayCallback } )
+   --caminho = caminho + "login"
 end
 
 function loginGooglePlayCallback( event )
-	--gameNetwork.request("loadLocalPlayer", {listener = loadPlayer})
+	gameNetwork.request( "loadLocalPlayer", { listener=loadPlayer } )
+	--caminho = caminho + "LoginCallBack"
+    return true
+end
 
-	return true
+function playerConnected()
+	return gameNetwork.request("isConnected")
 end
 
 function showLeaderboards()
@@ -35,25 +40,29 @@ end
 
 function showHighScore( event )
 	globalGoogleScore = event.data[1].value / 1000
+	logado = true
 end
 
-function loadHighScore(  )
+function loadHighScore( leaderboard )
 	gameNetwork.request("loadScores", 
 	{
 		leaderboard = 
 		{
-			category="CgkIi7_A79oJEAIQBQ", 
+			category=leaderboard, 
 			playerScope = "Global",
-			timeScope = "Today",
+			timeScope = "AllTime",
 			range = { 1,2 },
             playerCentered = true
 		},
 		listener = showHighScore
 	})
+	return true
 end
 
 function loadPlayer( event )
-	--globalGoogleScore = event.data.alias
+	playerName = event.data.alias
+	--native.showAlert( "Erro", playerName, { "Ok" })
+	loadHighScore("CgkIi7_A79oJEAIQBQ")
 end
 
 function logoutGooglePlay()
