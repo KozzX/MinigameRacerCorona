@@ -50,7 +50,7 @@ function new(  )
 
 	function pontos:submitScore(  )
 		submitHighScore("CgkIi7_A79oJEAIQBQ",(tonumber( pontos.text ) * 1000))
-		showLeaderboards()
+		--showLeaderboards()
 	end
 
 

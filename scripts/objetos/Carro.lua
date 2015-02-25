@@ -51,7 +51,7 @@ function newObstaculo( x )
 	local obstaculoShape = {-10,-65, 10,-65, -10,-30, 10,-30, -40,-30, 40,-30, -40,65, 40,65}
 	physics.addBody( obstaculo, "dynamic", {isSensor = true, shape=obstaculoShape})
 	obstaculo.type = "obstaculo"
-	transition.moveTo( obstaculo, {x = obstaculo.x, y=posY(25), time = 2000, onComplete=removeObstaculo } )
+	transition.moveTo( obstaculo, {x = obstaculo.x, y=posY(25), time = 1200, onComplete=removeObstaculo } )
 
 	function removeObstaculo(  )
 		obstaculo:removeSelf( )

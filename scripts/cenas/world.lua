@@ -45,10 +45,10 @@ function scene:show( event )
 		function carregarObstaculo( event )
 			local obstaculo = Carro.newObstaculo(math.random(1,4))
 			local obstaculo = Carro.newObstaculo(math.random(1,4))
-			local obstaculo = Carro.newObstaculo(math.random(1,4))
+			--local obstaculo = Carro.newObstaculo(math.random(1,4))
 			--local obstaculo = Carro.newObstaculo(math.random(1,4))
 		end
-		timerObstaculo = timer.performWithDelay( 1000, carregarObstaculo, -1 )
+		timerObstaculo = timer.performWithDelay( 500, carregarObstaculo, -1 )
 
 
 --------------------------------------------------------------------------------
@@ -71,7 +71,7 @@ function scene:show( event )
 					local botao = Botao.newPlayButton()
 					transition.to( botao, {time = 1000, alpha = 1} )
 					botao:addEventListener("tap",esperaBotao)
-					--pontos:submitScore()
+					pontos:submitScore()
         		end
     		end
 		end
