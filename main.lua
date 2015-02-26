@@ -3,6 +3,10 @@ local composer = require "composer"
 local Google = require("scripts.util.Google")
 local Explosao = require("scripts.objetos.Explosao")
 
+local text = display.newText( "25.986", 0, 0, "8_bit_1_6", 50)
+text.x = display.contentCenterX/2
+text.y = display.contentCenterY/2
+
 local explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
 
 local function verificar( event )

@@ -8,20 +8,21 @@ function new(  )
 	local textPontos = 
 	{
 	    text = 0,     
-	    font = native.newFont( "8bit16", 50 ),
+	    font = native.newFont( "8_bit_1_6", 50 ),
 	    fontSize = 50 
 	}
 
 	local pontos = display.newText( textPontos )
 	pontos.anchorX = 0
 	pontos.anchorY = 0
+	--pontos.font = ""
 	pontos.x = posX(2)
 	pontos:setFillColor( 0.7, 0, 0 )
 
 	local textDif = 
 	{
 	    text = 0,     
-	    font = native.newFont( "8bit16", 50 ),
+	    font = native.newFont( "8_bit_1_6", 50 ),
 	    fontSize = 50 
 	}
 
