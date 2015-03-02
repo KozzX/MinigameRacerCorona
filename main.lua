@@ -3,9 +3,8 @@ local composer = require "composer"
 local Google = require("scripts.util.Google")
 local Explosao = require("scripts.objetos.Explosao")
 
-local text = display.newText( "25.986", 0, 0, "8_bit_1_6", 50)
-text.x = display.contentCenterX/2
-text.y = display.contentCenterY/2
+
+
 
 local explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
 
@@ -30,11 +29,24 @@ native.showAlert( "Minigame Racer","Para que todos os recursos do jogo estejam d
 
 function start( event )
 	if(logado==true) then
-		--native.showAlert( "Erro", "Logado " .. playerName .. " " .. globalGoogleScore, { "Ok" })
-		composer.gotoScene( "scripts.cenas.mainmenu" )
-		explosao:removeSelf( )
-		explosao = nil
-		timer.cancel( timerstart )
+		--native.showAlert( "Leaderboard", playerName[1], { "Ok" })
+		local textPontos = 
+		{
+    		text = "player",     
+    		font = native.newFont( "8_bit_1_6", 25 ),
+    		fontSize = 25 
+		}
+
+		--for i = 1,playersID.
+		local playersInfo = display.newText( textPontos )
+		playersInfo.anchorX ,playersInfo.anchorY = 0,0
+		playersInfo.text = playerName[1] .. rank[1] .. scores[1]
+		
+
+		--composer.gotoScene( "scripts.cenas.mainmenu" )
+		--explosao:removeSelf( )
+		--explosao = nil
+		--timer.cancel( timerstart )
 	end
 	
 end
