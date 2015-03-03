@@ -8,6 +8,11 @@ settings =
 	android =
 	{
 		googlePlayGamesAppId = "333630676875", -- Your Google Play Games App Id
+		usesPermissions =
+        {
+            "com.android.vending.BILLING",
+        },
+
 	},
 	plugins =
 	{
@@ -21,6 +26,11 @@ settings =
 		["plugin.google.play.services"] =
         {
             publisherId = "com.coronalabs"
+        },
+        ["plugin.google.iap.v3"] =
+        {
+            publisherId = "com.coronalabs",
+            supportedPlatforms = { android=true }
         },
 	},
 }
