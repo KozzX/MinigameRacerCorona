@@ -38,9 +38,25 @@ function start( event )
 		}
 
 		--for i = 1,playersID.
-		local playersInfo = display.newText( textPontos )
-		playersInfo.anchorX ,playersInfo.anchorY = 0,0
-		playersInfo.text = playerName[1] .. rank[1] .. scores[1]
+		local player1 = display.newText( textPontos )
+		player1.anchorX ,player1.anchorY = 0,0
+		player1.text = rank[1] .. ") " .. playerName[1] .. " - " .. score[1]
+		local player2 = display.newText( textPontos )
+		player2.anchorX ,player2.anchorY = 0,0
+		player2.text = rank[2] .. ") " .. playerName[2] .. " - " .. score[2]
+		player2.y = 100
+		local player3 = display.newText( textPontos )
+		player3.anchorX ,player3.anchorY = 0,0
+		player3.text = rank[3] .. ") " .. playerName[3] .. " - " .. score[3]
+		player3.y = 200
+		local player4 = display.newText( textPontos )
+		player4.anchorX ,player4.anchorY = 0,0
+		player4.text = rank[4] .. ") " .. playerName[4] .. " - " .. score[4]
+		player4.y = 300
+		local player5 = display.newText( textPontos )
+		player5.anchorX ,player5.anchorY = 0,0
+		player5.text = rank[5] .. ") " .. playerName[5] .. " - " .. score[5]
+		player5.y = 400
 		
 
 		--composer.gotoScene( "scripts.cenas.mainmenu" )
