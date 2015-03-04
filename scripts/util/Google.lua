@@ -45,7 +45,7 @@ function showHighScore( event )
 	for i=1,#event.data do
 		ids[#ids+1]=event.data[i].playerID
 		rank[#rank+1]=event.data[i].rank
-		score[#score+1]=event.data[i].value / 1000
+		score[#score+1]=event.data[i].value-- / 1000
 	end
 	gameNetwork.request("loadPlayers",
 	{
@@ -60,10 +60,10 @@ function loadHighScore(  )
 	{
 		leaderboard = 
 		{
-			category="CgkIi7_A79oJEAIQBQ", 
+			category="CgkIi7_A79oJEAIQDA", 
 			playerScope = "Global",
 			timeScope = "AllTime",
-			range = { 1,5 },
+			range = { 1,30 },
             playerCentered = true
 		},
 		listener = showHighScore

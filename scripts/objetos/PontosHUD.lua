@@ -1,5 +1,5 @@
---local Google = require("scripts.util.Google")
 local gameNetwork = require( "gameNetwork" )
+local googleInfo = require( "scripts.util.googleInfo" )
 local mudou = false
 
 
@@ -54,10 +54,32 @@ function new(  )
 		--showLeaderboards()
 	end
 
-
 	return pontos
 end
 
+function newPlayerList(  )
+	local players = {}
+
+	local textPlayer = 
+	{
+	    text = "player",     
+	    font = native.newFont( "8_bit_1_6", 25 ),
+	    fontSize = 25 
+	}
+	for i=1,tamanho() do
+		players[i] = getPlayerByIndex(i)
+		player = display.newText( textPlayer )
+		player.alpha = 0
+		transition.to( player, {time = 2000, alpha = 1} )
+		player.anchorX = 0
+		player.anchorY = 0
+		player.y = (i-1)*30
+		player.text = players[i].rank .. ") " .. players[i].nome .. " - " .. players[i].score
+	end
+
+end
+
 return{
-	new = new
+	new = new,
+	newPlayerList = newPlayerList
 }

@@ -2,6 +2,7 @@ local composer = require "composer"
 local Google = require("scripts.util.Google")
 local Explosao = require("scripts.objetos.Explosao")
 local googleInfo = require( "scripts.util.googleInfo" )
+local Lista = require( "scripts.objetos.PontosHUD" )
 
 local players = {}
 
@@ -30,10 +31,9 @@ native.showAlert( "Minigame Racer","Para que todos os recursos do jogo estejam d
 function start( event )
 	if(logado==true) then
 
-		for i=1,tamanho() do
-			players[i] = getPlayerByIndex(i)
-		end
 
+		local lista = Lista.newPlayerList()
+		--[[
 		local textPontos = 
 		{
     		text = "player",     
@@ -60,12 +60,12 @@ function start( event )
 		local player5 = display.newText( textPontos )
 		player5.anchorX ,player5.anchorY = 0,0
 		player5.text = players[5].rank .. ") " .. players[5].nome .. " - " .. players[5].score
-		player5.y = 400
+		player5.y = 400]]--
 		
 
 		--composer.gotoScene( "scripts.cenas.mainmenu" )
-		--explosao:removeSelf( )
-		--explosao = nil
+		explosao:removeSelf( )
+		explosao = nil
 		timer.cancel( timerstart )
 	end
 	
