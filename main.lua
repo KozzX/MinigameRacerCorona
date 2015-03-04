@@ -1,9 +1,9 @@
-
 local composer = require "composer"
 local Google = require("scripts.util.Google")
 local Explosao = require("scripts.objetos.Explosao")
+local googleInfo = require( "scripts.util.googleInfo" )
 
-
+local players = {}
 
 
 local explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
@@ -29,7 +29,11 @@ native.showAlert( "Minigame Racer","Para que todos os recursos do jogo estejam d
 
 function start( event )
 	if(logado==true) then
-		--native.showAlert( "Leaderboard", playerName[1], { "Ok" })
+
+		for i=1,tamanho() do
+			players[i] = getPlayerByIndex(i)
+		end
+
 		local textPontos = 
 		{
     		text = "player",     
@@ -37,32 +41,32 @@ function start( event )
     		fontSize = 25 
 		}
 
-		--for i = 1,playersID.
+		
 		local player1 = display.newText( textPontos )
 		player1.anchorX ,player1.anchorY = 0,0
-		player1.text = rank[1] .. ") " .. playerName[1] .. " - " .. score[1]
+		player1.text = players[1].rank .. ") " .. players[1].nome .. " - " .. players[1].score
 		local player2 = display.newText( textPontos )
 		player2.anchorX ,player2.anchorY = 0,0
-		player2.text = rank[2] .. ") " .. playerName[2] .. " - " .. score[2]
+		player2.text = players[2].rank .. ") " .. players[2].nome .. " - " .. players[2].score
 		player2.y = 100
 		local player3 = display.newText( textPontos )
 		player3.anchorX ,player3.anchorY = 0,0
-		player3.text = rank[3] .. ") " .. playerName[3] .. " - " .. score[3]
+		player3.text = players[3].rank .. ") " .. players[3].nome .. " - " .. players[3].score
 		player3.y = 200
 		local player4 = display.newText( textPontos )
 		player4.anchorX ,player4.anchorY = 0,0
-		player4.text = rank[4] .. ") " .. playerName[4] .. " - " .. score[4]
+		player4.text = players[4].rank .. ") " .. players[4].nome .. " - " .. players[4].score
 		player4.y = 300
 		local player5 = display.newText( textPontos )
 		player5.anchorX ,player5.anchorY = 0,0
-		player5.text = rank[5] .. ") " .. playerName[5] .. " - " .. score[5]
+		player5.text = players[5].rank .. ") " .. players[5].nome .. " - " .. players[5].score
 		player5.y = 400
 		
 
 		--composer.gotoScene( "scripts.cenas.mainmenu" )
 		--explosao:removeSelf( )
 		--explosao = nil
-		--timer.cancel( timerstart )
+		timer.cancel( timerstart )
 	end
 	
 end

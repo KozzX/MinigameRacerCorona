@@ -1,11 +1,12 @@
 local gameNetwork = require( "gameNetwork" )
+local googleInfo = require( "scripts.util.googleInfo" )
 local widget = require("widget")
 logado = false
-ids = {}
-playerName = {}
-idName = {}
-score = {}
-rank = {}
+local ids = {}
+local playerName = {}
+local idName = {}
+local score = {}
+local rank = {}
 globalGoogleScore = 5
 
 --player = {id,nome,rank,score}
@@ -27,14 +28,12 @@ function loginGooglePlayCallback( event )
     return true
 end
 
-
-
 function loadPlayerData( event )
 	for p=1, #event.data do
 		idName[p] = event.data[p].playerID
 		for q=1, #event.data do
 			if(idName[p]==ids[q]) then
-				playerName[q] = event.data[p].alias
+				setPlayer(q,ids[q],event.data[p].alias,rank[q],score[q])
 			end
 		end
 	end
@@ -48,10 +47,6 @@ function showHighScore( event )
 		rank[#rank+1]=event.data[i].rank
 		score[#score+1]=event.data[i].value / 1000
 	end
-
-	--native.showAlert( "Leaderboard", player[1].id..player[2].id..player[3].id..player[4]..player[5].id, { "Ok" } )
-
-	
 	gameNetwork.request("loadPlayers",
 	{
 		playerIDs = ids,
