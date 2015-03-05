@@ -3,13 +3,11 @@ local googleInfo = require( "scripts.util.googleInfo" )
 local widget = require("widget")
 logado = false
 local ids = {}
-local playerName = {}
 local idName = {}
 local score = {}
 local rank = {}
+local 
 globalGoogleScore = 5
-
---player = {id,nome,rank,score}
 
 function gameNetworkSetup()
    if ( system.getInfo("platformName") == "Android" ) then
@@ -37,7 +35,12 @@ function loadPlayerData( event )
 			end
 		end
 	end
-	logado = true
+	localPlayer()
+	--logado = true
+end
+
+function localPlayer( )
+	gameNetwork.request ("loadLocalPlayer",{listener=loadPlayer})
 end
 
 function showHighScore( event )
@@ -71,8 +74,7 @@ function loadHighScore(  )
 end
 
 function loadPlayer( event )
-	playerName = event.data.alias
-	loadHighScore("CgkIi7_A79oJEAIQBQ")
+	setMainPlayer(event.data.playerID,event.data.alias)
 end
 
 function logoutGooglePlay()
