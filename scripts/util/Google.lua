@@ -36,7 +36,7 @@ function loadPlayerData( event )
 		end
 	end
 	localPlayer()
-	--logado = true
+	
 end
 
 function localPlayer( )
@@ -75,6 +75,7 @@ end
 
 function loadPlayer( event )
 	setMainPlayer(event.data.playerID,event.data.alias)
+	logado = true
 end
 
 function logoutGooglePlay()
