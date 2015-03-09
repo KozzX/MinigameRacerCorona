@@ -12,9 +12,14 @@ local Botao = require("scripts.objetos.Botao")
 physics.start( )
 physics.setGravity( 0, 0 )
 
+local transitionOptions = {
+	effect = "fade",
+    time = 1000
+}
+
 function esperaBotao( event )
-	print( "apertou" )
-	showLeaderboards()
+	--composer.removeScene( scene, false )
+	composer.gotoScene( "scripts.cenas.mainmenu",transitionOptions )
 end
 ---------------------------------------------------------------------------------
 -- SCENE EVENTS
@@ -72,7 +77,6 @@ function scene:show( event )
 					local botao = Botao.newPlayButton()
 					transition.to( botao, {time = 1000, alpha = 1} )
 					botao:addEventListener("tap",esperaBotao)
-					pontos:submitScore()
         		end
     		end
 		end

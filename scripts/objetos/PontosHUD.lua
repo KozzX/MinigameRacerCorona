@@ -5,36 +5,73 @@ local mudou = false
 
 
 function new(  )
-	local textPontos = 
+	local textConfig = 
 	{
 	    text = 0,     
-	    font = native.newFont( "8_bit_1_6", 50 ),
-	    fontSize = 50 
+	    fontSize = 40
 	}
 
-	local pontos = display.newText( textPontos )
+	local pontosNome = display.newText( textConfig )
+	pontosNome.anchorX = 0
+	pontosNome.anchorY = 0
+	pontosNome.x = posX(2)
+	pontosNome.y = posY(2)
+	if logado == true then
+		local nome = getPlayerByIndex(getMainPlayer()).nome
+		local cont = 0
+		for i in string.gmatch(nome, "%S+") do
+			if cont == 0 then
+				nome = i
+			end
+			cont = 1
+		end
+		pontosNome.text = getPlayerByIndex(getMainPlayer()).rank .. ") " .. nome		
+	else
+		pontosNome.text = "Você"
+	end
+	pontosNome:setFillColor( 0, 0, 0 )
+
+	local pontos = display.newText( textConfig )
 	pontos.anchorX = 0
 	pontos.anchorY = 0
-	--pontos.font = ""
-	pontos.x = posX(2)
+	pontos.x = posX(10)
+	pontos.y = posY(2)
 	pontos:setFillColor( 0.7, 0, 0 )
 
-	local textDif = 
-	{
-	    text = 0,     
-	    font = native.newFont( "8_bit_1_6", 50 ),
-	    fontSize = 50 
-	}
+	local pontosDifNome = display.newText( textConfig )
+	pontosDifNome.anchorX = 0
+	pontosDifNome.anchorY = 0
+	pontosDifNome.x = posX(2)
+	pontosDifNome.y = posY(0)
+	if(logado == true) then
+		local nome = getPlayerByIndex(getMainPlayer()-1).nome
+		local cont = 0
+		for i in string.gmatch(nome, "%S+") do
+			if cont == 0 then
+				nome = i
+			end
+			cont = 1
+		end
+		pontosDifNome.text = getPlayerByIndex(getMainPlayer()-1).rank .. ") " .. nome
+	else
+		pontosDifNome.text = "Melhor"
+	end
+	pontosDifNome:setFillColor( 0, 0, 0 )
 
-	local pontosDif = display.newText( textDif )
+	local pontosDif = display.newText( textConfig )
 	pontosDif.anchorX = 0
 	pontosDif.anchorY = 0
-	pontosDif.x = posX(10)
+	pontosDif.x = posX(9)
+	pontosDif.y = posY(0)
 	pontosDif:setFillColor( 0.7, 0, 0 )
 
 	function enterFrameListener( event )
 		pontos.text = pontos.text + (0.016);
-		pontosDif.text = pontos.text - (getPlayerByIndex(getMainPlayer()-1).score )
+		if logado == true then
+			pontosDif.text = pontos.text - (getPlayerByIndex(getMainPlayer()-1).score )
+		else
+			pontosDif.text = pontos.text - 20
+		end	
 		pontos:toFront( )
 		pontosDif:toFront( )
 		if tonumber(pontosDif.text) >= 0  and mudou == false then
@@ -63,9 +100,7 @@ function newPlayerList(  )
 	local textPlayer = 
 	{
 	    text = "player",     
-	    font = native.newFont( "8_bit_1_6", 15 ),
 	    fontSize = 15
-
 	}
 	for i=1,tamanho() do
 		players[i] = getPlayerByIndex(i)
