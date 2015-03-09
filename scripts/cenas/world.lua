@@ -39,6 +39,7 @@ function scene:show( event )
 		local pontos = Pontos.new()
 		local pista1 = Pista.new(posX(1),posY(0))
 		local pista2 = Pista.new(posX(14),posY(0))
+		local lista = Pontos.newPlayerList()
 
 
 	

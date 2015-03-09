@@ -3,7 +3,7 @@ local nomePlayer = {}
 local rankPlayer = {}
 local scorePlayer = {}
 local player = {}
-local mainPlayer = {id,nome,score}
+local mainPlayer = {id,nome,score,index}
 
 function setPlayer( index,ids,nomes,ranks,scores )
 	idPlayer[index] = ids
@@ -19,9 +19,14 @@ function setMainPlayer( ids,nomes )
 	for i=1,tamanho() do
 		if mainPlayer.id == idPlayer[i] then
 			mainPlayer.score = scorePlayer[i]
+			mainPlayer.index = i
 		end
 	end
-	native.showAlert( "LocalPlayer", mainPlayer.score, {"Ok"} )
+	--native.showAlert( "LocalPlayer", mainPlayer.score, {"Ok"} )
+end
+
+function getMainPlayer(  )
+	return mainPlayer.index
 end
 
 function getPlayerByIndex( index )
