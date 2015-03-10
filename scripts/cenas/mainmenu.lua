@@ -2,6 +2,10 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local Botao = require( "scripts.objetos.Botao" )
 
+local bg
+local titleTable
+local btn
+
 local transitionOptions = {
 	effect = "fade",
     time = 1000
@@ -10,7 +14,7 @@ local transitionOptions = {
 
 local function handleButtonEvent( event )
     if ( "ended" == event.phase ) then
-        composer.gotoScene( "scripts.cenas.world", transitionOptions )
+        composer.gotoScene( "scripts.cenas.mainmenu", transitionOptions )
     end
 end
 
@@ -32,16 +36,16 @@ function scene:show( event )
 	if event.phase == "will" then
 
 	elseif event.phase == "did" then
-		local bg = display.newImage( "images/background.png", true)
+		bg = display.newImage( "images/background.png", true)
 		bg.anchorX, bg.anchorY = 0, 0
 
-		local titleTable = display.newImage( "images/title.png",true )
+		titleTable = display.newImage( "images/title.png",true )
 		titleTable.x = display.contentCenterX
 		titleTable.y = display.contentCenterY
 		titleTable.width = display.contentWidth / 16 * 12
 		titleTable.height = display.contentHeight / 25 * 13
 
-		local btn = Botao.newPlayButton()
+		btn = Botao.newPlayButton()
 		btn:addEventListener( "touch", handleButtonEvent )
 		transition.to( btn, {time = 1000, alpha = 1} )
 	
@@ -60,6 +64,7 @@ end
 -- Called when scene is about to move offscreen:
 function scene:hide( event )
 	local group = self.view
+	btn:removeEventListener( "touch", handleButtonEvent )
 	
 end
 
