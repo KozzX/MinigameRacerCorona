@@ -47,15 +47,15 @@ function newObstaculo( x )
 	elseif x == 4 then
 		x = 11
 	end 
-	local obstaculo = new(x,-5)
+	local obstaculo = new(x,0)
 	local obstaculoShape = {-10,-65, 10,-65, -10,-30, 10,-30, -40,-30, 40,-30, -40,65, 40,65}
 	physics.addBody( obstaculo, "dynamic", {isSensor = true, shape=obstaculoShape})
 	obstaculo.type = "obstaculo"
-	transition.moveTo( obstaculo, {x = obstaculo.x, y=posY(25), time = 1200, onComplete=removeObstaculo} )
+	transition.moveTo( obstaculo, {x = obstaculo.x, y=posY(20), time = 2000, onComplete=removeObstaculo} )
 
 	function removeObstaculo(  )
-		--obstaculo:removeSelf( )
-		--obstaculo = nil
+		display.remove(obstaculo)
+		obstaculo = nil
 	end
 
 	return obstaculo

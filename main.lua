@@ -1,3 +1,3 @@
 local composer = require "composer"
 
-composer.gotoScene( "scripts.cenas.loading" )
+composer.gotoScene( "scripts.cenas.mainmenu" )

@@ -2,9 +2,6 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local Botao = require( "scripts.objetos.Botao" )
 
-local bg
-local titleTable
-local btn
 
 local transitionOptions = {
 	effect = "fade",
@@ -14,7 +11,7 @@ local transitionOptions = {
 
 local function handleButtonEvent( event )
     if ( "ended" == event.phase ) then
-        composer.gotoScene( "scripts.cenas.level1", transitionOptions )
+        composer.gotoScene( "scripts.cenas.level2", transitionOptions )
     end
 end
 
@@ -25,7 +22,19 @@ end
 -- Called when the scene's view does not exist:
 function scene:create( event )
 	local group = self.view
-	
+	local bg = display.newImage( "images/background.png", true)
+	bg.anchorX, bg.anchorY = 0, 0
+	local titleTable = display.newImage( "images/title.png",true )
+	titleTable.x = display.contentCenterX
+	titleTable.y = display.contentCenterY
+	titleTable.width = display.contentWidth / 16 * 12
+	titleTable.height = display.contentHeight / 25 * 13
+	local btn = Botao.newPlayButton()
+	btn:addEventListener( "touch", handleButtonEvent )
+	btn.alpha = 1
+	group:insert( bg )
+	group:insert( titleTable )	
+	group:insert( btn )
 end
 
 
@@ -36,36 +45,15 @@ function scene:show( event )
 	if event.phase == "will" then
 
 	elseif event.phase == "did" then
-		bg = display.newImage( "images/background.png", true)
-		bg.anchorX, bg.anchorY = 0, 0
-
-		titleTable = display.newImage( "images/title.png",true )
-		titleTable.x = display.contentCenterX
-		titleTable.y = display.contentCenterY
-		titleTable.width = display.contentWidth / 16 * 12
-		titleTable.height = display.contentHeight / 25 * 13
-
-		btn = Botao.newPlayButton()
-		btn:addEventListener( "touch", handleButtonEvent )
-		transition.to( btn, {time = 1000, alpha = 1} )
-	
-		group:insert( bg )
-		group:insert( titleTable )
-		group:insert( btn )
-		group.alpha = 0
-		transition.to( group, {time=1000, alpha =1} )
-	end 
-
-
-	
+		
+	end 	
 end
 
 
 -- Called when scene is about to move offscreen:
 function scene:hide( event )
 	local group = self.view
-	btn:removeEventListener( "touch", handleButtonEvent )
-	
+
 end
 
 

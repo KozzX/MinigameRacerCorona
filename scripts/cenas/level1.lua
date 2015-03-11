@@ -17,9 +17,9 @@ local scene = composer.newScene(  )
 
 ---------------------------------------------------------------------------------
 local bg
-local carro
+--local carro
 local obstaculo1 = {}
-local obstaculo2
+local obstaculo2 = {}
 
 physics.start( )
 physics.setGravity( 0, 0 )
@@ -40,22 +40,40 @@ function scene:show( event )
     if phase == "will" then
 
     elseif phase == "did" then
-
-        bg = Background.new()
-        carro = Carro.newCarro(5,19)
-        sceneGroup:insert( bg )
-        sceneGroup:insert(carro) 
-
+        --local carro = nil
+        
+        --sceneGroup:insert( bg )
+        --sceneGroup:insert(carro) 
+        local bg = Background.new()
         local i = 1
+        local j = 1
+        local k = 1
+        local grupoObs = display.newGroup( )
+        local grupoCar = display.newGroup( )
+
+        
+        local carro = Carro.newCarro(5,19)
+        grupoCar:insert( carro )
+        print( "criado",carro )
         
         function carregarObstaculo( event )
             obstaculo1[i] = Carro.newObstaculo(math.random(1,4))
-
-            --obstaculo2 = Carro.newObstaculo(math.random(1,4))
-            --local obstaculo = Carro.newObstaculo(math.random(1,4))
-            --local obstaculo = Carro.newObstaculo(math.random(1,4))
+            --obstaculo2[i] = Carro.newObstaculo(math.random(1,4))
+            grupoObs:insert(obstaculo1[i])
+            --grupoObs:insert(obstaculo2[i])
+            transition.moveTo(obstaculo1[i],{x = obstaculo1[i].x, y=posY(22), time = 1000, onComplete=remover})
+            --transition.moveTo(obstaculo2[i],{x = obstaculo2[i].x, y=posY(22), time = 1000})
+            i = i + 1
         end
         timerObstaculo = timer.performWithDelay( 500, carregarObstaculo, -1 )
+
+        function remover( event )
+            display.remove(obstaculo1[j])
+            obstaculo1[j] = nil
+            --obstaculo2[j]:removeSelf( )
+            --obstaculo2[j] = nil
+            j = j + 1
+        end
         
 
 
@@ -66,22 +84,25 @@ function scene:show( event )
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
                     timer.cancel( timerObstaculo )
+                    
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )
-                    local explosao = Explosao.new(carro.x, carro.y)
-                    transition.pause( obstaculo1 )
-                    transition.pause( obstaculo2 )
-                    carro:removeSelf( )
-                    carro = nil
-                    --pista1:pause( )
-                    --pista2:pause( )
-                    --local botao = Botao.newPlayButton()
-                    --transition.to( botao, {time = 1000, alpha = 1} )
-                    --botao:addEventListener("tap",esperaBotao)
+                    print( "removido",grupoCar)
+                    local explosao = Explosao.new(grupoCar.x, grupoCar.y)
+                    print( i )
+                    transition.pause( obstaculo1[i+1] )                   
+                    display.remove( grupoCar )
+                    --grupoCar = nil
+
                     function nextScene ( event )
                         local phase = event.phase
                         if "ended" == phase then
+                            --Runtime:removeEventListener( "collision", onCollision )
+                            Runtime:removeEventListener( "touch", nextScene )
                             composer.gotoScene( "scripts.cenas.mainmenu", { effect = "fade", time = 300 } )
-                            explosao:removeSelf( )
+                            display.remove(explosao)
+                            explosao = nil
+                            display.remove(grupoObs)
+                            --grupoObs = nil
                         end
                     end
                     Runtime:addEventListener( "touch", nextScene )
@@ -110,7 +131,7 @@ function scene:hide( event )
 
         bg:removeSelf( )
         bg = nil
-		Runtime:removeEventListener( "touch", nextScene )
+		
     end 
 end
 
