@@ -14,7 +14,7 @@ local transitionOptions = {
 
 local function handleButtonEvent( event )
     if ( "ended" == event.phase ) then
-        composer.gotoScene( "scripts.cenas.mainmenu", transitionOptions )
+        composer.gotoScene( "scripts.cenas.level1", transitionOptions )
     end
 end
 

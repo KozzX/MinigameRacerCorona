@@ -12,15 +12,13 @@ local Botao = require("scripts.objetos.Botao")
 physics.start( )
 physics.setGravity( 0, 0 )
 
-local transitionOptions = {
-	effect = "fade",
-    time = 1000
-}
+local bg
+local carro 
+local pontos
+local pista1
+local pista2
+local lista 
 
-function esperaBotao( event )
-	--composer.removeScene( scene, false )
-	composer.gotoScene( "scripts.cenas.mainmenu",transitionOptions )
-end
 ---------------------------------------------------------------------------------
 -- SCENE EVENTS
 ---------------------------------------------------------------------------------
@@ -39,15 +37,14 @@ function scene:show( event )
 
 	elseif event.phase == "did" then
 
-		local bg = Background.new()
-		local carro = Carro.newCarro(5,19)
-		local pontos = Pontos.new()
-		local pista1 = Pista.new(posX(1),posY(0))
-		local pista2 = Pista.new(posX(14),posY(0))
-		local lista = Pontos.newPlayerList()
+		bg = Background.new()
+		carro = Carro.newCarro(5,19)
+		pontos = Pontos.new()
+		pista1 = Pista.new(posX(1),posY(0))
+		pista2 = Pista.new(posX(14),posY(0))
+		lista = Pontos.newPlayerList()
 
-
-	
+		--group:insert( carro )
 		function carregarObstaculo( event )
 			local obstaculo = Carro.newObstaculo(math.random(1,4))
 			local obstaculo = Carro.newObstaculo(math.random(1,4))
@@ -55,7 +52,16 @@ function scene:show( event )
 			--local obstaculo = Carro.newObstaculo(math.random(1,4))
 		end
 		timerObstaculo = timer.performWithDelay( 500, carregarObstaculo, -1 )
+		function esperaBotao( event )
+			--composer.removeScene( scene, false )
+			composer.gotoScene( "scripts.cenas.loading",{ effect = "fade", time = 300 } )
+			pista1:removeSelf( )
+			pista2:removeSelf( )
+			
+			pontos:removeSelf( )
+			--bg:removeSelf( )
 
+		end
 
 --------------------------------------------------------------------------------
 ----------------Detecta colisão entre carro e obstaculo-------------------------
@@ -81,6 +87,7 @@ function scene:show( event )
     		end
 		end
 		Runtime:addEventListener( "collision", onCollision )
+
 
 	end
 end
