@@ -5,7 +5,7 @@ local Botao = require( "scripts.objetos.Botao" )
 
 local transitionOptions = {
 	effect = "fade",
-    time = 1000
+    time = 300
 }
 
 

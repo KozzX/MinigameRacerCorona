@@ -11,29 +11,37 @@ local scene = composer.newScene(  )
 physics.start( )
 physics.setGravity( 0, 0 )
 
+local tap
+local pista1
+local pista2
+
 ---------------------------------------------------------------------------------
 
 function scene:create( event )
     local sceneGroup = self.view
     local bg = Background.new()
     sceneGroup:insert(bg)
+
 end
 
 function scene:show( event )
     local sceneGroup = self.view
 
     if event.phase == "will" then
-        
+        tap = display.newImage( "images/tap.png", display.contentCenterX,display.contentCenterY )
+        pista1 = Pista.new(posX(1),posY(0))
+        pista2 = Pista.new(posX(14),posY(0)) 
+        pista1:pause( )  
+        pista2:pause( )
     elseif event.phase == "did" then
         local i = 1
         local grupoObjetos = display.newGroup( )
         local grupoHUD = display.newGroup( )
+        local grupoPistas = display.newGroup( )
         local carro = Carro.newCarro(5,25)
         local obstaculo1 = {}
         local obstaculo2 = {}
         local explosao
-        local pista1 = Pista.new(posX(1),posY(0))
-        local pista2 = Pista.new(posX(14),posY(0))
         local pontos = Pontos.newPontos()
         local pontosDif = Pontos.newPontosDif()
         local pontosNome = Pontos.newPontosNome()
@@ -41,25 +49,38 @@ function scene:show( event )
         local tempo = 0
         local target = 100
         local comecou = false
-        local tap = display.newImage( "images/tap.png", display.contentCenterX,display.contentCenterY )
-        
+
         grupoObjetos.alpha = 0
         grupoObjetos:insert(carro)
-        grupoObjetos:insert(pista1)
-        grupoObjetos:insert(pista2)
+        grupoPistas:insert(pista1)
+        grupoPistas:insert(pista2)
         grupoObjetos:insert( grupoHUD )
         grupoHUD:insert(pontos)
         grupoHUD:insert(pontosDif)
         grupoHUD:insert(pontosNome)
         grupoHUD:insert(pontosDifNome)
 
+        Runtime:removeEventListener( "touch", onTouch )
+
         function comecar(event)
             pontos.text = 0
+            pista1:play( )
+            pista2:play( )
+            function adicionarControle()
+                print( "entrou" )
+                Runtime:addEventListener( "touch", onTouch )
+            end
+            function removerTap( event )
+                display.remove( tap )
+                tap = nil
+            end
+            grupoObjetos:insert( grupoPistas )
             transition.to( grupoObjetos, {time = 500,alpha = 1} )
-            transition.moveTo( carro, {x=carro.x, y=posY(19), time = 700} ) 
-            transition.scaleTo( tap, {xScale=2.0, yScale=2.0, time=1000} )
+            transition.scaleTo( tap, {xScale=2.0, yScale=2.0, time=1000,onComplete=removerTap} )
             transition.to( tap, {time = 1000, alpha = 0} )
+            transition.moveTo( carro, {x=carro.x, y=posY(19), time = 700,onComplete=adicionarControle} )
             comecou = true
+            
             Runtime:removeEventListener("tap",comecar) 
         end
         Runtime:addEventListener("tap",comecar)
@@ -70,10 +91,10 @@ function scene:show( event )
             end
 
             if tempo == target then
-                obstaculo1[i] = Carro.newObstaculo(math.random(1,4))
+                obstaculo1[i] = Carro.newObstaculo(math.random(2,3))
                 grupoObjetos:insert( obstaculo1[i] )
-                obstaculo2[i] = Carro.newObstaculo(math.random(1,4))
-                grupoObjetos:insert( obstaculo2[i] )
+                --obstaculo2[i] = Carro.newObstaculo(math.random(obstaculo1[i].x,obstaculo1[i].y))
+                --grupoObjetos:insert( obstaculo2[i] )
                 i = i + 1
                 tempo = 0
                 target = 30
@@ -121,6 +142,7 @@ function scene:show( event )
                         display.remove(grupoObjetos)
                         botao:removeEventListener( "tap", nextScene )
                         display.remove( botao )
+
                     end
                     botao:addEventListener( "tap", nextScene )
                     Runtime:removeEventListener( "collision", onCollision )
