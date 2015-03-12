@@ -30,21 +30,22 @@ function scene:show( event )
     if phase == "will" then
 
     elseif phase == "did" then
-        -- Called when the scene is now on screen
-        -- 
-        -- INSERT code here to make the scene come alive
-        -- e.g. start timers, begin animation, play audio, etc
-        
-        -- we obtain the object by id from the scene's object hierarchy
+        local tentativas = 0
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         sceneGroup:insert(explosao) 
-        
+        gameNetworkSetup()
         
         function start( event )
             if(logado==true) then
                 composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
                 timer.cancel( timerstart )
             end
+            if (logado ~= true) and (tentativas >= 5) then
+                logado = false
+                composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
+                timer.cancel( timerstart )
+            end
+            tentativas = tentativas + 1
         end
         timerstart = timer.performWithDelay( 1000, start, -1 )
 
@@ -52,14 +53,14 @@ function scene:show( event )
             if event.action == "clicked" then
                 local i = event.index
                 if i == 1 then
-                gameNetworkSetup()
+                
                 elseif i == 2 then
                     composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
                     timer.cancel( timerstart )
                 end
             end
         end 
-        native.showAlert( "Minigame Racer","Para que todos os recursos do jogo estejam disponíveis, é necessário fazer o login com o Google Play Games", { "Login","Cancel" }, verificar)             
+        --native.showAlert( "Minigame Racer","Para que todos os recursos do jogo estejam disponíveis, é necessário fazer o login com o Google Play Games", { "Login","Cancel" }, verificar)             
     end 
 end
 

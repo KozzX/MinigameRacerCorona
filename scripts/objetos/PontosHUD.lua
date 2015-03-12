@@ -2,16 +2,25 @@ local gameNetwork = require( "gameNetwork" )
 local googleInfo = require( "scripts.util.googleInfo" )
 local mudou = false
 
-local textConfig = 
+local textNome = 
 {
     text = 0,     
-    fontSize = 40
+    fontSize = 30,
+    width = display.contentWidth / 2,
+    align = "left"
+}
+local textPontos = 
+{
+    text = 0,     
+    fontSize = 30,
+    width = display.contentWidth / 2,
+    align = "right"
 }
 
 
 function newPontosNome(  )
 
-	local pontosNome = display.newText( textConfig )
+	local pontosNome = display.newText( textNome )
 	pontosNome.anchorX = 0
 	pontosNome.anchorY = 0
 	pontosNome.x = posX(2)
@@ -36,10 +45,10 @@ end
 
 function newPontos( )
 
-	local pontos = display.newText( textConfig )
-	pontos.anchorX = 0
+	local pontos = display.newText( textPontos )
+	pontos.anchorX = 1
 	pontos.anchorY = 0
-	pontos.x = posX(10)
+	pontos.x = posX(14)
 	pontos.y = posY(2)
 	pontos:setFillColor( 0.7, 0, 0 )
 
@@ -48,7 +57,7 @@ end
 
 function newPontosDifNome( )
 
-	local pontosDifNome = display.newText( textConfig )
+	local pontosDifNome = display.newText( textNome )
 	pontosDifNome.anchorX = 0
 	pontosDifNome.anchorY = 0
 	pontosDifNome.x = posX(2)
@@ -73,10 +82,10 @@ end
 
 function newPontosDif( )
 
-	local pontosDif = display.newText( textConfig )
-	pontosDif.anchorX = 0
+	local pontosDif = display.newText( textPontos )
+	pontosDif.anchorX = 1
 	pontosDif.anchorY = 0
-	pontosDif.x = posX(9)
+	pontosDif.x = posX(14)
 	pontosDif.y = posY(0)
 	pontosDif:setFillColor( 0.7, 0, 0 )
 
@@ -93,7 +102,7 @@ function newPlayerList(  )
 	}
 	for i=1,tamanho() do
 		players[i] = getPlayerByIndex(i)
-		player = display.newText( textPlayer )
+		player = display.newText( textPontos )
 		if (getMainPlayer() == i) then
 			player:setFillColor(0.7, 0, 0)
 		else

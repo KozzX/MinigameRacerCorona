@@ -31,8 +31,8 @@ function scene:show( event )
         tap = display.newImage( "images/tap.png", display.contentCenterX,display.contentCenterY )
         pista1 = Pista.new(posX(1),posY(0))
         pista2 = Pista.new(posX(14),posY(0)) 
-        pista1:pause( )  
-        pista2:pause( )
+        --pista1:pause( )  
+        --pista2:pause( )
     elseif event.phase == "did" then
         local i = 1
         local grupoObjetos = display.newGroup( )
@@ -64,17 +64,16 @@ function scene:show( event )
 
         function comecar(event)
             pontos.text = 0
-            pista1:play( )
-            pista2:play( )
+
             function adicionarControle()
-                print( "entrou" )
+                grupoObjetos:insert( grupoPistas )
                 Runtime:addEventListener( "touch", onTouch )
             end
             function removerTap( event )
                 display.remove( tap )
                 tap = nil
             end
-            grupoObjetos:insert( grupoPistas )
+            
             transition.to( grupoObjetos, {time = 500,alpha = 1} )
             transition.scaleTo( tap, {xScale=2.0, yScale=2.0, time=1000,onComplete=removerTap} )
             transition.to( tap, {time = 1000, alpha = 0} )

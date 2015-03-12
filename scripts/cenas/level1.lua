@@ -1,117 +1,154 @@
----------------------------------------------------------------------------------
---
--- scene.lua
---
----------------------------------------------------------------------------------
-
-local sceneName = ...
-
 local composer = require( "composer" )
 local Carro = require( "scripts.objetos.Carro" )
 local Background = require( "scripts.objetos.Background" )
+local Botao = require( "scripts.objetos.Botao" )
 local Explosao = require( "scripts.objetos.Explosao" )
 local Pista = require( "scripts.objetos.Pista" )
+local Pontos = require( "scripts.objetos.PontosHUD" )
 
--- Load scene with same root filename as this file
 local scene = composer.newScene(  )
-
----------------------------------------------------------------------------------
-local bg
---local carro
-local obstaculo1 = {}
-local obstaculo2 = {}
 
 physics.start( )
 physics.setGravity( 0, 0 )
 
+local tap
+local pista1
+local pista2
+
+---------------------------------------------------------------------------------
+
 function scene:create( event )
     local sceneGroup = self.view
+    local bg = Background.new()
+    sceneGroup:insert(bg)
 
-    -- Called when the scene's view does not exist
-    -- 
-    -- INSERT code here to initialize the scene
-    -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
 end
 
 function scene:show( event )
     local sceneGroup = self.view
-    local phase = event.phase
 
-    if phase == "will" then
-
-    elseif phase == "did" then
-        --local carro = nil
-        
-        --sceneGroup:insert( bg )
-        --sceneGroup:insert(carro) 
-        local bg = Background.new()
+    if event.phase == "will" then
+        tap = display.newImage( "images/tap.png", display.contentCenterX,display.contentCenterY )
+        pista1 = Pista.new(posX(1),posY(0))
+        pista2 = Pista.new(posX(14),posY(0)) 
+        --pista1:pause( )  
+        --pista2:pause( )
+    elseif event.phase == "did" then
         local i = 1
-        local j = 1
-        local k = 1
-        local grupoObs = display.newGroup( )
-        local grupoCar = display.newGroup( )
+        local grupoObjetos = display.newGroup( )
+        local grupoHUD = display.newGroup( )
+        local grupoPistas = display.newGroup( )
+        local carro = Carro.newCarro(5,25)
+        local obstaculo1 = {}
+        local obstaculo2 = {}
+        local explosao
+        local pontos = Pontos.newPontos()
+        local pontosDif = Pontos.newPontosDif()
+        local pontosNome = Pontos.newPontosNome()
+        local pontosDifNome = Pontos.newPontosDifNome()
+        local tempo = 0
+        local target = 100
+        local comecou = false
 
-        
-        local carro = Carro.newCarro(5,19)
-        grupoCar:insert( carro )
-        print( "criado",carro )
-        
+        grupoObjetos.alpha = 0
+        grupoObjetos:insert(carro)
+        grupoPistas:insert(pista1)
+        grupoPistas:insert(pista2)
+        grupoObjetos:insert( grupoHUD )
+        grupoHUD:insert(pontos)
+        grupoHUD:insert(pontosDif)
+        grupoHUD:insert(pontosNome)
+        grupoHUD:insert(pontosDifNome)
+
+        Runtime:removeEventListener( "touch", onTouch )
+
+        function comecar(event)
+            pontos.text = 0
+
+            function adicionarControle()
+                grupoObjetos:insert( grupoPistas )
+                Runtime:addEventListener( "touch", onTouch )
+            end
+            function removerTap( event )
+                display.remove( tap )
+                tap = nil
+            end
+            
+            transition.to( grupoObjetos, {time = 500,alpha = 1} )
+            transition.scaleTo( tap, {xScale=2.0, yScale=2.0, time=1000,onComplete=removerTap} )
+            transition.to( tap, {time = 1000, alpha = 0} )
+            transition.moveTo( carro, {x=carro.x, y=posY(19), time = 700,onComplete=adicionarControle} )
+            comecou = true
+            
+            Runtime:removeEventListener("tap",comecar) 
+        end
+        Runtime:addEventListener("tap",comecar)
+
         function carregarObstaculo( event )
-            obstaculo1[i] = Carro.newObstaculo(math.random(1,4))
-            --obstaculo2[i] = Carro.newObstaculo(math.random(1,4))
-            grupoObs:insert(obstaculo1[i])
-            --grupoObs:insert(obstaculo2[i])
-            transition.moveTo(obstaculo1[i],{x = obstaculo1[i].x, y=posY(22), time = 1000, onComplete=remover})
-            --transition.moveTo(obstaculo2[i],{x = obstaculo2[i].x, y=posY(22), time = 1000})
-            i = i + 1
-        end
-        timerObstaculo = timer.performWithDelay( 500, carregarObstaculo, -1 )
+            if comecou == false then
+                tempo = 0
+            end
 
-        function remover( event )
-            display.remove(obstaculo1[j])
-            obstaculo1[j] = nil
-            --obstaculo2[j]:removeSelf( )
-            --obstaculo2[j] = nil
-            j = j + 1
+            if tempo == target then
+                obstaculo1[i] = Carro.newObstaculo(math.random(2,3))
+                grupoObjetos:insert( obstaculo1[i] )
+                --obstaculo2[i] = Carro.newObstaculo(math.random(obstaculo1[i].x,obstaculo1[i].y))
+                --grupoObjetos:insert( obstaculo2[i] )
+                i = i + 1
+                tempo = 0
+                target = 30
+            end
+            tempo = tempo + 1
         end
+        Runtime:addEventListener("enterFrame",carregarObstaculo)
+
+        function somarPontos( event )
+            pontos.text = pontos.text + (0.016);
+            if logado == true then
+                pontosDif.text = pontos.text - (getPlayerByIndex(getMainPlayer()-1).score )
+            else
+                pontosDif.text = pontos.text - 20
+            end 
+            pontos:toFront( )
+            pontosDif:toFront( )
+            if tonumber(pontosDif.text) >= 0  and mudou == false then
+                pontos:mudarCor()
+            end   
+        end
+        Runtime:addEventListener("enterFrame",somarPontos)
         
-
-
         local function onCollision( event )
             if event.phase == "began" then
                 local agro = event.object1
                 local hit = event.object2
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
-                    timer.cancel( timerObstaculo )
-                    
+                    --timer.cancel( timerObstaculo )
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )
-                    print( "removido",grupoCar)
-                    local explosao = Explosao.new(grupoCar.x, grupoCar.y)
-                    print( i )
-                    transition.pause( obstaculo1[i+1] )                   
-                    display.remove( grupoCar )
-                    --grupoCar = nil
-
+                    Runtime:removeEventListener( "enterFrame", carregarObstaculo )
+                    Runtime:removeEventListener("enterFrame",somarPontos)
+                    transition.pause(obstaculo1[i])
+                    transition.pause(obstaculo2[i])
+                    explosao = Explosao.new(carro.x,carro.y)
+                    carro.isVisible = false
+                    pista1:pause( )
+                    pista2:pause( )
+                    grupoObjetos:insert(explosao)
+                    local botao = Botao.newPlayButton()
+                    
                     function nextScene ( event )
-                        local phase = event.phase
-                        if "ended" == phase then
-                            --Runtime:removeEventListener( "collision", onCollision )
-                            Runtime:removeEventListener( "touch", nextScene )
-                            composer.gotoScene( "scripts.cenas.mainmenu", { effect = "fade", time = 300 } )
-                            display.remove(explosao)
-                            explosao = nil
-                            display.remove(grupoObs)
-                            --grupoObs = nil
-                        end
+                        composer.gotoScene( "scripts.cenas.mainmenu", { effect = "fade", time = 300 } )
+                        display.remove(grupoObjetos)
+                        botao:removeEventListener( "tap", nextScene )
+                        display.remove( botao )
+
                     end
-                    Runtime:addEventListener( "touch", nextScene )
+                    botao:addEventListener( "tap", nextScene )
+                    Runtime:removeEventListener( "collision", onCollision )
                 end
             end
         end
         Runtime:addEventListener( "collision", onCollision )
-
-
 
         
     end 
@@ -122,16 +159,9 @@ function scene:hide( event )
     local phase = event.phase
 
     if event.phase == "will" then
-        -- Called when the scene is on screen and is about to move off screen
-        --
-        -- INSERT code here to pause the scene
-        -- e.g. stop timers, stop animation, unload sounds, etc.)
+        
     elseif phase == "did" then
-        -- Called when the scene is now off screen
 
-        bg:removeSelf( )
-        bg = nil
-		
     end 
 end
 
@@ -139,10 +169,6 @@ end
 function scene:destroy( event )
     local sceneGroup = self.view
 
-    -- Called prior to the removal of scene's "view" (sceneGroup)
-    -- 
-    -- INSERT code here to cleanup the scene
-    -- e.g. remove display objects, remove touch listeners, save state, etc
 end
 
 ---------------------------------------------------------------------------------
