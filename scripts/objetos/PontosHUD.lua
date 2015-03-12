@@ -2,14 +2,14 @@ local gameNetwork = require( "gameNetwork" )
 local googleInfo = require( "scripts.util.googleInfo" )
 local mudou = false
 
+local textConfig = 
+{
+    text = 0,     
+    fontSize = 40
+}
 
 
-function new(  )
-	local textConfig = 
-	{
-	    text = 0,     
-	    fontSize = 40
-	}
+function newPontosNome(  )
 
 	local pontosNome = display.newText( textConfig )
 	pontosNome.anchorX = 0
@@ -31,12 +31,22 @@ function new(  )
 	end
 	pontosNome:setFillColor( 0, 0, 0 )
 
+	return pontosNome
+end
+
+function newPontos( )
+
 	local pontos = display.newText( textConfig )
 	pontos.anchorX = 0
 	pontos.anchorY = 0
 	pontos.x = posX(10)
 	pontos.y = posY(2)
 	pontos:setFillColor( 0.7, 0, 0 )
+
+	return pontos
+end
+
+function newPontosDifNome( )
 
 	local pontosDifNome = display.newText( textConfig )
 	pontosDifNome.anchorX = 0
@@ -58,6 +68,11 @@ function new(  )
 	end
 	pontosDifNome:setFillColor( 0, 0, 0 )
 
+	return pontosDifNome
+end
+
+function newPontosDif( )
+
 	local pontosDif = display.newText( textConfig )
 	pontosDif.anchorX = 0
 	pontosDif.anchorY = 0
@@ -65,33 +80,7 @@ function new(  )
 	pontosDif.y = posY(0)
 	pontosDif:setFillColor( 0.7, 0, 0 )
 
-	function enterFrameListener( event )
-		pontos.text = pontos.text + (0.016);
-		if logado == true then
-			pontosDif.text = pontos.text - (getPlayerByIndex(getMainPlayer()-1).score )
-		else
-			pontosDif.text = pontos.text - 20
-		end	
-		pontos:toFront( )
-		pontosDif:toFront( )
-		if tonumber(pontosDif.text) >= 0  and mudou == false then
-			pontos:mudarCor()
-		end
-	end
-	Runtime:addEventListener("enterFrame",enterFrameListener)
-
-	function pontos:mudarCor()
-		pontos:setFillColor( 0, 0.5, 0 )
-		pontosDif:setFillColor( 0, 0.5, 0 )
-		mudou = true
-	end
-
-	function pontos:submitScore(  )
-		submitHighScore("CgkIi7_A79oJEAIQBQ",(tonumber( pontos.text ) * 1000))
-		--showLeaderboards()
-	end
-
-	return pontos
+	return pontosDif
 end
 
 function newPlayerList(  )
@@ -121,6 +110,9 @@ function newPlayerList(  )
 end
 
 return{
-	new = new,
+	newPontos = newPontos,
+	newPontosNome = newPontosNome,
+	newPontosDif = newPontosDif,
+	newPontosDifNome = newPontosDifNome,
 	newPlayerList = newPlayerList
 }
