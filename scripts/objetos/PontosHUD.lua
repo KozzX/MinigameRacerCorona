@@ -6,14 +6,16 @@ local textNome =
 {
     text = 0,     
     fontSize = 30,
-    width = display.contentWidth / 2,
+    width = display.contentWidth,
+    font = "Bitwise",
     align = "left"
 }
 local textPontos = 
 {
     text = 0,     
     fontSize = 30,
-    width = display.contentWidth / 2,
+    width = display.contentWidth,
+    font = "Bitwise",
     align = "right"
 }
 
@@ -24,7 +26,7 @@ function newPontosNome(  )
 	pontosNome.anchorX = 0
 	pontosNome.anchorY = 0
 	pontosNome.x = posX(2)
-	pontosNome.y = posY(2)
+	pontosNome.y = posY(3)
 	if logado == true then
 		local nome = getPlayerByIndex(getMainPlayer()).nome
 		local cont = 0
@@ -49,7 +51,7 @@ function newPontos( )
 	pontos.anchorX = 1
 	pontos.anchorY = 0
 	pontos.x = posX(14)
-	pontos.y = posY(2)
+	pontos.y = posY(3)
 	pontos:setFillColor( 0.7, 0, 0 )
 
 	return pontos
@@ -61,7 +63,7 @@ function newPontosDifNome( )
 	pontosDifNome.anchorX = 0
 	pontosDifNome.anchorY = 0
 	pontosDifNome.x = posX(2)
-	pontosDifNome.y = posY(0)
+	pontosDifNome.y = posY(1)
 	if(logado == true) then
 		local nome = getPlayerByIndex(getMainPlayer()-1).nome
 		local cont = 0
@@ -86,7 +88,7 @@ function newPontosDif( )
 	pontosDif.anchorX = 1
 	pontosDif.anchorY = 0
 	pontosDif.x = posX(14)
-	pontosDif.y = posY(0)
+	pontosDif.y = posY(1)
 	pontosDif:setFillColor( 0.7, 0, 0 )
 
 	return pontosDif

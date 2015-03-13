@@ -5,7 +5,7 @@ local Botao = require( "scripts.objetos.Botao" )
 local Explosao = require( "scripts.objetos.Explosao" )
 local Pista = require( "scripts.objetos.Pista" )
 local Pontos = require( "scripts.objetos.PontosHUD" )
-local Admob = require( "scripts.util.Admob" )
+
 
 local scene = composer.newScene(  )
 
@@ -34,8 +34,8 @@ function scene:show( event )
         tap = display.newImage( "images/tap.png", display.contentCenterX,display.contentCenterY )
         pista1 = Pista.new(posX(1),posY(0))
         pista2 = Pista.new(posX(14),posY(0))
-        init() 
-        showBanner()
+        --showBanner()
+        --loadInter()
     elseif event.phase == "did" then
         local i = 1
         local grupoObjetos = display.newGroup( )
@@ -49,8 +49,6 @@ function scene:show( event )
         local pontosDif = Pontos.newPontosDif()
         local pontosNome = Pontos.newPontosNome()
         local pontosDifNome = Pontos.newPontosDifNome()
-        local tempo = 0
-        local target = 100
         local comecou = false
 
         grupoObjetos.alpha = 0
@@ -87,23 +85,20 @@ function scene:show( event )
         end
         Runtime:addEventListener("tap",comecar)
 
-        function carregarObstaculo( event )
-            if comecou == false then
-                tempo = 0
+        function esperar( event )
+            timer.cancel( timerEspera )
+            function carregarObstaculo( event )
+                if (comecou == true) then
+                    obstaculo1[i] = Carro.newObstaculo(math.random(2,4))
+                    grupoObjetos:insert( obstaculo1[i] )
+                    obstaculo2[i] = Carro.newObstaculo(math.random(1,3))
+                    grupoObjetos:insert( obstaculo2[i] )
+                    i = i + 1
+                end
             end
-
-            if tempo == target then
-                obstaculo1[i] = Carro.newObstaculo(math.random(2,3))
-                grupoObjetos:insert( obstaculo1[i] )
-                --obstaculo2[i] = Carro.newObstaculo(math.random(obstaculo1[i].x,obstaculo1[i].y))
-                --grupoObjetos:insert( obstaculo2[i] )
-                i = i + 1
-                tempo = 0
-                target = 30
-            end
-            tempo = tempo + 1
+            timerComeca = timer.performWithDelay( 600, carregarObstaculo, -1 )
         end
-        Runtime:addEventListener("enterFrame",carregarObstaculo)
+        timerEspera = timer.performWithDelay( 1500, esperar, 1)
 
         function somarPontos( event )
             pontos.text = pontos.text + (0.016);
@@ -128,8 +123,8 @@ function scene:show( event )
                 local hit = event.object2
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
-                    --timer.cancel( timerObstaculo )
-                    showInter()
+                    timer.cancel( timerComeca )
+                    --showInter()
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )
                     Runtime:removeEventListener( "enterFrame", carregarObstaculo )
                     Runtime:removeEventListener("enterFrame",somarPontos)
@@ -147,7 +142,7 @@ function scene:show( event )
                         display.remove(grupoObjetos)
                         botao:removeEventListener( "tap", nextScene )
                         display.remove( botao )
-                        hideBanner()
+                        --hideBanner()
 
                     end
                     botao:addEventListener( "tap", nextScene )
