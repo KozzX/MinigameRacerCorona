@@ -5,6 +5,7 @@ local Botao = require( "scripts.objetos.Botao" )
 local Explosao = require( "scripts.objetos.Explosao" )
 local Pista = require( "scripts.objetos.Pista" )
 local Pontos = require( "scripts.objetos.PontosHUD" )
+local Admob = require( "scripts.util.Admob" )
 
 local scene = composer.newScene(  )
 
@@ -14,6 +15,8 @@ physics.setGravity( 0, 0 )
 local tap
 local pista1
 local pista2
+
+
 
 ---------------------------------------------------------------------------------
 
@@ -30,9 +33,9 @@ function scene:show( event )
     if event.phase == "will" then
         tap = display.newImage( "images/tap.png", display.contentCenterX,display.contentCenterY )
         pista1 = Pista.new(posX(1),posY(0))
-        pista2 = Pista.new(posX(14),posY(0)) 
-        --pista1:pause( )  
-        --pista2:pause( )
+        pista2 = Pista.new(posX(14),posY(0))
+        init() 
+        showBanner()
     elseif event.phase == "did" then
         local i = 1
         local grupoObjetos = display.newGroup( )
@@ -126,6 +129,7 @@ function scene:show( event )
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
                     --timer.cancel( timerObstaculo )
+                    showInter()
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )
                     Runtime:removeEventListener( "enterFrame", carregarObstaculo )
                     Runtime:removeEventListener("enterFrame",somarPontos)
@@ -143,6 +147,7 @@ function scene:show( event )
                         display.remove(grupoObjetos)
                         botao:removeEventListener( "tap", nextScene )
                         display.remove( botao )
+                        hideBanner()
 
                     end
                     botao:addEventListener( "tap", nextScene )
