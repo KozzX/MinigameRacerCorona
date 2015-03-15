@@ -6,14 +6,16 @@ local textNome =
 {
     text = 0,     
     fontSize = 30,
-    width = display.contentWidth / 2,
+    width = display.contentWidth,
+    font="Bitwise",
     align = "left"
 }
 local textPontos = 
 {
     text = 0,     
     fontSize = 30,
-    width = display.contentWidth / 2,
+    width = display.contentWidth,
+    font="Bitwise",
     align = "right"
 }
 

@@ -16,8 +16,6 @@ local tap
 local pista1
 local pista2
 
-
-
 ---------------------------------------------------------------------------------
 
 function scene:create( event )
@@ -93,10 +91,10 @@ function scene:show( event )
             end
 
             if tempo == target then
-                obstaculo1[i] = Carro.newObstaculo(math.random(2,3))
+                obstaculo1[i] = Carro.newObstaculo(math.random(1,3))
                 grupoObjetos:insert( obstaculo1[i] )
-                --obstaculo2[i] = Carro.newObstaculo(math.random(obstaculo1[i].x,obstaculo1[i].y))
-                --grupoObjetos:insert( obstaculo2[i] )
+                obstaculo2[i] = Carro.newObstaculo(math.random(2,4))
+                grupoObjetos:insert( obstaculo2[i] )
                 i = i + 1
                 tempo = 0
                 target = 30
