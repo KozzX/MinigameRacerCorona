@@ -7,7 +7,7 @@ function new( x,y )
 		sheetContentHeight=802
 	}
 
-	local pistaSheet = graphics.newImageSheet( "images/pista3.png", sheetData )
+	local pistaSheet = graphics.newImageSheet( "images/pista.png", sheetData )
 
 	local sequenceData = {
 		{name = "pista",
