@@ -32,7 +32,6 @@ function scene:show( event )
         tap = display.newImage( "images/tap.png", display.contentCenterX,display.contentCenterY )
         pista1 = Pista.new(posX(1),posY(0))
         pista2 = Pista.new(posX(14),posY(0))
-        init() 
         showBanner()
     elseif event.phase == "did" then
         local i = 1
