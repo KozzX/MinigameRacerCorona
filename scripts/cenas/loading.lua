@@ -7,8 +7,8 @@ local Google = require("scripts.util.Google")
 local Explosao = require("scripts.objetos.Explosao")
 local googleInfo = require( "scripts.util.googleInfo" )
 local composer = require( "composer" )
+local Admob = require( "scripts.util.Admob" )
 
--- Load scene with same root filename as this file
 local scene = composer.newScene(  )
 local explosao
 
@@ -16,11 +16,8 @@ local explosao
 
 function scene:create( event )
     local sceneGroup = self.view
+    init()
 
-    -- Called when the scene's view does not exist
-    -- 
-    -- INSERT code here to initialize the scene
-    -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
 end
 
 function scene:show( event )
@@ -28,7 +25,8 @@ function scene:show( event )
     local phase = event.phase
 
     if phase == "will" then
-
+        
+        
     elseif phase == "did" then
         local tentativas = 0
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)

@@ -11,7 +11,7 @@ local transitionOptions = {
 
 local function handleButtonEvent( event )
     if ( "ended" == event.phase ) then
-        composer.gotoScene( "scripts.cenas.world", transitionOptions )
+        composer.gotoScene( "scripts.cenas.level2", transitionOptions )
     end
 end
 
@@ -43,7 +43,8 @@ function scene:show( event )
 	local group = self.view
 
 	if event.phase == "will" then
-
+		showBanner()
+		loadInter()
 	elseif event.phase == "did" then
 		
 	end 	

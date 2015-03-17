@@ -1,5 +1,5 @@
 local composer = require "composer"
-
-init()
+local performance = require('performance')
+performance:newPerformanceMeter()
 
 composer.gotoScene( "scripts.cenas.loading" )

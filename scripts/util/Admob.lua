@@ -12,16 +12,13 @@ end
 
 
 function showInter()
-	print( "interstitial" )
 	ads.show( "interstitial", { appId=interId } )	
 end
 
 function showBanner( )
-	print( "banner" )
-	ads.show( "banner", {x=0, y=display.contentHeight-60, appId=bannerId} )
+	ads.show( "banner", {x=0, y=display.contentHeight-65, appId=bannerId} )
 end
 
 function hideBanner( )
-	print( "hide" )
 	ads.hide()
 end

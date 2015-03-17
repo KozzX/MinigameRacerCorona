@@ -2,6 +2,8 @@
 
 
 local _M = {}
+local aux = 0
+local cont  = 0
  
 local mFloor = math.floor
 local sGetInfo = system.getInfo
@@ -33,16 +35,21 @@ end
  
 function _M.labelUpdater(event)
     local curTime = sGetTimer()
-    _M.text.text = tostring(mFloor( 1000 / (curTime - prevTime)))-- .. ' ' ..
-            --tostring(mFloor(sGetInfo('textureMemoryUsed') * 0.0001) * 0.01) .. ' ' ..
-            --tostring(mFloor(collectgarbage('count')))
-    _M.text:toFront()
+    aux =  tostring(mFloor( 1000 / (curTime - prevTime))) .. ' ' ..
+            tostring(mFloor(sGetInfo('textureMemoryUsed') * 0.0001) * 0.01) .. ' ' ..
+            tostring(mFloor(collectgarbage('count')))
+    if cont >= 10 then
+        _M.text.text = aux
+        _M.text:toFront()
+        cont = 0
+    end
+    cont = cont + 1
     prevTime = curTime
 end
  
 function _M:newPerformanceMeter()
     self.text = createText(self)
-    --timer.performWithDelay( 100, _M.labelUpdater, -1)
+    --timer.performWithDelay( 1, _M.labelUpdater, -1)
     Runtime:addEventListener('enterFrame', _M.labelUpdater)
 end
  

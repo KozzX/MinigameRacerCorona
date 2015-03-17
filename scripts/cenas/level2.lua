@@ -30,17 +30,19 @@ function scene:show( event )
     if event.phase == "will" then
         tap = display.newImage( "images/tap.png", display.contentCenterX,display.contentCenterY )
         pista1 = Pista.new(posX(1),posY(0))
-        pista2 = Pista.new(posX(14),posY(0)) 
-        --pista1:pause( )  
-        --pista2:pause( )
+        pista2 = Pista.new(posX(14),posY(0))
+
     elseif event.phase == "did" then
+        showBanner()
         local i = 1
+        local j = 1
         local grupoObjetos = display.newGroup( )
-        local grupoHUD = display.newGroup( )
         local grupoPistas = display.newGroup( )
+        local grupoHUD = display.newGroup( )
         local carro = Carro.newCarro(5,25)
         local obstaculo1 = {}
         local obstaculo2 = {}
+        local obstaculo3 = {}
         local explosao
         local pontos = Pontos.newPontos()
         local pontosDif = Pontos.newPontosDif()
@@ -59,6 +61,7 @@ function scene:show( event )
         grupoHUD:insert(pontosDif)
         grupoHUD:insert(pontosNome)
         grupoHUD:insert(pontosDifNome)
+
 
         Runtime:removeEventListener( "touch", onTouch )
 
@@ -90,30 +93,37 @@ function scene:show( event )
             end
 
             if tempo == target then
-                obstaculo1[i] = Carro.newObstaculo(math.random(2,3))
+                obstaculo1[i] = Carro.newObstaculo(math.random(1,2))
                 grupoObjetos:insert( obstaculo1[i] )
-                --obstaculo2[i] = Carro.newObstaculo(math.random(obstaculo1[i].x,obstaculo1[i].y))
-                --grupoObjetos:insert( obstaculo2[i] )
+                obstaculo2[i] = Carro.newObstaculo(math.random(2,3))
+                grupoObjetos:insert( obstaculo2[i] )
+                obstaculo3[i] = Carro.newObstaculo(math.random(3,3))
+                grupoObjetos:insert( obstaculo3[i] )
                 i = i + 1
                 tempo = 0
-                target = 30
+                target = 40
             end
             tempo = tempo + 1
+            
         end
         Runtime:addEventListener("enterFrame",carregarObstaculo)
 
         function somarPontos( event )
-            pontos.text = pontos.text + (0.016);
-            if logado == true then
-                pontosDif.text = pontos.text - (getPlayerByIndex(getMainPlayer()-1).score )
-            else
-                pontosDif.text = pontos.text - 20
-            end 
-            pontos:toFront( )
-            pontosDif:toFront( )
-            if tonumber(pontosDif.text) >= 0  and mudou == false then
-                pontos:mudarCor()
-            end   
+            if obstaculo1[j] ~= nil then
+                if(obstaculo1[j].y) >= carro.y then
+                    j = j + 1 
+                    pontos.text = pontos.text + (1)
+                    pontos.text = string.format( "%6.0f", pontos.text )
+                    if logado == true then
+                        pontosDif.text = pontos.text - (getPlayerByIndex(getMainPlayer()-1).score )
+                    else
+                        pontosDif.text = pontos.text - 20
+                    end 
+                    pontosDif.text = string.format( "%6.0f", pontosDif.text )
+                    pontos:toFront( )
+                    pontosDif:toFront( )
+                end
+            end
         end
         Runtime:addEventListener("enterFrame",somarPontos)
         
@@ -123,22 +133,22 @@ function scene:show( event )
                 local hit = event.object2
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
-                    --timer.cancel( timerObstaculo )
+                    showInter()
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )
                     Runtime:removeEventListener( "enterFrame", carregarObstaculo )
                     Runtime:removeEventListener("enterFrame",somarPontos)
                     transition.pause(obstaculo1[i])
-                    transition.pause(obstaculo2[i])
-                    explosao = Explosao.new(carro.x,carro.y)
-                    carro.isVisible = false
                     pista1:pause( )
                     pista2:pause( )
+                    explosao = Explosao.new(carro.x,carro.y)
+                    carro.isVisible = false
                     grupoObjetos:insert(explosao)
                     local botao = Botao.newPlayButton()
                     
                     function nextScene ( event )
                         composer.gotoScene( "scripts.cenas.mainmenu", { effect = "fade", time = 300 } )
                         display.remove(grupoObjetos)
+                        hideBanner()
                         botao:removeEventListener( "tap", nextScene )
                         display.remove( botao )
 
