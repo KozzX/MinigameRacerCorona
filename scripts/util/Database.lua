@@ -52,3 +52,15 @@ return {
 	atualizarPontos = atualizarPontos,
 	dropTable = dropTable
 }
+--[[CREATE TABLE IF NOT EXISTS score (id INTEGER PRIMARY KEY, highScore, totalScore);
+
+Tabela - SCORE
+--------------------
+PLAYERID    - TEXT
+PLAYERNAME  - TEXT
+GAMEMODE    - TEXT 
+HIGHSCORE   - INTEGER
+LASTSCORE   - INTEGER
+TOTALSCORE  - INTEGER
+TIMESPLAYED - INTEGER
+]]

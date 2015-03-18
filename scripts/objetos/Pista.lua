@@ -2,8 +2,8 @@ function new( x,y )
 	local sheetData = {
 		width=32,
 		height=802,
-		numFrames=3,
-		sheetContentWidth=96,
+		numFrames=4,
+		sheetContentWidth=128,
 		sheetContentHeight=802
 	}
 
@@ -11,7 +11,7 @@ function new( x,y )
 
 	local sequenceData = {
 		{name = "pista",
-		frames = {1,2,3},
+		frames = {1,2,3,4},
 		time = 100,
 		loopCount = 0
 		}	

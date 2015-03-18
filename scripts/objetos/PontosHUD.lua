@@ -40,7 +40,7 @@ function newPontosNome(  )
 	else
 		pontosNome.text = "Você"
 	end
-	pontosNome:setFillColor( 0, 0, 0 )
+	pontosNome:setFillColor( 0,0,0 )
 
 	return pontosNome
 end

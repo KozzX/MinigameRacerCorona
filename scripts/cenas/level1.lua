@@ -48,9 +48,11 @@ function scene:show( event )
         local pontosDif = Pontos.newPontosDif()
         local pontosNome = Pontos.newPontosNome()
         local pontosDifNome = Pontos.newPontosDifNome()
+        local pontosProximo = 0
         local tempo = 0
         local target = 100
         local comecou = false
+
 
         grupoObjetos.alpha = 0
         grupoObjetos:insert(carro)
@@ -62,6 +64,12 @@ function scene:show( event )
         grupoHUD:insert(pontosNome)
         grupoHUD:insert(pontosDifNome)
 
+        if(logado == true) then
+            pontosProximo = (getPlayerByIndex(getMainPlayer()-1).score)
+        else
+            pontosProximo = 20
+        end
+        pontosDif.text = -(pontosProximo)
 
         Runtime:removeEventListener( "touch", onTouch )
 
@@ -115,9 +123,9 @@ function scene:show( event )
                     pontos.text = pontos.text + (1)
                     pontos.text = string.format( "%6.0f", pontos.text )
                     if logado == true then
-                        pontosDif.text = pontos.text - (getPlayerByIndex(getMainPlayer()-1).score )
+                        pontosDif.text = pontos.text - pontosProximo
                     else
-                        pontosDif.text = pontos.text - 20
+                        pontosDif.text = pontos.text - pontosProximo
                     end 
                     pontosDif.text = string.format( "%6.0f", pontosDif.text )
                     pontos:toFront( )
