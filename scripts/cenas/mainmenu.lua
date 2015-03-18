@@ -43,7 +43,6 @@ function scene:show( event )
 	local group = self.view
 
 	if event.phase == "will" then
-		showBanner()
 		loadInter()
 	elseif event.phase == "did" then
 		
@@ -54,7 +53,7 @@ end
 -- Called when scene is about to move offscreen:
 function scene:hide( event )
 	local group = self.view
-
+	hideBanner()
 end
 
 

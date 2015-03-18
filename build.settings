@@ -34,5 +34,14 @@ settings =
             publisherId = "com.coronalabs",
             supportedPlatforms = { android=true }
         },
+        ["plugin.GameThrivePushNotifications"] =
+    	{
+        	publisherId = "com.gamethrive",
+    	},
+    	["plugin.google.play.services"] =
+    	{
+            publisherId = "com.coronalabs",
+            supportedPlatforms = { android=true, ["android-kindle"]=true },
+    	},
 	},
 }

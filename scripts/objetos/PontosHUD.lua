@@ -63,7 +63,7 @@ function newPontosDifNome( )
 	pontosDifNome.anchorX = 0
 	pontosDifNome.anchorY = 0
 	pontosDifNome.x = posX(2)
-	pontosDifNome.y = posY(0)
+	pontosDifNome.y = posY(0.8)
 	if(logado == true) then
 		local nome = getPlayerByIndex(getMainPlayer()-1).nome
 		local cont = 0
@@ -88,7 +88,7 @@ function newPontosDif( )
 	pontosDif.anchorX = 1
 	pontosDif.anchorY = 0
 	pontosDif.x = posX(14)
-	pontosDif.y = posY(0)
+	pontosDif.y = posY(0.8)
 	pontosDif:setFillColor( 0.7, 0, 0 )
 
 	return pontosDif

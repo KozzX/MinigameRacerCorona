@@ -42,7 +42,7 @@ function newLoad( x,y )
 	local sequenceData = {
 		{name = "explosao",
 		frames = {1,2},
-		time = 400,
+		time = 800,
 		loopCount = 0
 		}	
 	}
