@@ -38,7 +38,7 @@ function scene:show( event )
                 composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
                 timer.cancel( timerstart )
             end
-            if (logado ~= true) and (tentativas >= 5) then
+            if (logado ~= true) and (tentativas >= 1) then
                 logado = false
                 composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
                 timer.cancel( timerstart )

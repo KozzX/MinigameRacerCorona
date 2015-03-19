@@ -55,9 +55,8 @@ function scene:show( event )
 		local btn2
 		local btn3
 		local i = 1
-		local function play( event )
-  			composer.gotoScene( "scripts.cenas.menuplay", {effect = "slideLeft",time = 300} )
-  			btn:removeEventListener( "tap", play )
+		local function handleButtonEvent( event )
+  			composer.gotoScene( "scripts.cenas.arcade2-1.arcade2-1easy", {effect = "fade",time = 300} )
 		end
 		local function leaderboards ( event )
 			showLeaderboards()
@@ -72,7 +71,7 @@ function scene:show( event )
 		function criarMenu (event)
 			if i == 1 then
 				btn = Botao.newPlayButton("Play",display.contentHeight / 25 * 5)
-				btn:addEventListener( "tap", play )
+				btn:addEventListener( "tap", handleButtonEvent )
 				grupoMenu:insert( btn )
 			elseif i == 2 then
 				btn2 = Botao.newPlayButton("Options",display.contentHeight / 25 * 8.3)
