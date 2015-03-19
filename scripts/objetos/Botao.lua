@@ -1,20 +1,32 @@
 local widget = require("widget")
 
 
-function newPlayButton()
-	local btn = widget.newButton
-	{
-	    id = "playBtn",
-	    defaultFile = "images/play.png",
-	    overFile = "images/playPressed.png",
+function newPlayButton(texto,y)
+	local options = {
+		id="playBtn",
+		x=display.contentWidth,
+		y=y,
+		width=display.contentWidth / 16 * 10,
+		height=display.contentHeight / 25 * 3,
+		label=texto,
+		labelColor = { default={0,0,0}, over={0,0,0} },
+		emboss=true,
+		fontSize=40,
+		labelAlign="center",
+		font="Bitwise",
+		shape="roundedRect",
+		cornerRadius=10,
+		fillColor = { default={0.5,0.5,0.5}, over={0.3,0.3,0.3} },
+		strokeColor = { default={0,0,0}, over={0,0,0} },
+		strokeWidth = 3
 	}
-	btn.alpha = 0
-	btn.width = display.contentWidth / 16 * 5
-	btn.height = display.contentHeight / 25 * 3
-	btn.x = display.contentCenterX
+	local btn = widget.newButton(options)
 	btn.anchorY = 0
-	btn.y = display.contentHeight / 25 * 15
-
+	btn.alpha = 0
+	--transition.moveTo( btn, {x=display.contentCenterX,time=300} )
+	transition.to( btn, {x=display.contentCenterX,alpha=1, time=300} )
+	
+	
 	return btn
 end
 

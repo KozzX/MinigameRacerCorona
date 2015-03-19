@@ -1,7 +1,6 @@
 local Posicionamento = require( "scripts.util.posicionamento" )
 
-local telaX = display.contentWidth
-local telaY = display.contentHeight
+
 
 local function new( x,y )
 	local carro = display.newImage( "images/carro.png", posX(x), posY(y))
@@ -21,18 +20,6 @@ function newCarro( x,y )
 	physics.addBody( carro , "static", {isSensor = true, shape=carroShape})
 	carro.type = "carro"
 
-	function onTouch(event)
-		if(event.phase == "began") then
-			if (event.x < telaX / 2) and (x >= 3) then
-				x = x - 3
-				transition.moveTo( carro, {x = posX(x), y = carro.y, time = 50} )
-			elseif (event.x > telaX / 2) and (x <= 10) then
-				x = x + 3
-				transition.moveTo( carro, {x = posX(x), y = carro.y, time = 50} )
-			end
-		end
-	end
-	Runtime:addEventListener( "touch", onTouch )
 
 	return carro;
 end
@@ -46,7 +33,7 @@ function newObstaculo( x )
 		x = 8
 	elseif x == 4 then
 		x = 11
-	end 
+	end
 	local obstaculo = new(x,-5)
 	local obstaculoShape = {-10,-65, 10,-65, -10,-30, 10,-30, -40,-30, 40,-30, -40,65, 40,65}
 	physics.addBody( obstaculo, "dynamic", {isSensor = true, shape=obstaculoShape})

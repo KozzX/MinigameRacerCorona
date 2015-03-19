@@ -25,10 +25,6 @@ settings =
 			publisherId = "com.coronalabs",
 			supportedPlatforms = { android = true }
 		},
-		["plugin.google.play.services"] =
-        {
-            publisherId = "com.coronalabs"
-        },
         ["plugin.google.iap.v3"] =
         {
             publisherId = "com.coronalabs",

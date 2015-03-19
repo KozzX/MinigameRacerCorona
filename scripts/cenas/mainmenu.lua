@@ -3,17 +3,9 @@ local scene = composer.newScene()
 local Botao = require( "scripts.objetos.Botao" )
 
 
-local transitionOptions = {
-	effect = "fade",
-    time = 300
-}
+local grupoMenu
 
 
-local function handleButtonEvent( event )
-    if ( "ended" == event.phase ) then
-        composer.gotoScene( "scripts.cenas.level1", transitionOptions )
-    end
-end
 
 ---------------------------------------------------------------------------------
 -- SCENE EVENTS
@@ -24,17 +16,21 @@ function scene:create( event )
 	local group = self.view
 	local bg = display.newImage( "images/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
-	local titleTable = display.newImage( "images/title.png",true )
-	titleTable.x = display.contentCenterX
-	titleTable.y = display.contentCenterY
-	titleTable.width = display.contentWidth / 16 * 12
-	titleTable.height = display.contentHeight / 25 * 13
-	local btn = Botao.newPlayButton()
-	btn:addEventListener( "touch", handleButtonEvent )
-	btn.alpha = 1
+	local title1 = display.newText( "MINIGAME", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+	local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
+	title1:setFillColor( 0,0,0 )
+	title2:setFillColor( 0,0,0 )
+	local table = display.newRoundedRect( display.contentCenterX,display.contentHeight / 25 * 1 ,display.contentWidth / 16 * 14, display.viewableContentHeight-100,10 )
+	table.anchorY = 0
+	table.stroke = {0,0,0}
+	table.strokeWidth = 4
+	table:setFillColor( 0.7,0.7,0.7 )
+	
 	group:insert( bg )
-	group:insert( titleTable )	
-	group:insert( btn )
+	group:insert( table )
+	group:insert( title1 )
+	group:insert( title2 )
+
 end
 
 
@@ -44,8 +40,37 @@ function scene:show( event )
 
 	if event.phase == "will" then
 		loadInter()
+
 	elseif event.phase == "did" then
-		
+		grupoMenu = display.newGroup( )
+		local btn
+		local btn2
+		local btn3
+		local i = 1
+		local function handleButtonEvent( event )
+  			composer.gotoScene( "scripts.cenas.arcade2-1.arcade2-1easy", {effect = "fade",time = 300} )
+		end
+		function criarMenu (event)
+			if i == 1 then
+				btn = Botao.newPlayButton("Play",display.contentHeight / 25 * 5)
+				btn:addEventListener( "tap", handleButtonEvent )
+				grupoMenu:insert( btn )
+			elseif i == 2 then
+				btn2 = Botao.newPlayButton("Options",display.contentHeight / 25 * 8.3)
+				grupoMenu:insert( btn2 )
+			elseif i == 3 then
+				btn3 = Botao.newPlayButton("Store",display.contentHeight / 25 * 11.6)
+				grupoMenu:insert( btn3 )
+			elseif i == 4 then
+				btn2 = Botao.newPlayButton("Leaderboards",display.contentHeight / 25 * 14.9)
+				grupoMenu:insert( btn2 )
+			elseif i == 5 then
+				btn3 = Botao.newPlayButton("Achievements",display.contentHeight / 25 * 18.2)
+				grupoMenu:insert( btn3 )
+			end
+			i = i + 1
+		end
+		timerMenu = timer.performWithDelay( 100, criarMenu ,5 )	
 	end 	
 end
 
@@ -54,6 +79,8 @@ end
 function scene:hide( event )
 	local group = self.view
 	hideBanner()
+	display.remove(grupoMenu)
+	timer.cancel( timerMenu )
 end
 
 
