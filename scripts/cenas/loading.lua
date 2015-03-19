@@ -35,12 +35,12 @@ function scene:show( event )
         
         function start( event )
             if(logado==true) then
-                composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "slideLeft", time = 300 } )
+                composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
                 timer.cancel( timerstart )
             end
             if (logado ~= true) and (tentativas >= 5) then
                 logado = false
-                composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "slideLeft", time = 300 } )
+                composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
                 timer.cancel( timerstart )
             end
             tentativas = tentativas + 1

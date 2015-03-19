@@ -89,4 +89,12 @@ function submitHighScore( leaderboard, pontos )
 	gameNetwork.request( "setHighScore",{localPlayerScore = { category=leaderboard, value=pontos }})
 end
 
+function showLeaderboards()
+	gameNetwork.show("leaderboards") -- Shows all the leaderboards.
+end
+
+function showAchievements()
+	gameNetwork.show("achievements") -- Shows the locked and unlocked achievements.
+end
+
 

@@ -1,6 +1,14 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 local Botao = require( "scripts.objetos.Botao" )
+local store = require( "plugin.google.iap.v3" )
+
+function loja( event )
+    native.showAlert( "Foi", "Foi" , { "Ok"} )
+end
+store.init( "google", loja )
+
+
 
 
 local grupoMenu
@@ -50,6 +58,16 @@ function scene:show( event )
 		local function handleButtonEvent( event )
   			composer.gotoScene( "scripts.cenas.arcade2-1.arcade2-1easy", {effect = "fade",time = 300} )
 		end
+		local function leaderboards ( event )
+			showLeaderboards()
+		end
+		local function achievements ( event )
+			showAchievements()
+		end
+		local function buy ( event )
+			store.purchase("remover_ads")
+		end
+		
 		function criarMenu (event)
 			if i == 1 then
 				btn = Botao.newPlayButton("Play",display.contentHeight / 25 * 5)
@@ -60,13 +78,16 @@ function scene:show( event )
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
 				btn3 = Botao.newPlayButton("Store",display.contentHeight / 25 * 11.6)
+				btn3:addEventListener( "tap", buy )
 				grupoMenu:insert( btn3 )
 			elseif i == 4 then
-				btn2 = Botao.newPlayButton("Leaderboards",display.contentHeight / 25 * 14.9)
-				grupoMenu:insert( btn2 )
+				btn4 = Botao.newPlayButton("Leaderboards",display.contentHeight / 25 * 14.9)
+				btn4:addEventListener( "tap", leaderboards )
+				grupoMenu:insert( btn4 )
 			elseif i == 5 then
-				btn3 = Botao.newPlayButton("Achievements",display.contentHeight / 25 * 18.2)
-				grupoMenu:insert( btn3 )
+				btn5 = Botao.newPlayButton("Achievements",display.contentHeight / 25 * 18.2)
+				btn5:addEventListener( "tap", achievements )
+				grupoMenu:insert( btn5 )
 			end
 			i = i + 1
 		end
