@@ -125,11 +125,6 @@ function scene:show( event )
             if tempo == target then
                 obstaculo1[i] = Carro.newObstaculo(math.random(2,3))
                 grupoObjetos:insert( obstaculo1[i] )
-
-                --obstaculo2[i] = Carro.newObstaculo(math.random(2,3))
-                --grupoObjetos:insert( obstaculo2[i] )
-                --obstaculo3[i] = Carro.newObstaculo(math.random(3,3))
-                --grupoObjetos:insert( obstaculo3[i] )
                 i = i + 1
                 tempo = 0
                 target = 40
@@ -163,8 +158,7 @@ function scene:show( event )
                 local hit = event.object2
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
-                    showInter()
-                    showBanner()
+                    showInter( )
                     Runtime:removeEventListener( "touch", onTouch )
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )
                     Runtime:removeEventListener( "enterFrame", carregarObstaculo )

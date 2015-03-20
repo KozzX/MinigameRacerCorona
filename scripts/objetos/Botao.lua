@@ -7,7 +7,7 @@ function newPlayButton(texto,y)
 		x=display.contentWidth,
 		y=y,
 		width=display.contentWidth / 16 * 10,
-		height=display.contentHeight / 25 * 3,
+		height=display.contentHeight / 25 * 2,
 		label=texto,
 		labelColor = { default={0,0,0}, over={0,0,0} },
 		emboss=true,
@@ -24,7 +24,7 @@ function newPlayButton(texto,y)
 	btn.anchorY = 0
 	btn.alpha = 0
 	--transition.moveTo( btn, {x=display.contentCenterX,time=300} )
-	transition.to( btn, {x=display.contentCenterX,alpha=1, time=300} )
+	transition.to( btn, {x=display.contentCenterX,alpha=1, time=400} )
 	
 	
 	return btn

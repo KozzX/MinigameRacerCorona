@@ -1,19 +1,8 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 local Botao = require( "scripts.objetos.Botao" )
-local store = require( "plugin.google.iap.v3" )
-
-function loja( event )
-    native.showAlert( "Foi", "Foi" , { "Ok"} )
-end
-store.init( "google", loja )
-
-
-
 
 local grupoMenu
-
-
 
 ---------------------------------------------------------------------------------
 -- SCENE EVENTS
@@ -24,10 +13,10 @@ function scene:create( event )
 	local group = self.view
 	local bg = display.newImage( "images/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( "MINIGAME", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
-	local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
+	local title1 = display.newText( "ARCADE 4-2", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
 	title1:setFillColor( 0,0,0 )
-	title2:setFillColor( 0,0,0 )
+	--title2:setFillColor( 0,0,0 )
 	local table = display.newRoundedRect( display.contentCenterX,display.contentHeight / 25 * 1 ,display.contentWidth / 16 * 14, display.viewableContentHeight-100,10 )
 	table.anchorY = 0
 	table.stroke = {0,0,0}
@@ -37,7 +26,7 @@ function scene:create( event )
 	group:insert( bg )
 	group:insert( table )
 	group:insert( title1 )
-	group:insert( title2 )
+	--group:insert( title2 )
 
 end
 
@@ -47,8 +36,6 @@ function scene:show( event )
 	local group = self.view
 
 	if event.phase == "will" then
-		loadInter()
-		showBanner()
 
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
@@ -56,39 +43,48 @@ function scene:show( event )
 		local btn2
 		local btn3
 		local i = 1
-		local function play( event )
-  			composer.gotoScene( "scripts.cenas.menuarcade", {effect = "slideLeft",time = 300} )
-  			btn:removeEventListener( "tap", play )
+		local function easy( event )
+  			composer.gotoScene( "scripts.cenas.arcade4-2.easy", {effect = "fade",time = 300} )
+  			btn:removeEventListener( "tap", easy )
 		end
-		local function leaderboards ( event )
-			showLeaderboards()
+		local function normal( event )
+  			composer.gotoScene( "scripts.cenas.arcade4-2.normal", {effect = "fade",time = 300} )
+  			btn2:removeEventListener( "tap", normal )
 		end
-		local function achievements ( event )
-			showAchievements()
+		local function hard( event )
+  			composer.gotoScene( "scripts.cenas.arcade4-2.hard", {effect = "fade",time = 300} )
+  			btn3:removeEventListener( "tap", hard )
 		end
-		local function buy ( event )
-			store.purchase("remover_ads")
+		local function insane( event )
+  			composer.gotoScene( "scripts.cenas.arcade4-2.insane", {effect = "fade",time = 300} )
+  			btn4:removeEventListener( "tap", insane )
 		end
+		local function back( event )
+  			composer.gotoScene( "scripts.cenas.menuarcade", {effect = "slideRight",time = 300} )
+  			btn5:removeEventListener( "tap", back )
+		end
+		
 		
 		function criarMenu (event)
 			if i == 1 then
-				btn = Botao.newPlayButton("Play",display.contentHeight / 25 * 5)
-				btn:addEventListener( "tap", play )
+				btn = Botao.newPlayButton("Easy",display.contentHeight / 25 * 5)
+				btn:addEventListener( "tap", easy )
 				grupoMenu:insert( btn )
 			elseif i == 2 then
-				btn2 = Botao.newPlayButton("Options",display.contentHeight / 25 * 7.3)
+				btn2 = Botao.newPlayButton("Normal",display.contentHeight / 25 * 7.3)
+				btn2:addEventListener( "tap", normal )
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
-				btn3 = Botao.newPlayButton("Store",display.contentHeight / 25 * 9.6)
-				btn3:addEventListener( "tap", buy )
+				btn3 = Botao.newPlayButton("Hard",display.contentHeight / 25 * 9.6)
+				btn3:addEventListener( "tap", hard )
 				grupoMenu:insert( btn3 )
 			elseif i == 4 then
-				btn4 = Botao.newPlayButton("Leaderboards",display.contentHeight / 25 * 11.9)
-				btn4:addEventListener( "tap", leaderboards )
+				btn4 = Botao.newPlayButton("Insane",display.contentHeight / 25 * 11.9)
+				btn4:addEventListener( "tap", insane )
 				grupoMenu:insert( btn4 )
 			elseif i == 5 then
-				btn5 = Botao.newPlayButton("Achievements",display.contentHeight / 25 * 14.2)
-				btn5:addEventListener( "tap", achievements )
+				btn5 = Botao.newPlayButton("Back",display.contentHeight / 25 * 14.2)
+				btn5:addEventListener( "tap", back )
 				grupoMenu:insert( btn5 )
 			end
 			i = i + 1
