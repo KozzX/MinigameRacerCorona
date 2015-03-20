@@ -89,7 +89,7 @@ function scene:show( event )
 			end
 			i = i + 1
 		end
-		timerMenu = timer.performWithDelay( 100, criarMenu ,5 )	
+		timerMenu = timer.performWithDelay( 50, criarMenu ,5 )	
 	end 	
 end
 

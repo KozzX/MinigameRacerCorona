@@ -179,10 +179,6 @@ function scene:show( event )
                     local botaoPlay
                     local botaoMenu
 
-                    
-                    --local botaoPlay = Botao.newPlayButton("Play Again",display.contentHeight / 25 * 7)
-                    --local botaoMenu = Botao.newPlayButton("Main Menu",display.contentHeight / 25 * 10.3)
-
                     function nextSceneMainMenu ( event )
                         composer.gotoScene( "scripts.cenas.mainmenu", { effect = "slideRight", time = 300 } )
                         display.remove(grupoObjetos)

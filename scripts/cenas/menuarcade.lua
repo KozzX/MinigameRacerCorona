@@ -106,7 +106,7 @@ function scene:show( event )
 			end
 			i = i + 1
 		end
-		timerMenu = timer.performWithDelay( 100, criarMenu ,7 )	
+		timerMenu = timer.performWithDelay( 50, criarMenu ,7 )	
 	end 	
 end
 

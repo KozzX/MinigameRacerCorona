@@ -12,7 +12,7 @@ local function onSystemEvent( event )
 end
 
 -- Set up the table if it doesn't exist
-local tablesetup = [[CREATE TABLE IF NOT EXISTS score (id INTEGER PRIMARY KEY, gameMode, highScore, totalScore);]]
+local tablesetup = [[CREATE TABLE IF NOT EXISTS SCORE (ID INTEGER PRIMARY KEY, PLAYERNAME, GAMEMODE, HIGHSCORE, LASTSCORE, TOTALSCORE, TIMESPLAYED);]]
 print( tablesetup )
 db:exec( tablesetup )
 
@@ -56,11 +56,17 @@ return {
 
 Tabela - SCORE
 --------------------
-PLAYERID    - TEXT
-PLAYERNAME  - TEXT
+PLAYERID    - INTEGER
 GAMEMODE    - TEXT 
 HIGHSCORE   - INTEGER
 LASTSCORE   - INTEGER
 TOTALSCORE  - INTEGER
 TIMESPLAYED - INTEGER
+
+Tabela - PLAYER
+PLAYERID    - INTEGER
+PLAYERNAME  - TEXT
+REMOVER_ADS - BOOLEAN
+FIRSTTIME   - BOOLEAN
+GOOGLEID    - INTEGER
 ]]
