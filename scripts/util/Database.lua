@@ -12,46 +12,95 @@ local function onSystemEvent( event )
 end
 
 -- Set up the table if it doesn't exist
-local tablesetup = [[CREATE TABLE IF NOT EXISTS SCORE (ID INTEGER PRIMARY KEY, PLAYERNAME, GAMEMODE, HIGHSCORE, LASTSCORE, TOTALSCORE, TIMESPLAYED);]]
+local tablesetup = [[CREATE TABLE IF NOT EXISTS PLAYER (
+						CODPLA INTEGER PRIMARY KEY, 
+						NOMPLA TEXT, 
+						REMOVER_ADS, 
+						FIRSTTIME, 
+						GOOGLEID INTEGER
+					);
+					CREATE TABLE IF NOT EXISTS SCORE (
+						CODMOD TEXT, 
+						CODPLA INTEGER, 
+						HIGHSCORE INTEGER, 
+						LASTSCORE INTEGER, 
+						TOTALSCORE INTEGER, 
+						TIMESPLAYED INTEGER,
+						PRIMARY KEY (CODMOD,CODPLA)
+					);]]
+
 print( tablesetup )
 db:exec( tablesetup )
-
--- Add rows with an auto index in 'id'. You don't need to specify a set of values because we're populating all of them.
-function atualizarPontos( vGameMode, vScore)
-	local vHighScore = 0
-	for row in db:nrows([[SELECT * FROM score WHERE gameMode=']] .. vGameMode .. [[';]]) do
-		text = row.id .. " " .. row.gameMode .. " " .. row.highScore .. " " .. row.totalScore
-		vHighScore = row.highScore
-	end
-	
-	if (vHighScore < vScore) then
-		vHighScore = vScore		
-	end
-
-	if (text == nil) then
-		print( "é nil" )	
-		local tablefill = [[INSERT INTO score VALUES (NULL, ']] .. vGameMode .. [[',]] .. vHighScore .. [[,]] .. vHighScore .. [[);]]
-		db:exec(tablefill)
-	else
-		local tableupdate = [[UPDATE score SET highScore=]] .. vHighScore .. [[,totalScore=totalScore+]] .. vScore .. [[ WHERE gameMode=']] .. vGameMode .. [[';]]
-		db:exec(tableupdate)
-		print( tableupdate )
-	end
+function primeiroJogo( player )
+	for row in db:nrows("SELECT FIRSTTIME FROM PLAYER WHERE CODPLA = " .. player) do
+	    print( row.FIRSTTIME)
+	    return row.FIRSTTIME
+	end	
 end
 
-function dropTable()
-	local tablesetup = [[DROP TABLE score;]]
-	db:exec( tablesetup )	
+function submeterPontos(gameMode,player, ponto)
+	local tableupdate = [[UPDATE SCORE SET LASTSCORE=]]..pontos..[[ ]]
 end
 
+function isHighScore( gameMode, player, ponto )
+	for row in db:nrows("SELECT HIGHSCORE FROM SCORE WHERE CODPLA = "..player.."") do
+	    return row.FIRSTTIME
+	end	
+end
+
+
+function preencherTabelas(  )
+	local tablefill = [[INSERT INTO PLAYER VALUES(1, 'Nome', 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE2-1EASY', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE2-1NORMAL', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE2-1HARD', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE2-1INSANE', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE3-1EASY', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE3-1NORMAL', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE3-1HARD', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE3-1INSANE', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE3-2EASY', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE3-2NORMAL', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE3-2HARD', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE3-2INSANE', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-1EASY', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-1NORMAL', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-1HARD', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-1INSANE', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-2EASY', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-2NORMAL', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-2HARD', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-2INSANE', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-3EASY', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-3NORMAL', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-3HARD', 1, 0, 0, 0, 0);
+						INSERT INTO SCORE VALUES('ARCADE4-3INSANE', 1, 0, 0, 0, 0)]]
+	db:exec( tablefill )
+end
+
+function buscarPontos( gameMode,player )
+	local i = 0
+	for row in db:nrows("SELECT S.CODMOD,S.CODPLA,P.NOMPLA FROM SCORE S,PLAYER P WHERE S.CODPLA = P.CODPLA AND S.CODMOD = " .. gameMode .. "AND S.CODPLA = " .. player) do
+	    local text = row.CODMOD .. " " .. row.CODPLA .. " " .. row.NOMPLA
+	    local t = display.newText( text, display.contentCenterX, i, nil, 12 )
+	    t:setFillColor( 1, 0, 1 )
+	    print( row.CODMOD, row.CODPLA, i)
+	    i = i + 15
+	end
+end
+buscarPontos("'ARCADE2-1EASY'",1)
+primeiroJogo(1)
+
+-- Print the table contents
+
+
+local tablesetup = [[DROP TABLE SCORE; DROP TABLE PLAYER;]]
+print( tablesetup )
+--db:exec( tablesetup )
 
 -- Setup the event listener to catch "applicationExit"
 Runtime:addEventListener( "system", onSystemEvent )
 
-return {
-	atualizarPontos = atualizarPontos,
-	dropTable = dropTable
-}
 --[[CREATE TABLE IF NOT EXISTS score (id INTEGER PRIMARY KEY, highScore, totalScore);
 
 Tabela - SCORE
@@ -69,4 +118,39 @@ PLAYERNAME  - TEXT
 REMOVER_ADS - BOOLEAN
 FIRSTTIME   - BOOLEAN
 GOOGLEID    - INTEGER
+
+					CREATE TABLE IF NOT EXISTS SCORE (
+						CODMOD TEXT, 
+						CODPLA INTEGER, 
+						HIGHSCORE INTEGER, 
+						LASTSCORE INTEGER, 
+						TOTALSCORE INTEGER, 
+						TIMESPLAYED INTEGER,
+						PRIMARY KEY (CODMOD,CODPLA)
+					);
+					INSERT INTO PLAYER VALUES(1, 'Nome', false, false, 0);
+					INSERT INTO SCORE VALUES('ARCADE2-1EASY', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE2-1NORMAL', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE2-1HARD', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE2-1INSANE', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE3-1EASY', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE3-1NORMAL', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE3-1HARD', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE3-1INSANE', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE3-2EASY', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE3-2NORMAL', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE3-2HARD', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE3-2INSANE', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-1EASY', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-1NORMAL', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-1HARD', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-1INSANE', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-2EASY', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-2NORMAL', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-2HARD', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-2INSANE', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-3EASY', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-3NORMAL', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-3HARD', 1, 0, 0, 0, 0);
+					INSERT INTO SCORE VALUES('ARCADE4-3INSANE', 1, 0, 0, 0, 0);
 ]]
