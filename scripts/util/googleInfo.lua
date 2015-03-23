@@ -40,6 +40,14 @@ function getPlayerByIndex( index )
 	return player
 end
 
+function getPlayerList( )
+	local players = {}
+	for i=1,tamanho() do
+		players[i] = getPlayerByIndex(i)
+	end
+	return players
+end
+
 function tamanho()
 	return #idPlayer
 end

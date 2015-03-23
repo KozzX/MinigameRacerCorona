@@ -32,19 +32,31 @@ local tablesetup = [[CREATE TABLE IF NOT EXISTS PLAYER (
 print( tablesetup )
 db:exec( tablesetup )
 function primeiroJogo( player )
+	local primeiro = true
 	for row in db:nrows("SELECT FIRSTTIME FROM PLAYER WHERE CODPLA = " .. player) do
-	    print( row.FIRSTTIME)
-	    return row.FIRSTTIME
+		primeiro = false
 	end	
+	return primeiro
 end
 
-function submeterPontos(gameMode,player, ponto)
-	local tableupdate = [[UPDATE SCORE SET LASTSCORE=]]..pontos..[[ ]]
+function submeterPontos(gameMode, ponto)
+	local player = 1
+	local highScore = 0
+	if ponto > getHighScore(gameMode,player) then
+		highScore = ponto
+	else
+		highScore = getHighScore(gameMode,player)
+	end
+
+	local tableupdate = [[UPDATE SCORE SET LASTSCORE=]]..ponto..[[, HIGHSCORE=]]..highScore..[[, TOTALSCORE=TOTALSCORE+]]..ponto..[[,TIMESPLAYED=TIMESPLAYED+1 WHERE CODPLA=]]..player..[[ AND CODMOD=']]..gameMode..[[';]]
+	print(tableupdate)
+	db:exec( tableupdate )
 end
 
-function isHighScore( gameMode, player, ponto )
-	for row in db:nrows("SELECT HIGHSCORE FROM SCORE WHERE CODPLA = "..player.."") do
-	    return row.FIRSTTIME
+function getHighScore( gameMode, player )
+	for row in db:nrows("SELECT HIGHSCORE FROM SCORE WHERE CODPLA = "..player.." AND CODMOD = '" .. gameMode .. "';") do
+		print( row.HIGHSCORE)
+	    return row.HIGHSCORE
 	end	
 end
 
@@ -75,21 +87,35 @@ function preencherTabelas(  )
 						INSERT INTO SCORE VALUES('ARCADE4-3NORMAL', 1, 0, 0, 0, 0);
 						INSERT INTO SCORE VALUES('ARCADE4-3HARD', 1, 0, 0, 0, 0);
 						INSERT INTO SCORE VALUES('ARCADE4-3INSANE', 1, 0, 0, 0, 0)]]
+	print( tablefill )
 	db:exec( tablefill )
 end
 
-function buscarPontos( gameMode,player )
+function buscarPontos( gameMode )
 	local i = 0
-	for row in db:nrows("SELECT S.CODMOD,S.CODPLA,P.NOMPLA FROM SCORE S,PLAYER P WHERE S.CODPLA = P.CODPLA AND S.CODMOD = " .. gameMode .. "AND S.CODPLA = " .. player) do
-	    local text = row.CODMOD .. " " .. row.CODPLA .. " " .. row.NOMPLA
-	    local t = display.newText( text, display.contentCenterX, i, nil, 12 )
-	    t:setFillColor( 1, 0, 1 )
-	    print( row.CODMOD, row.CODPLA, i)
-	    i = i + 15
+	local player = 1
+	for row in db:nrows("SELECT S.CODMOD,S.CODPLA,P.NOMPLA,S.LASTSCORE,S.HIGHSCORE,S.TOTALSCORE,S.TIMESPLAYED FROM SCORE S,PLAYER P WHERE S.CODPLA = P.CODPLA AND S.CODMOD = '" .. gameMode .. "'AND S.CODPLA = " .. player) do
+	    local result = 
+	    {
+	    	mode=row.CODMOD,
+	    	nome=row.NOMPLA,
+	    	lastScore=row.LASTSCORE,
+	    	highScore=row.HIGHSCORE,
+	    	totalScore=row.TOTALSCORE,
+	    	timesPlayed=row.TIMESPLAYED
+		}
+	    return result
 	end
 end
-buscarPontos("'ARCADE2-1EASY'",1)
-primeiroJogo(1)
+if primeiroJogo(1) then
+	preencherTabelas()
+end
+
+
+--submeterPontos("ARCADE2-1EASY",1,40)  --COMO SUBMETER PONTOS
+--print(buscarPontos("ARCADE3-1EASY",1).totalScore) --COMO BUSCAR PONTOS
+
+
 
 -- Print the table contents
 

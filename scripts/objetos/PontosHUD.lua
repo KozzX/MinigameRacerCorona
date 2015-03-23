@@ -104,7 +104,7 @@ function newPlayerList(  )
 	}
 	for i=1,tamanho() do
 		players[i] = getPlayerByIndex(i)
-		player = display.newText( textPontos )
+		player = display.newText( textPlayer )
 		if (getMainPlayer() == i) then
 			player:setFillColor(0.7, 0, 0)
 		else

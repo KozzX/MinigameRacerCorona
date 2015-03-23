@@ -19,5 +19,6 @@ GameThrive.Init("ffbb533a-cda8-11e4-b6af-57b077da72ef", "333630676875", DidRecei
 
 
 local composer = require "composer"
+local Database = require "scripts.util.Database"
 
 composer.gotoScene( "scripts.cenas.loading" )
