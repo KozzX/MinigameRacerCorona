@@ -42,28 +42,43 @@ function scene:show( event )
 		grupoMenu = display.newGroup( )
 		local players = getPlayerList()
 		local label
-		local btn2
-		local btn3
+		
+		
 		local i = 1
-		local function easy( event )
-  			composer.gotoScene( "scripts.cenas.arcade2-1.easy.easy", {effect = "fade",time = 300} )
-  			btn:removeEventListener( "tap", easy )
+		local j = 1
+		
+		if (getMainPlayer() > 7) then
+			i = getMainPlayer() - 7
+		elseif (getMainPlayer() > 6) then
+			i = getMainPlayer() - 6
+		elseif (getMainPlayer() > 5) then
+			i = getMainPlayer() - 5
+		elseif (getMainPlayer() > 4) then
+			i = getMainPlayer() - 4
+		elseif (getMainPlayer() > 3) then
+			i = getMainPlayer() - 3
+		elseif (getMainPlayer() > 2) then
+			i = getMainPlayer() - 2
+		elseif (getMainPlayer() > 1) then
+			i = getMainPlayer() - 1
 		end
 
-		
-		
 		function criarMenu (event)
-			label = display.newText( players[i].rank .. ") " .. players[i].nome .. " " .. players[i].score, display.contentWidth/2, posY(i+4), "Bitwise", 40)
-			label:setFillColor( 0,0,0 )
+			label = display.newText( players[i].rank .. ") " .. players[i].nome .. " " .. players[i].score, display.contentWidth/2, posY(j+3.5), "Bitwise", 25)
+			if(getMainPlayer() == i) then
+				label:setFillColor( 0.7,0,0 )
+			else
+				label:setFillColor( 0,0,0 )
+			end
 			label.anchorX = 0
 			label.alpha = 0
-			transition.moveTo( label, {x=posX(4), time=400} )
+			transition.moveTo( label, {x=posX(2), time=400} )
 			transition.to( label, {alpha=1, time=500} )
-			label:addEventListener( "tap", easy )
 			grupoMenu:insert(label)
 			i = i + 1
+			j = j + 1
 		end
-		timerMenu = timer.performWithDelay( 50, criarMenu ,#players )	
+		timerMenu = timer.performWithDelay( 50, criarMenu ,15 )	
 	end 	
 end
 

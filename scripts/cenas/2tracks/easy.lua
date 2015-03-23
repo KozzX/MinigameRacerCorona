@@ -16,6 +16,7 @@ local pista1
 local pista2
 local telaX = display.contentWidth
 local telaY = display.contentHeight
+local GAMEMODE = "2TRACKS-EASY"
 
 ---------------------------------------------------------------------------------
 
@@ -35,6 +36,8 @@ function scene:show( event )
         pista2 = Pista.new(posX(11),posY(0))
 
     elseif event.phase == "did" then
+    	
+    	
         local i = 1
         local j = 1
         local grupoObjetos = display.newGroup( )
@@ -53,12 +56,13 @@ function scene:show( event )
         local tempo = 0
         local target = 100
         local comecou = false
-        local faixa = display.newRect( posX(1),posX(0.5),display.contentWidth-posX(2), posY(2.7) )
+        local faixa = display.newRoundedRect( posX(1),posX(0.5),display.contentWidth-posX(2), posY(2.7),10 )
         faixa:setFillColor( 0.6,0,0 )
         faixa.anchorX = 0
         faixa.anchorY = 0
         
         grupoObjetos.alpha = 0
+        --grupoObjetos:insert(bg)
         grupoObjetos:insert(carro)
         grupoObjetos:insert(faixa)
         grupoPistas:insert(pista1)
@@ -85,12 +89,11 @@ function scene:show( event )
                 end
             end
         end
-        --Runtime:addEventListener( "touch", onTouch )
 
         if(logado == true) then
             pontosProximo = (getPlayerByIndex(getMainPlayer()-1).score)
         else
-            pontosProximo = 5
+            pontosProximo = buscarPontos(GAMEMODE).highScore
         end
         pontosDif.text = -(pontosProximo)
 
@@ -125,6 +128,11 @@ function scene:show( event )
             if tempo == target then
                 obstaculo1[i] = Carro.newObstaculo(math.random(2,3))
                 grupoObjetos:insert( obstaculo1[i] )
+
+                --obstaculo2[i] = Carro.newObstaculo(math.random(2,3))
+                --grupoObjetos:insert( obstaculo2[i] )
+                --obstaculo3[i] = Carro.newObstaculo(math.random(3,3))
+                --grupoObjetos:insert( obstaculo3[i] )
                 i = i + 1
                 tempo = 0
                 target = 40
@@ -140,12 +148,15 @@ function scene:show( event )
                     j = j + 1 
                     pontos.text = pontos.text + (1)
                     pontos.text = string.format( "%6.0f", pontos.text )
-                    pontosDif.text = pontos.text - pontosProximo
-                    pontosDif.text = string.format( "%6.0f", pontosDif.text )
                     pontos:toFront( )
                     pontosDif:toFront( )
                     if((pontos.text - pontosProximo) > 0) then
                         faixa:setFillColor(0,1,0)
+                        pontosDif.text = "SUCCESS"
+                    else
+                    	pontosDif.text = pontos.text - pontosProximo
+                    	pontosDif.text = string.format( "%6.0f", pontosDif.text )
+
                     end
                 end
             end
@@ -158,27 +169,60 @@ function scene:show( event )
                 local hit = event.object2
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
-                    showInter( )
+                	local pts = tonumber(pontos.text)
                     Runtime:removeEventListener( "touch", onTouch )
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )
                     Runtime:removeEventListener( "enterFrame", carregarObstaculo )
                     Runtime:removeEventListener("enterFrame",somarPontos)
                     transition.pause(obstaculo1[i])
+                    submeterPontos(GAMEMODE,pts)
                     pista1:pause( )
                     pista2:pause( )
                     explosao = Explosao.new(carro.x,carro.y)
                     carro.isVisible = false
                     grupoObjetos:insert(explosao)
-                    local botao = Botao.newPlayButton()
-                    transition.to( botao, {alpha=1, time=200} )
-                    
-                    function nextScene ( event )
-                        composer.gotoScene( "scripts.cenas.mainmenu", { effect = "fade", time = 300 } )
+                    local table = display.newRoundedRect( display.contentWidth,display.contentHeight / 25 * 4,display.contentWidth / 16 * 14, display.contentHeight/25*15,10 )
+					table.anchorY = 0
+					table.stroke = {0,0,0}
+					table.strokeWidth = 4
+					table:setFillColor( 0.7,0.7,0.7 )
+                    transition.to( table, {x=display.contentCenterX,alpha=0.85, time=400} )
+
+					local scoreLabel = display.newText( "Score", display.contentWidth + posX(5), posY(6), "Bitwise", 40)
+					scoreLabel:setFillColor( 0,0,0 )
+					local bestLabel = display.newText( "Best", display.contentWidth + posX(11), posY(6), "Bitwise", 40)
+					bestLabel:setFillColor( 0,0,0 )
+
+					local score = display.newText( buscarPontos(GAMEMODE).lastScore, display.contentWidth + posX(5), posY(10), "Bitwise", 70)
+					score:setFillColor( 0,0,0 )
+					local best = display.newText( buscarPontos(GAMEMODE).highScore, display.contentWidth + posX(11), posY(10), "Bitwise", 70)
+					best:setFillColor( 0,0,0 )
+
+					bestLabel.alpha,best.alpha,scoreLabel.alpha,score.alpha = 0,0,0,0
+					transition.moveTo( scoreLabel, {x=posX(5), time=400} )
+					transition.moveTo( bestLabel, {x=posX(11), time=400} )
+					transition.moveTo( score, {x=posX(5), time=400} )
+					transition.moveTo( best, {x=posX(11), time=400} )
+					transition.to( scoreLabel, {alpha=1, time=1000} )
+					transition.to( bestLabel, {alpha=1, time=1000} )
+					transition.to( score, {alpha=1, time=1000} )
+					transition.to( best, {alpha=1, time=1000} )
+
+                    grupoObjetos:insert(table)
+                    grupoObjetos:insert(scoreLabel)
+                    grupoObjetos:insert(bestLabel)
+                    grupoObjetos:insert(score)
+                    grupoObjetos:insert(best)
+                    local botaoResult
+
+                    function result( event )
+                        composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300 } )
                         display.remove(grupoObjetos)
-                        botao:removeEventListener( "tap", nextScene )
-                        display.remove( botao )
+                        botaoResult:removeEventListener( "tap", result )
+                        display.remove( botaoResult )
                     end
-                    botao:addEventListener( "tap", nextScene )
+                    botaoResult = Botao.newPlayButton("Next",display.contentHeight / 25 * 16)
+                    botaoResult:addEventListener( "tap", result )
                     Runtime:removeEventListener( "collision", onCollision )
                 end
             end

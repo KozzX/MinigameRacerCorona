@@ -6,8 +6,21 @@ local ids = {}
 local idName = {}
 local score = {}
 local rank = {}
-local 
-globalGoogleScore = 5
+
+local IDLEADERBOARDS = {
+	tracks2easy="CgkIi7_A79oJEAIQBQ",
+  	tracks2normal="CgkIi7_A79oJEAIQEw",
+  	tracks2hard="CgkIi7_A79oJEAIQDA",
+  	tracks2insane="CgkIi7_A79oJEAIQDQ",
+  	tracks3easy="CgkIi7_A79oJEAIQDw",
+  	tracks3normal="CgkIi7_A79oJEAIQEQ",
+  	tracks3hard="CgkIi7_A79oJEAIQEA",
+  	tracks3insane="CgkIi7_A79oJEAIQEg",
+  	tracks4easy="CgkIi7_A79oJEAIQFA",
+  	tracks4normal="CgkIi7_A79oJEAIQFQ",
+  	tracks4hard="CgkIi7_A79oJEAIQFg",
+  	tracks4insane="CgkIi7_A79oJEAIQFw"
+}
 
 function gameNetworkSetup()
    if ( system.getInfo("platformName") == "Android" ) then
@@ -18,7 +31,7 @@ function gameNetworkSetup()
 end
 
 function loginGooglePlay(event)
-   gameNetwork.request( "login", { userInitiated=true, listener=loadHighScore } )
+   gameNetwork.request( "login", { userInitiated=true , listener=loadHighScore } )
 end
 
 function loginGooglePlayCallback( event )
@@ -66,7 +79,7 @@ function loadHighScore(  )
 			category="CgkIi7_A79oJEAIQDA", 
 			playerScope = "Global",
 			timeScope = "AllTime",
-			range = { 1,30 },
+			range = { 1,10 },
             playerCentered = true
 		},
 		listener = showHighScore

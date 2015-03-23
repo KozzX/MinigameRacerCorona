@@ -16,7 +16,7 @@ local pista1
 local pista2
 local telaX = display.contentWidth
 local telaY = display.contentHeight
-local GAMEMODE = "ARCADE2-1EASY"
+local GAMEMODE = "2TRACKS-HARD"
 
 ---------------------------------------------------------------------------------
 
@@ -170,8 +170,6 @@ function scene:show( event )
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
                 	local pts = tonumber(pontos.text)
-                    showInter()
-                    showBanner()
                     Runtime:removeEventListener( "touch", onTouch )
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )
                     Runtime:removeEventListener( "enterFrame", carregarObstaculo )

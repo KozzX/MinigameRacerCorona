@@ -7,7 +7,7 @@ local Google = require("scripts.util.Google")
 local Explosao = require("scripts.objetos.Explosao")
 local googleInfo = require( "scripts.util.googleInfo" )
 local composer = require( "composer" )
-local Admob = require( "scripts.util.Admob" )
+
 
 local scene = composer.newScene(  )
 local explosao
@@ -16,7 +16,6 @@ local explosao
 
 function scene:create( event )
     local sceneGroup = self.view
-    init()
 
 end
 

@@ -47,8 +47,6 @@ function scene:show( event )
 	local group = self.view
 
 	if event.phase == "will" then
-		loadInter()
-		showBanner()
 
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
@@ -57,7 +55,7 @@ function scene:show( event )
 		local btn3
 		local i = 1
 		local function play( event )
-  			composer.gotoScene( "scripts.cenas.menuarcade", {effect = "slideLeft",time = 300} )
+  			composer.gotoScene( "scripts.cenas.menutrack", {effect = "slideLeft",time = 300} )
   			btn:removeEventListener( "tap", play )
 		end
 		local function leaderboards ( event )

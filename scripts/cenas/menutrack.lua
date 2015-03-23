@@ -4,6 +4,7 @@ local Botao = require( "scripts.objetos.Botao" )
 
 local grupoMenu
 
+
 ---------------------------------------------------------------------------------
 -- SCENE EVENTS
 ---------------------------------------------------------------------------------
@@ -13,7 +14,7 @@ function scene:create( event )
 	local group = self.view
 	local bg = display.newImage( "images/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( "ARCADE 4-1", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+	local title1 = display.newText( "PLAY", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
 	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
 	title1:setFillColor( 0,0,0 )
 	--title2:setFillColor( 0,0,0 )
@@ -43,53 +44,45 @@ function scene:show( event )
 		local btn2
 		local btn3
 		local i = 1
-		local function easy( event )
-  			composer.gotoScene( "scripts.cenas.arcade4-1.easy", {effect = "fade",time = 300} )
-  			btn:removeEventListener( "tap", easy )
+		local function tracks2( event )
+  			composer.gotoScene( "scripts.cenas.2tracks.menu", {effect = "slideLeft",time = 300} )
+  			btn:removeEventListener( "tap", tracks2 )
 		end
-		local function normal( event )
-  			composer.gotoScene( "scripts.cenas.arcade4-1.normal", {effect = "fade",time = 300} )
-  			btn2:removeEventListener( "tap", normal )
+		local function tracks3( event )
+  			composer.gotoScene( "scripts.cenas.3tracks.menu", {effect = "slideLeft",time = 300} )
+  			btn2:removeEventListener( "tap", tracks3 )
 		end
-		local function hard( event )
-  			composer.gotoScene( "scripts.cenas.arcade4-1.hard", {effect = "fade",time = 300} )
-  			btn3:removeEventListener( "tap", hard )
-		end
-		local function insane( event )
-  			composer.gotoScene( "scripts.cenas.arcade4-1.insane", {effect = "fade",time = 300} )
-  			btn4:removeEventListener( "tap", insane )
+		local function tracks4( event )
+  			composer.gotoScene( "scripts.cenas.4tracks.menu", {effect = "slideLeft",time = 300} )
+  			btn3:removeEventListener( "tap", tracks4 )
 		end
 		local function back( event )
-  			composer.gotoScene( "scripts.cenas.menuarcade", {effect = "slideRight",time = 300} )
-  			btn5:removeEventListener( "tap", back )
+  			composer.gotoScene( "scripts.cenas.mainmenu", {effect = "slideRight",time = 300} )
+  			btn4:removeEventListener( "tap", back )
 		end
 		
 		
 		function criarMenu (event)
 			if i == 1 then
-				btn = Botao.newPlayButton("Easy",display.contentHeight / 25 * 5)
-				btn:addEventListener( "tap", easy )
+				btn = Botao.newPlayButton("2 Tracks",display.contentHeight / 25 * 5)
+				btn:addEventListener( "tap", tracks2 )
 				grupoMenu:insert( btn )
 			elseif i == 2 then
-				btn2 = Botao.newPlayButton("Normal",display.contentHeight / 25 * 7.3)
-				btn2:addEventListener( "tap", normal )
+				btn2 = Botao.newPlayButton("3 Tracks",display.contentHeight / 25 * 7.3)
+				btn2:addEventListener( "tap", tracks3 )
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
-				btn3 = Botao.newPlayButton("Hard",display.contentHeight / 25 * 9.6)
-				btn3:addEventListener( "tap", hard )
+				btn3 = Botao.newPlayButton("4 Tracks",display.contentHeight / 25 * 9.6)
+				btn3:addEventListener( "tap", tracks4 )
 				grupoMenu:insert( btn3 )
 			elseif i == 4 then
-				btn4 = Botao.newPlayButton("Insane",display.contentHeight / 25 * 11.9)
-				btn4:addEventListener( "tap", insane )
+				btn4 = Botao.newPlayButton("Back",display.contentHeight / 25 * 18.8)
+				btn4:addEventListener( "tap", back )
 				grupoMenu:insert( btn4 )
-			elseif i == 5 then
-				btn5 = Botao.newPlayButton("Back",display.contentHeight / 25 * 14.2)
-				btn5:addEventListener( "tap", back )
-				grupoMenu:insert( btn5 )
 			end
 			i = i + 1
 		end
-		timerMenu = timer.performWithDelay( 50, criarMenu ,5 )	
+		timerMenu = timer.performWithDelay( 50, criarMenu ,7 )	
 	end 	
 end
 

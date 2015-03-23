@@ -13,7 +13,7 @@ function scene:create( event )
 	local group = self.view
 	local bg = display.newImage( "images/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( "ARCADE 3-1", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+	local title1 = display.newText( "2 Tracks", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
 	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
 	title1:setFillColor( 0,0,0 )
 	--title2:setFillColor( 0,0,0 )
@@ -44,23 +44,23 @@ function scene:show( event )
 		local btn3
 		local i = 1
 		local function easy( event )
-  			composer.gotoScene( "scripts.cenas.arcade3-1.easy", {effect = "fade",time = 300} )
+  			composer.gotoScene( "scripts.cenas.2tracks.easy", {effect = "fade",time = 300} )
   			btn:removeEventListener( "tap", easy )
 		end
 		local function normal( event )
-  			composer.gotoScene( "scripts.cenas.arcade3-1.normal", {effect = "fade",time = 300} )
+  			composer.gotoScene( "scripts.cenas.2tracks.normal", {effect = "fade",time = 300} )
   			btn2:removeEventListener( "tap", normal )
 		end
 		local function hard( event )
-  			composer.gotoScene( "scripts.cenas.arcade3-1.hard", {effect = "fade",time = 300} )
+  			composer.gotoScene( "scripts.cenas.2tracks.hard", {effect = "fade",time = 300} )
   			btn3:removeEventListener( "tap", hard )
 		end
 		local function insane( event )
-  			composer.gotoScene( "scripts.cenas.arcade3-1.insane", {effect = "fade",time = 300} )
+  			composer.gotoScene( "scripts.cenas.2tracks.insane", {effect = "fade",time = 300} )
   			btn4:removeEventListener( "tap", insane )
 		end
 		local function back( event )
-  			composer.gotoScene( "scripts.cenas.menuarcade", {effect = "slideRight",time = 300} )
+  			composer.gotoScene( "scripts.cenas.menutrack", {effect = "slideRight",time = 300} )
   			btn5:removeEventListener( "tap", back )
 		end
 		
@@ -83,7 +83,7 @@ function scene:show( event )
 				btn4:addEventListener( "tap", insane )
 				grupoMenu:insert( btn4 )
 			elseif i == 5 then
-				btn5 = Botao.newPlayButton("Back",display.contentHeight / 25 * 14.2)
+				btn5 = Botao.newPlayButton("Back",display.contentHeight / 25 * 18.8)
 				btn5:addEventListener( "tap", back )
 				grupoMenu:insert( btn5 )
 			end
