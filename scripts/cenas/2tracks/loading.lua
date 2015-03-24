@@ -45,8 +45,6 @@ function scene:show( event )
             tentativas = tentativas + 1
         end
         timerstart = timer.performWithDelay( 1000, start, -1 )
-
-    
     end 
 end
 
