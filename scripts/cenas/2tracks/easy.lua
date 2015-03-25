@@ -36,7 +36,7 @@ function scene:show( event )
         pista2 = Pista.new(posX(11),posY(0))
 
     elseif event.phase == "did" then
-    	
+    	native.showAlert( "iniciando", "iniciando", { "Ok"})
     	
         local i = 1
         local j = 1
@@ -73,30 +73,7 @@ function scene:show( event )
         grupoHUD:insert(pontosNome)
         grupoHUD:insert(pontosDifNome)
 
-        function onTouch(event)
-            if(event.phase == "began") then
-                if (event.x < telaX / 2) and (carro.x >= posX(6)) then
-                    pontos.text = pontos.text + (1)
-                    pontosDif.text = pontos.text - pontosProximo
-                    transition.moveTo( carro, {x = carro.x - posX(3), y = carro.y, time = 50} )
-                elseif (event.x > telaX / 2) and (carro.x <= posX(7)) then
-                    pontos.text = pontos.text + (1)
-                    pontosDif.text = pontos.text - pontosProximo
-                    transition.moveTo( carro, {x = carro.x + posX(3), y = carro.y, time = 50} )
-                end
-                if((pontos.text - pontosProximo) > 0) then
-                    faixa:setFillColor(0,1,0)
-                end
-            end
-        end
-
-        if(carregado == true) then
-            pontosProximo = (getPlayerByIndex(getMainPlayer()-1).score)
-        else
-            pontosProximo = buscarPontos(GAMEMODE).highScore
-        end
-        pontosDif.text = -(pontosProximo)
-        
+        native.showAlert( "Antes Começar", "Antes Começar", { "Ok"})
         function comecar()
             pontos.text = 0
 
@@ -120,6 +97,36 @@ function scene:show( event )
         end
         comecar()
         --Runtime:addEventListener("tap",comecar)
+
+        native.showAlert( "Antes ontouch", "Antes ontouch", { "Ok"})
+
+        function onTouch(event)
+            if(event.phase == "began") then
+                if (event.x < telaX / 2) and (carro.x >= posX(6)) then
+                    pontos.text = pontos.text + (1)
+                    pontosDif.text = pontos.text - pontosProximo
+                    transition.moveTo( carro, {x = carro.x - posX(3), y = carro.y, time = 50} )
+                elseif (event.x > telaX / 2) and (carro.x <= posX(7)) then
+                    pontos.text = pontos.text + (1)
+                    pontosDif.text = pontos.text - pontosProximo
+                    transition.moveTo( carro, {x = carro.x + posX(3), y = carro.y, time = 50} )
+                end
+                if((pontos.text - pontosProximo) > 0) then
+                    faixa:setFillColor(0,1,0)
+                end
+            end
+        end
+
+        if(carregado == true) then
+            pontosProximo = (getPlayerByIndex(getMainPlayer()-1).score)
+        else
+            pontosProximo = buscarPontos(GAMEMODE).highScore
+        end
+        pontosDif.text = -(pontosProximo)
+
+        
+        
+
 
         function carregarObstaculo( event )
             if comecou == false then
