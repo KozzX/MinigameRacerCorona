@@ -41,7 +41,7 @@ function scene:show( event )
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
 
-		if(logado == true) then
+		if(carregado == true) then
 			local players = getPlayerList()
 			local label
 		

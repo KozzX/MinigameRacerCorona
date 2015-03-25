@@ -90,14 +90,14 @@ function scene:show( event )
             end
         end
 
-        if(logado == true) then
+        if(carregado == true) then
             pontosProximo = (getPlayerByIndex(getMainPlayer()-1).score)
         else
             pontosProximo = buscarPontos(GAMEMODE).highScore
         end
         pontosDif.text = -(pontosProximo)
-
-        function comecar(event)
+        
+        function comecar()
             pontos.text = 0
 
             function adicionarControle()
@@ -118,7 +118,8 @@ function scene:show( event )
             
             Runtime:removeEventListener("tap",comecar) 
         end
-        Runtime:addEventListener("tap",comecar)
+        comecar()
+        --Runtime:addEventListener("tap",comecar)
 
         function carregarObstaculo( event )
             if comecou == false then

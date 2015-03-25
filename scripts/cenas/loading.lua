@@ -30,19 +30,19 @@ function scene:show( event )
         local tentativas = 0
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         sceneGroup:insert(explosao) 
-        gameNetworkSetup()
+        --gameNetworkSetup()
         
         function start( event )
             if(logado==true) then
                 composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
                 timer.cancel( timerstart )
             end
-            if (logado ~= true) and (tentativas >= 1) then
-                logado = false
-                composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
-                timer.cancel( timerstart )
-            end
-            tentativas = tentativas + 1
+            --if (logado ~= true) and (tentativas >= 1) then
+            --    logado = false
+            --    composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
+            --    timer.cancel( timerstart )
+            --end
+            --tentativas = tentativas + 1
         end
         timerstart = timer.performWithDelay( 1000, start, -1 )
 

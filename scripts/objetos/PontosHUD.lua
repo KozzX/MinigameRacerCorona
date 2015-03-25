@@ -27,7 +27,7 @@ function newPontosNome(  )
 	pontosNome.anchorY = 0
 	pontosNome.x = posX(2)
 	pontosNome.y = posY(2)
-	if logado == true then
+	if carregado == true then
 		local nome = getPlayerByIndex(getMainPlayer()).nome
 		local cont = 0
 		for i in string.gmatch(nome, "%S+") do
@@ -64,7 +64,7 @@ function newPontosDifNome( )
 	pontosDifNome.anchorY = 0
 	pontosDifNome.x = posX(2)
 	pontosDifNome.y = posY(0.8)
-	if(logado == true) then
+	if(carregado == true) then
 		local nome = getPlayerByIndex(getMainPlayer()-1).nome
 		local cont = 0
 		for i in string.gmatch(nome, "%S+") do

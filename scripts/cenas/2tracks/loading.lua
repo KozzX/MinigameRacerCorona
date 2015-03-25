@@ -3,14 +3,11 @@
 -- loading.lua
 --
 ---------------------------------------------------------------------------------
-local Google = require("scripts.util.Google")
-local Explosao = require("scripts.objetos.Explosao")
-local googleInfo = require( "scripts.util.googleInfo" )
 local composer = require( "composer" )
 
 
 local scene = composer.newScene(  )
-local explosao
+
 
 ---------------------------------------------------------------------------------
 
@@ -28,23 +25,16 @@ function scene:show( event )
         
     elseif phase == "did" then
         local tentativas = 0
-        explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
-        sceneGroup:insert(explosao) 
-        gameNetworkSetup()
-        
-        function start( event )
-            if(logado==true) then
-                composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
-                timer.cancel( timerstart )
+        --explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
+        --sceneGroup:insert(explosao) 
+        loadHighScore(IDLEADERBOARDS.tracks2hard)
+        function carregarGame (event)
+            if(carregado == true) then
+                composer.gotoScene( "scripts.cenas.2tracks.easy", {effect = "fade",time = 300} )
+                timer.cancel( timerGame )
             end
-            if (logado ~= true) and (tentativas >= 1) then
-                logado = false
-                composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
-                timer.cancel( timerstart )
-            end
-            tentativas = tentativas + 1
         end
-        timerstart = timer.performWithDelay( 1000, start, -1 )
+        timerGame = timer.performWithDelay( 1000, carregarGame, -1 )
     end 
 end
 
@@ -59,8 +49,8 @@ function scene:hide( event )
         -- e.g. stop timers, stop animation, unload sounds, etc.)
     elseif phase == "did" then
         -- Called when the scene is now off screen
-        explosao:removeSelf( )
-        explosao = nil
+        --explosao:removeSelf( )
+        --explosao = nil
     end 
 end
 
