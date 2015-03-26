@@ -1,7 +1,7 @@
 local gameNetwork = require( "gameNetwork" )
 local googleInfo = require( "scripts.util.googleInfo" )
 local widget = require("widget")
-logado = true
+logado = false
 carregado = false
 local ids = {}
 local idName = {}
@@ -32,8 +32,8 @@ function gameNetworkSetup()
 end
 
 function loginGooglePlay(event)
-    gameNetwork.request( "login", { userInitiated=true , listener=loadHighScore } )
-	--logado = true
+    gameNetwork.request( "login", { userInitiated=true })--, listener=loadHighScore } )
+	logado = true
 end
 
 function loginGooglePlayCallback( event )
@@ -73,12 +73,12 @@ function showHighScore( event )
 end
 
 
-function loadHighScore(  )
+function loadHighScore( table )
 	gameNetwork.request("loadScores", 
 	{
 		leaderboard = 
 		{
-			category="CgkIi7_A79oJEAIQDA", 
+			category=table, 
 			playerScope = "Global",
 			timeScope = "AllTime",
 			range = { 1,10 },
@@ -90,7 +90,7 @@ end
 
 function loadPlayer( event )
 	setMainPlayer(event.data.playerID,event.data.alias)
-	logado = true
+	carregado = true
 end
 
 function logoutGooglePlay()

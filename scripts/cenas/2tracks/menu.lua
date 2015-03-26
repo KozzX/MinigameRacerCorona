@@ -44,7 +44,7 @@ function scene:show( event )
 		local btn3
 		local i = 1
 		local function easy( event )
-  			composer.gotoScene( "scripts.cenas.2tracks.easy", {effect = "fade",time = 300} )
+  			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300} )
   			btn:removeEventListener( "tap", easy )
 		end
 		local function normal( event )

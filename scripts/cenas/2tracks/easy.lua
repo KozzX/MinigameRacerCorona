@@ -36,7 +36,7 @@ function scene:show( event )
         pista2 = Pista.new(posX(11),posY(0))
 
     elseif event.phase == "did" then
-    	native.showAlert( "iniciando", "iniciando", { "Ok"})
+    	
     	
         local i = 1
         local j = 1
@@ -73,7 +73,6 @@ function scene:show( event )
         grupoHUD:insert(pontosNome)
         grupoHUD:insert(pontosDifNome)
 
-        native.showAlert( "Antes Começar", "Antes Começar", { "Ok"})
         function comecar()
             pontos.text = 0
 
@@ -95,10 +94,9 @@ function scene:show( event )
             
             Runtime:removeEventListener("tap",comecar) 
         end
-        comecar()
-        --Runtime:addEventListener("tap",comecar)
+        Runtime:addEventListener("tap",comecar)
 
-        native.showAlert( "Antes ontouch", "Antes ontouch", { "Ok"})
+    
 
         function onTouch(event)
             if(event.phase == "began") then
