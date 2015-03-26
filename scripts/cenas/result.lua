@@ -41,10 +41,15 @@ function scene:show( event )
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 		if(carregado == true) then
 			local players = getPlayerList()
 			local label
+=======
+		local players = getPlayerList()
+		local label
+>>>>>>> parent of e49aadd... Commit
 =======
 		local players = getPlayerList()
 		local label
