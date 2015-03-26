@@ -46,7 +46,18 @@ function scene:show( event )
         end
         timerstart = timer.performWithDelay( 1000, start, -1 )
 
-    
+        local function verificar( event )
+            if event.action == "clicked" then
+                local i = event.index
+                if i == 1 then
+                
+                elseif i == 2 then
+                    composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
+                    timer.cancel( timerstart )
+                end
+            end
+        end 
+        --native.showAlert( "Minigame Racer","Para que todos os recursos do jogo estejam disponíveis, é necessário fazer o login com o Google Play Games", { "Login","Cancel" }, verificar)             
     end 
 end
 
