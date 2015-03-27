@@ -29,13 +29,13 @@ function newPontosNome(  )
 	pontosNome.y = posY(2)
 	if carregado == true then
 		local nome = getPlayerByIndex(getMainPlayer()).nome
-		local cont = 0
-		for i in string.gmatch(nome, "%S+") do
-			if cont == 0 then
-				nome = i
-			end
-			cont = 1
-		end
+		--local cont = 0
+		--for i in string.gmatch(nome, "%S+") do
+		--	if cont == 0 then
+		--		nome = i
+		--	end
+		--	cont = 1
+		--end
 		pontosNome.text = getPlayerByIndex(getMainPlayer()).rank .. ") " .. nome		
 	else
 		pontosNome.text = "Você"
@@ -60,20 +60,26 @@ end
 function newPontosDifNome( )
 
 	local pontosDifNome = display.newText( textNome )
+	local mainPlayerIndex
 	pontosDifNome.anchorX = 0
 	pontosDifNome.anchorY = 0
 	pontosDifNome.x = posX(2)
 	pontosDifNome.y = posY(0.8)
 	if(carregado == true) then
-		local nome = getPlayerByIndex(getMainPlayer()-1).nome
-		local cont = 0
-		for i in string.gmatch(nome, "%S+") do
-			if cont == 0 then
-				nome = i
-			end
-			cont = 1
+		if (getMainPlayer()>1) then
+			mainPlayerIndex = getMainPlayer()-1
+		else
+			mainPlayerIndex = getMainPlayer()
 		end
-		pontosDifNome.text = getPlayerByIndex(getMainPlayer()-1).rank .. ") " .. nome
+		local nome = getPlayerByIndex(mainPlayerIndex).nome
+		--local cont = 0
+		--for i in string.gmatch(nome, "%S+") do
+		--	if cont == 0 then
+		--		nome = i
+		--	end
+		--	cont = 1
+		--end
+		pontosDifNome.text = getPlayerByIndex(mainPlayerIndex).rank .. ") " .. nome
 	else
 		pontosDifNome.text = "Melhor"
 	end

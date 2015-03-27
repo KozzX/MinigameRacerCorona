@@ -26,6 +26,7 @@ function setMainPlayer( ids,nomes )
 end
 
 function getMainPlayer(  )
+	native.showAlert( "Main Player", mainPlayer.index, { "Ok" } )
 	return mainPlayer.index
 end
 

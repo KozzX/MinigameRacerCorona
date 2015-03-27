@@ -31,6 +31,7 @@ function scene:show( event )
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         sceneGroup:insert(explosao) 
         gameNetworkSetup()
+
         
         function start( event )
             if(logado==true) then

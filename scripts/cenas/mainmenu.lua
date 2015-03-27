@@ -47,6 +47,7 @@ function scene:show( event )
 	local group = self.view
 
 	if event.phase == "will" then
+		
 
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )

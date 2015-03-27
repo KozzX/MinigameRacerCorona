@@ -31,15 +31,21 @@ function gameNetworkSetup()
    end
 end
 
-function loginGooglePlay(event)
-    gameNetwork.request( "login", { userInitiated=true })--, listener=loadHighScore } )
-	logado = true
+function loginGooglePlayCallback( event )
+	if event.isError then 
+		logado = false
+		native.showAlert( "Error", "Não foi possível conectar ao Google Play Services. Favor verificar sua conexão e tentar novamente", { 'Ok' } )		
+	else
+		logado = true
+	end
 end
 
-function loginGooglePlayCallback( event )
-	gameNetwork.request( "loadLocalPlayer", { listener=loadPlayer } )
-    return true
+function loginGooglePlay(event)
+    gameNetwork.request( "login", { userInitiated=true , listener=loginGooglePlayCallback } )
+	
 end
+
+
 
 function loadPlayerData( event )
 	for p=1, #event.data do
@@ -73,12 +79,12 @@ function showHighScore( event )
 end
 
 
-function loadHighScore( table )
+function loadHighScore( event )
 	gameNetwork.request("loadScores", 
 	{
 		leaderboard = 
 		{
-			category=table, 
+			category=event.data.category, 
 			playerScope = "Global",
 			timeScope = "AllTime",
 			range = { 1,10 },
@@ -99,9 +105,12 @@ function logoutGooglePlay()
       gameNetwork.request("logout")
    end
 end
+--function scoreCallback (event)
+--	if(event.data.category)
+--end
 
 function submitHighScore( leaderboard, pontos )	
-	gameNetwork.request( "setHighScore",{localPlayerScore = { category=leaderboard, value=pontos }})
+	gameNetwork.request( "setHighScore",{localPlayerScore = { category=leaderboard, value=pontos },listener=loadHighScore})
 end
 
 function showLeaderboards()

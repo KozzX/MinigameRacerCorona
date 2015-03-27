@@ -42,21 +42,27 @@ function scene:show( event )
 		local btn
 		local btn2
 		local btn3
+		local btn4
+		local btn5
 		local i = 1
 		local function easy( event )
-  			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300} )
+			--submitHighScore(IDLEADERBOARDS.tracks2easy,0)
+  			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2easy,cena="scripts.cenas.2tracks.easy"}} )
   			btn:removeEventListener( "tap", easy )
 		end
 		local function normal( event )
-  			composer.gotoScene( "scripts.cenas.2tracks.normal", {effect = "fade",time = 300} )
+			--submitHighScore(IDLEADERBOARDS.tracks2normal,0)
+  			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2normal,cena="scripts.cenas.2tracks.normal"}} )
   			btn2:removeEventListener( "tap", normal )
 		end
 		local function hard( event )
-  			composer.gotoScene( "scripts.cenas.2tracks.hard", {effect = "fade",time = 300} )
+			--submitHighScore(IDLEADERBOARDS.tracks2hard,0)
+  			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2hard,cena="scripts.cenas.2tracks.hard"}} )
   			btn3:removeEventListener( "tap", hard )
 		end
 		local function insane( event )
-  			composer.gotoScene( "scripts.cenas.2tracks.insane", {effect = "fade",time = 300} )
+			--submitHighScore(IDLEADERBOARDS.tracks2insane,0)
+  			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2insane,cena="scripts.cenas.2tracks.insane"}} )
   			btn4:removeEventListener( "tap", insane )
 		end
 		local function back( event )

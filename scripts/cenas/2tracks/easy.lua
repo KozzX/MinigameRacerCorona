@@ -116,7 +116,11 @@ function scene:show( event )
         end
 
         if(carregado == true) then
-            pontosProximo = (getPlayerByIndex(getMainPlayer()-1).score)
+            if (getMainPlayer()>1) then
+                pontosProximo = (getPlayerByIndex(getMainPlayer()-1).score)
+            else
+                pontosProximo = (getPlayerByIndex(getMainPlayer()).score) 
+            end   
         else
             pontosProximo = buscarPontos(GAMEMODE).highScore
         end

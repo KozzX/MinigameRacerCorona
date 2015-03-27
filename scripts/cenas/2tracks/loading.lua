@@ -19,6 +19,7 @@ end
 function scene:show( event )
     local sceneGroup = self.view
     local phase = event.phase
+    local params = event.params
 
     if phase == "will" then
         
@@ -27,10 +28,11 @@ function scene:show( event )
         local tentativas = 0
         --explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         --sceneGroup:insert(explosao) 
-        loadHighScore(IDLEADERBOARDS.tracks2hard)
+        submitHighScore(params.tabela,0)
+        --loadHighScore(params.tabela)
         function carregarGame (event)
             if(carregado == true) then
-                composer.gotoScene( "scripts.cenas.2tracks.easy", {effect = "fade",time = 300} )
+                composer.gotoScene( params.cena, {effect = "fade",time = 300} )
                 timer.cancel( timerGame )
             end
         end
