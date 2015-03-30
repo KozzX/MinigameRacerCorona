@@ -9,10 +9,10 @@ local score = {}
 local rank = {}
 
 IDLEADERBOARDS = {
-	tracks2easy="CgkIi7_A79oJEAIQBQ",
+	tracks2easy="CgkIi7_A79oJEAIQGA",
   	tracks2normal="CgkIi7_A79oJEAIQEw",
-  	tracks2hard="CgkIi7_A79oJEAIQDA",
-  	tracks2insane="CgkIi7_A79oJEAIQDQ",
+  	tracks2hard="CgkIi7_A79oJEAIQGQ",
+  	tracks2insane="CgkIi7_A79oJEAIQGg",
   	tracks3easy="CgkIi7_A79oJEAIQDw",
   	tracks3normal="CgkIi7_A79oJEAIQEQ",
   	tracks3hard="CgkIi7_A79oJEAIQEA",
@@ -67,9 +67,9 @@ end
 function showHighScore( event )
 
 	for i=1,#event.data do
-		ids[#ids+1]=event.data[i].playerID
-		rank[#rank+1]=event.data[i].rank
-		score[#score+1]=event.data[i].value-- / 1000
+		ids[i]=event.data[i].playerID
+		rank[i]=event.data[i].rank
+		score[i]=event.data[i].value-- / 1000
 	end
 	gameNetwork.request("loadPlayers",
 	{
@@ -109,7 +109,7 @@ end
 --	if(event.data.category)
 --end
 
-function submitHighScore( leaderboard, pontos )	
+function submitLoadScore( leaderboard, pontos )	
 	gameNetwork.request( "setHighScore",{localPlayerScore = { category=leaderboard, value=pontos },listener=loadHighScore})
 end
 

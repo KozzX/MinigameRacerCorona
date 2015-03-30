@@ -31,6 +31,7 @@ function scene:show( event )
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         sceneGroup:insert(explosao) 
         gameNetworkSetup()
+        --http://forums.coronalabs.com/topic/33356-check-for-internet-connection/
 
         
         function start( event )
@@ -38,7 +39,7 @@ function scene:show( event )
                 composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
                 timer.cancel( timerstart )
             end
-            --if (logado ~= true) and (tentativas >= 1) then
+            --if (logado ~= true) and (tentativas >= 5) then
             --    logado = false
             --    composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
             --    timer.cancel( timerstart )

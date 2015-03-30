@@ -111,6 +111,7 @@ function scene:show( event )
                 end
                 if((pontos.text - pontosProximo) > 0) then
                     faixa:setFillColor(0,1,0)
+                    pontosDif.text = "SUCCESS"
                 end
             end
         end
@@ -226,7 +227,8 @@ function scene:show( event )
                     local botaoResult
 
                     function result( event )
-                        composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300 } )
+                        --composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300 } )
+                        composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2normal, pontos=pts, cena="scripts.cenas.result"}} )
                         display.remove(grupoObjetos)
                         botaoResult:removeEventListener( "tap", result )
                         display.remove( botaoResult )

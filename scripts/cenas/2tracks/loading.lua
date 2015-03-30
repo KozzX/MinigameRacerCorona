@@ -4,6 +4,7 @@
 --
 ---------------------------------------------------------------------------------
 local composer = require( "composer" )
+local Explosao = require("scripts.objetos.Explosao")
 
 
 local scene = composer.newScene(  )
@@ -26,17 +27,26 @@ function scene:show( event )
         
     elseif phase == "did" then
         local tentativas = 0
-        --explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
-        --sceneGroup:insert(explosao) 
-        submitHighScore(params.tabela,0)
+        carregado = false
+        explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
+        sceneGroup:insert(explosao) 
+        submitLoadScore(params.tabela,params.pontos)
         --loadHighScore(params.tabela)
         function carregarGame (event)
             if(carregado == true) then
                 composer.gotoScene( params.cena, {effect = "fade",time = 300} )
+                display.remove( explosao )
                 timer.cancel( timerGame )
             end
+            --if (carregado ~= true) and (tentativas >= 1) then
+            --    carregado = false
+            --    composer.gotoScene( params.cena, {effect = "fade",time = 300} )
+            --    display.remove( explosao )
+            --    timer.cancel( timerGame )
+            --end
+            --tentativas = tentativas + 1
         end
-        timerGame = timer.performWithDelay( 1000, carregarGame, -1 )
+        timerGame = timer.performWithDelay( 200, carregarGame, -1 )
     end 
 end
 

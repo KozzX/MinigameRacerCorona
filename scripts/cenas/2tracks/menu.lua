@@ -47,7 +47,7 @@ function scene:show( event )
 		local i = 1
 		local function easy( event )
 			--submitHighScore(IDLEADERBOARDS.tracks2easy,0)
-  			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2easy,cena="scripts.cenas.2tracks.easy"}} )
+  			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2easy, pontos=0, cena="scripts.cenas.2tracks.easy"}} )
   			btn:removeEventListener( "tap", easy )
 		end
 		local function normal( event )

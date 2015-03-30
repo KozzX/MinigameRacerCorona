@@ -81,7 +81,15 @@ function scene:show( event )
 				j = j + 1
 			end
 			timerMenu = timer.performWithDelay( 50, criarMenu ,15 )	
-		end 	
+		end 
+		local btn
+		local function back( event )
+  			composer.gotoScene( "scripts.cenas.menutrack", {effect = "fade",time = 300} )
+  			btn:removeEventListener( "tap", back )
+  			display.remove( btn )
+		end
+		btn = Botao.newPlayButton("Back",display.contentHeight / 25 * 18.8)
+		btn:addEventListener( "tap", back )	
 	end
 end
 
