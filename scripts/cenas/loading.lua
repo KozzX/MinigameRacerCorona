@@ -6,6 +6,7 @@
 local Google = require("scripts.util.Google")
 local Explosao = require("scripts.objetos.Explosao")
 local googleInfo = require( "scripts.util.googleInfo" )
+local connection = require( "scripts.util.connection" )
 local composer = require( "composer" )
 
 
