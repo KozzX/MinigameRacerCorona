@@ -53,6 +53,9 @@ function scene:show( event )
         local pontosNome = Pontos.newPontosNome()
         local pontosDifNome = Pontos.newPontosDifNome()
         local pontosProximo = 0
+        local xCarro = 5
+        local contObs = 0
+        local velocidade = 2000
         local tempo = 0
         local target = 100
         local comecou = false
@@ -100,14 +103,16 @@ function scene:show( event )
 
         function onTouch(event)
             if(event.phase == "began") then
-                if (event.x < telaX / 2) and (carro.x >= posX(6)) then
+                if (event.x < telaX / 2) and (xCarro > 5) then
+                    xCarro = xCarro - 3
                     pontos.text = pontos.text + (1)
                     pontosDif.text = pontos.text - pontosProximo
-                    transition.moveTo( carro, {x = carro.x - posX(3), y = carro.y, time = 50} )
-                elseif (event.x > telaX / 2) and (carro.x <= posX(7)) then
+                    transition.moveTo( carro, {x = posX(xCarro), y = carro.y, time = 50} )
+                elseif (event.x > telaX / 2) and (xCarro < 8) then
+                    xCarro = xCarro + 3
                     pontos.text = pontos.text + (1)
                     pontosDif.text = pontos.text - pontosProximo
-                    transition.moveTo( carro, {x = carro.x + posX(3), y = carro.y, time = 50} )
+                    transition.moveTo( carro, {x = posX(xCarro), y = carro.y, time = 50} )
                 end
                 if((pontos.text - pontosProximo) > 0) then
                     faixa:setFillColor(0,1,0)
@@ -137,16 +142,23 @@ function scene:show( event )
             end
 
             if tempo == target then
-                obstaculo1[i] = Carro.newObstaculo(math.random(2,3))
+                obstaculo1[i] = Carro.newObstaculo(math.random(2,3),velocidade)
                 grupoObjetos:insert( obstaculo1[i] )
+                contObs = contObs + 1
 
-                --obstaculo2[i] = Carro.newObstaculo(math.random(2,3))
-                --grupoObjetos:insert( obstaculo2[i] )
-                --obstaculo3[i] = Carro.newObstaculo(math.random(3,3))
-                --grupoObjetos:insert( obstaculo3[i] )
                 i = i + 1
                 tempo = 0
-                target = 40
+                if(contObs == 1) then
+                    target = 100
+                end
+                if((contObs%1)==0) then
+                    target = target - 1
+                    --velocidade = velocidade - 100
+                end
+                if(target <= 34) then
+                    target = 34
+                end
+                
             end
             tempo = tempo + 1
             

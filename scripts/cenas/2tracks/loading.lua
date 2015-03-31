@@ -31,7 +31,6 @@ function scene:show( event )
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         sceneGroup:insert(explosao) 
         submitLoadScore(params.tabela,params.pontos)
-        --loadHighScore(params.tabela)
         function carregarGame (event)
             if(carregado == true) then
                 composer.gotoScene( params.cena, {effect = "fade",time = 300} )

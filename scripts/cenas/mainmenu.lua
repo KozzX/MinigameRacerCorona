@@ -71,22 +71,22 @@ function scene:show( event )
 		
 		function criarMenu (event)
 			if i == 1 then
-				btn = Botao.newPlayButton("Play",display.contentHeight / 25 * 5)
+				btn = Botao.newPlayButton(SPLAY,display.contentHeight / 25 * 5)
 				btn:addEventListener( "tap", play )
 				grupoMenu:insert( btn )
 			elseif i == 2 then
-				btn2 = Botao.newPlayButton("Options",display.contentHeight / 25 * 7.3)
+				btn2 = Botao.newPlayButton(SOPTIONS,display.contentHeight / 25 * 7.3)
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
-				btn3 = Botao.newPlayButton("Store",display.contentHeight / 25 * 9.6)
+				btn3 = Botao.newPlayButton(SSTORE,display.contentHeight / 25 * 9.6)
 				btn3:addEventListener( "tap", buy )
 				grupoMenu:insert( btn3 )
 			elseif i == 4 then
-				btn4 = Botao.newPlayButton("Leaderboards",display.contentHeight / 25 * 11.9)
+				btn4 = Botao.newPlayButton(SLEADERBOARD,display.contentHeight / 25 * 11.9)
 				btn4:addEventListener( "tap", leaderboards )
 				grupoMenu:insert( btn4 )
 			elseif i == 5 then
-				btn5 = Botao.newPlayButton("Achievements",display.contentHeight / 25 * 14.2)
+				btn5 = Botao.newPlayButton(SACHIEVEMENTS,display.contentHeight / 25 * 14.2)
 				btn5:addEventListener( "tap", achievements )
 				grupoMenu:insert( btn5 )
 			end

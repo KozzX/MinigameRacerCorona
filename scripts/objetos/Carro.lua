@@ -7,8 +7,8 @@ local function new( x,y )
 	carro.anchorX = 0
 	carro.anchorY = 0
 
-	carro.width = tamX(3)
-	carro.height = tamY(4)
+	--carro.width = tamX(3)
+	--carro.height = tamY(4)
 
 	return carro
 end
@@ -24,7 +24,7 @@ function newCarro( x,y )
 	return carro;
 end
 
-function newObstaculo( x )
+function newObstaculo( x,vel )
 	if x == 1 then
 		x = 2
 	elseif x == 2 then
@@ -38,7 +38,7 @@ function newObstaculo( x )
 	local obstaculoShape = {-10,-65, 10,-65, -10,-30, 10,-30, -40,-30, 40,-30, -40,65, 40,65}
 	physics.addBody( obstaculo, "dynamic", {isSensor = true, shape=obstaculoShape})
 	obstaculo.type = "obstaculo"
-	transition.moveTo( obstaculo, {x = obstaculo.x, y=posY(25), time = 1200, onComplete=removeObstaculo} )
+	transition.moveTo( obstaculo, {x = obstaculo.x, y=posY(25), time = vel, onComplete=removeObstaculo} )
 
 	function removeObstaculo(  )
 		display.remove(obstaculo)
