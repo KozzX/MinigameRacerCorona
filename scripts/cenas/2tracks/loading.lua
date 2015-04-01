@@ -32,8 +32,8 @@ function scene:show( event )
         sceneGroup:insert(explosao) 
         submitLoadScore(params.tabela,params.pontos)
         function carregarGame (event)
-            if(carregado == true) then
-                composer.gotoScene( params.cena, {effect = "fade",time = 300} )
+            if(carregado == false) then
+                composer.gotoScene( params.cena, {effect = "fade",time = 300, params={cena=params.retry} } )
                 display.remove( explosao )
                 timer.cancel( timerGame )
             end

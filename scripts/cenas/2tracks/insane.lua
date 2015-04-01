@@ -53,7 +53,10 @@ function scene:show( event )
         local pontosNome = Pontos.newPontosNome()
         local pontosDifNome = Pontos.newPontosDifNome()
         local pontosProximo = 0
+        local pontosMelhor = 0
         local xCarro = 5
+        local contObs = 0
+        local velocidade = 1200
         local tempo = 0
         local target = 100
         local comecou = false
@@ -63,7 +66,6 @@ function scene:show( event )
         faixa.anchorY = 0
         
         grupoObjetos.alpha = 0
-        --grupoObjetos:insert(bg)
         grupoObjetos:insert(carro)
         grupoObjetos:insert(faixa)
         grupoPistas:insert(pista1)
@@ -120,6 +122,7 @@ function scene:show( event )
         end
 
         if(carregado == true) then
+            pontosMelhor = (getPlayerByIndex(getMainPlayer()).score)
             if (getMainPlayer()>1) then
                 pontosProximo = (getPlayerByIndex(getMainPlayer()-1).score)
             else
@@ -140,16 +143,26 @@ function scene:show( event )
             end
 
             if tempo == target then
-                obstaculo1[i] = Carro.newObstaculo(math.random(2,3))
+                obstaculo1[i] = Carro.newObstaculo(math.random(2,3),velocidade)
                 grupoObjetos:insert( obstaculo1[i] )
+                contObs = contObs + 1
 
-                --obstaculo2[i] = Carro.newObstaculo(math.random(2,3))
-                --grupoObjetos:insert( obstaculo2[i] )
-                --obstaculo3[i] = Carro.newObstaculo(math.random(3,3))
-                --grupoObjetos:insert( obstaculo3[i] )
                 i = i + 1
                 tempo = 0
-                target = 40
+                if(contObs == 1) then
+                    target = 35
+                end
+                if((contObs%1)==0) then
+                    target = target - 1
+                    velocidade = velocidade - 20
+                end
+                if (velocidade <= 900) then
+                    velocidade = 900
+                end
+                if (target <= 19) then
+                    target = 19
+                end
+                
             end
             tempo = tempo + 1
             
@@ -230,8 +243,12 @@ function scene:show( event )
                     local botaoResult
 
                     function result( event )
-                        --composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300 } )
-                        composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2insane, pontos=pts, cena="scripts.cenas.result"}} )
+                        if pts > pontosMelhor then
+                            composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2insane, pontos=pts, cena="scripts.cenas.result", retry="scripts.cenas.2tracks.insane"}} )
+                        else 
+                            submitScore(IDLEADERBOARDS.tracks2insane,pts)   
+                            composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300, params={cena="scripts.cenas.2tracks.insane"}})
+                        end
                         display.remove(grupoObjetos)
                         botaoResult:removeEventListener( "tap", result )
                         display.remove( botaoResult )

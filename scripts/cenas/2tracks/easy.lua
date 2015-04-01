@@ -53,6 +53,7 @@ function scene:show( event )
         local pontosNome = Pontos.newPontosNome()
         local pontosDifNome = Pontos.newPontosDifNome()
         local pontosProximo = 0
+        local pontosMelhor = 0
         local xCarro = 5
         local contObs = 0
         local velocidade = 2000
@@ -65,7 +66,6 @@ function scene:show( event )
         faixa.anchorY = 0
         
         grupoObjetos.alpha = 0
-        --grupoObjetos:insert(bg)
         grupoObjetos:insert(carro)
         grupoObjetos:insert(faixa)
         grupoPistas:insert(pista1)
@@ -122,6 +122,7 @@ function scene:show( event )
         end
 
         if(carregado == true) then
+            pontosMelhor = (getPlayerByIndex(getMainPlayer()).score)
             if (getMainPlayer()>1) then
                 pontosProximo = (getPlayerByIndex(getMainPlayer()-1).score)
             else
@@ -239,8 +240,12 @@ function scene:show( event )
                     local botaoResult
 
                     function result( event )
-                        --composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300 } )
-                        composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2easy, pontos=pts, cena="scripts.cenas.result"}} )
+                        if pts > pontosMelhor then
+                            composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2easy, pontos=pts, cena="scripts.cenas.result", retry="scripts.cenas.2tracks.easy"}} )
+                        else 
+                            submitScore(IDLEADERBOARDS.tracks2easy,pts)   
+                            composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300, params={cena="scripts.cenas.2tracks.easy"}})
+                        end
                         display.remove(grupoObjetos)
                         botaoResult:removeEventListener( "tap", result )
                         display.remove( botaoResult )

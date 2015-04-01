@@ -35,6 +35,7 @@ end
 -- Called immediately after scene has moved onscreen:
 function scene:show( event )
 	local group = self.view
+	local params = event.params
 
 	if event.phase == "will" then
 
@@ -65,7 +66,7 @@ function scene:show( event )
 				i = getMainPlayer() - 1
 			end
 
-			function criarMenu (event)
+			local function carregarNomes (event)
 				label = display.newText( players[i].rank .. ") " .. players[i].nome .. " " .. players[i].score, display.contentWidth/2, posY(j+3.5), "Bitwise", 25)
 				if(getMainPlayer() == i) then
 					label:setFillColor( 0.7,0,0 )
@@ -79,17 +80,43 @@ function scene:show( event )
 				grupoMenu:insert(label)
 				i = i + 1
 				j = j + 1
+				if j >= 15 then
+					timer.cancel(timerNomes)
+				end
 			end
-			timerMenu = timer.performWithDelay( 50, criarMenu ,15 )	
+			timerNomes = timer.performWithDelay( 50, carregarNomes ,15 )	
 		end 
 		local btn
+		local btn2
+		local i = 1
+
 		local function back( event )
   			composer.gotoScene( "scripts.cenas.menutrack", {effect = "fade",time = 300} )
   			btn:removeEventListener( "tap", back )
+  			timer.cancel( timerMenu )
   			display.remove( btn )
 		end
-		btn = Botao.newPlayButton("Back",display.contentHeight / 25 * 18.8)
-		btn:addEventListener( "tap", back )	
+
+		local function retry( event )
+  			composer.gotoScene( params.cena, {effect = "fade",time = 300} )
+  			btn2:removeEventListener( "tap", retry )
+  			timer.cancel( timerMenu )
+  			display.remove( btn2 )
+		end
+
+		local function criarMenu (event)
+			if i == 1 then
+				btn = Botao.newPlayButton("Retry",display.contentHeight / 25 * 16.5)
+				btn:addEventListener( "tap", retry )
+				grupoMenu:insert( btn )
+			elseif i == 2 then
+				btn2 = Botao.newPlayButton("Menu",display.contentHeight / 25 * 18.8)
+				btn2:addEventListener( "tap", back )
+				grupoMenu:insert( btn2 )
+			end
+			i = i + 1
+		end
+		timerMenu = timer.performWithDelay( 50, criarMenu ,2 )	
 	end
 end
 
@@ -98,7 +125,7 @@ end
 function scene:hide( event )
 	local group = self.view
 	display.remove(grupoMenu)
-	timer.cancel( timerMenu )
+	
 end
 
 

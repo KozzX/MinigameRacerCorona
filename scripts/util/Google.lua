@@ -1,7 +1,7 @@
 local gameNetwork = require( "gameNetwork" )
 local googleInfo = require( "scripts.util.googleInfo" )
 local widget = require("widget")
-logado = false
+logado = true
 carregado = false
 local ids = {}
 local idName = {}
@@ -112,6 +112,10 @@ end
 
 function submitLoadScore( leaderboard, pontos )	
 	gameNetwork.request( "setHighScore",{localPlayerScore = { category=leaderboard, value=pontos },listener=loadHighScore})
+end
+
+function submitScore( leaderboard, pontos )	
+	gameNetwork.request( "setHighScore",{localPlayerScore = { category=leaderboard, value=pontos }})
 end
 
 function showLeaderboards()
