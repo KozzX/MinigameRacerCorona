@@ -30,7 +30,7 @@ function scene:show( event )
         carregado = false
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         sceneGroup:insert(explosao) 
-        if(connected()) then
+        if(connected()) and ( system.getInfo("platformName") == "Android" )  then
             submitLoadScore(params.tabela,params.pontos)
         else
             composer.gotoScene( params.cena, {effect = "fade",time = 300, params={cena=params.retry} } )

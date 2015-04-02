@@ -31,7 +31,7 @@ function scene:show( event )
         local tentativas = 0
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         sceneGroup:insert(explosao) 
-        if(connected()) then
+        if(connected()) and ( system.getInfo("platformName") == "Android" )  then
             gameNetworkSetup()
         end
         --http://forums.coronalabs.com/topic/33356-check-for-internet-connection/

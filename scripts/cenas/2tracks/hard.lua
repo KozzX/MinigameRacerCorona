@@ -145,6 +145,11 @@ function scene:show( event )
             if tempo == target then
                 obstaculo1[i] = Carro.newObstaculo(math.random(2,3),velocidade)
                 grupoObjetos:insert( obstaculo1[i] )
+                faixa:toFront( )
+                pontos:toFront( )
+                pontosDif:toFront( )
+                pontosNome:toFront( )
+                pontosDifNome:toFront( )
                 contObs = contObs + 1
 
                 i = i + 1
