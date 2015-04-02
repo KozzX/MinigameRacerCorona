@@ -30,13 +30,13 @@ function scene:show( event )
         carregado = false
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         sceneGroup:insert(explosao) 
-        if(connected()) and ( system.getInfo("platformName") == "Android" )  then
-            submitLoadScore(params.tabela,params.pontos)
-        else
-            composer.gotoScene( params.cena, {effect = "fade",time = 300, params={cena=params.retry} } )
-            display.remove( explosao )
-            --timer.cancel( timerGame )    
-        end
+        --if(connected()) and ( system.getInfo("platformName") == "Android" )  then
+        submitLoadScore(params.tabela,params.pontos)
+        --else
+        --    composer.gotoScene( params.cena, {effect = "fade",time = 300, params={cena=params.retry} } )
+        --    display.remove( explosao )
+        --    --timer.cancel( timerGame )    
+        --end
 
         function carregarGame (event)
             if(carregado == true) then
@@ -44,13 +44,13 @@ function scene:show( event )
                 display.remove( explosao )
                 timer.cancel( timerGame )
             end
-            --if (carregado ~= true) and (tentativas >= 1) then
-            --    carregado = false
-            --    composer.gotoScene( params.cena, {effect = "fade",time = 300} )
-            --    display.remove( explosao )
-            --    timer.cancel( timerGame )
-            --end
-            --tentativas = tentativas + 1
+            if (carregado ~= true) and (tentativas >= 20) then
+                carregado = false
+                composer.gotoScene( params.cena, {effect = "fade",time = 300} )
+                display.remove( explosao )
+                timer.cancel( timerGame )
+            end
+            tentativas = tentativas + 1
         end
         timerGame = timer.performWithDelay( 200, carregarGame, -1 )
     end 
