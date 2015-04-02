@@ -1,7 +1,7 @@
 local gameNetwork = require( "gameNetwork" )
 local googleInfo = require( "scripts.util.googleInfo" )
 local widget = require("widget")
-logado = true
+logado = false
 carregado = false
 local ids = {}
 local idName = {}

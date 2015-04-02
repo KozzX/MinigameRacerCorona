@@ -30,9 +30,16 @@ function scene:show( event )
         carregado = false
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         sceneGroup:insert(explosao) 
-        submitLoadScore(params.tabela,params.pontos)
+        if(connected()) then
+            submitLoadScore(params.tabela,params.pontos)
+        else
+            composer.gotoScene( params.cena, {effect = "fade",time = 300, params={cena=params.retry} } )
+            display.remove( explosao )
+            --timer.cancel( timerGame )    
+        end
+
         function carregarGame (event)
-            if(carregado == false) then
+            if(carregado == true) then
                 composer.gotoScene( params.cena, {effect = "fade",time = 300, params={cena=params.retry} } )
                 display.remove( explosao )
                 timer.cancel( timerGame )

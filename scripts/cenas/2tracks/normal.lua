@@ -56,7 +56,7 @@ function scene:show( event )
         local pontosMelhor = 0
         local xCarro = 5
         local contObs = 0
-        local velocidade = 2000
+        local velocidade = 1800
         local tempo = 0
         local target = 100
         local comecou = false
@@ -150,17 +150,17 @@ function scene:show( event )
                 i = i + 1
                 tempo = 0
                 if(contObs == 1) then
-                    target = 100
+                    target = 80
                 end
                 if((contObs%1)==0) then
                     target = target - 1
                     velocidade = velocidade - 20
                 end
-                if (velocidade <= 1500) then
-                    velocidade = 1500
+                if (velocidade <= 1250) then
+                    velocidade = 1250
                 end
-                if (target <= 26) then
-                    target = 26
+                if (target <= 25) then
+                    target = 25
                 end
                 
             end

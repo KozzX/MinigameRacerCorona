@@ -154,10 +154,13 @@ function scene:show( event )
                 end
                 if((contObs%1)==0) then
                     target = target - 1
-                    --velocidade = velocidade - 100
+                    velocidade = velocidade - 20
                 end
-                if(target <= 34) then
-                    target = 34
+                if (velocidade <= 1500) then
+                    velocidade = 1500
+                end
+                if (target <= 26) then
+                    target = 26
                 end
                 
             end

@@ -31,7 +31,9 @@ function scene:show( event )
         local tentativas = 0
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         sceneGroup:insert(explosao) 
-        gameNetworkSetup()
+        if(connected()) then
+            gameNetworkSetup()
+        end
         --http://forums.coronalabs.com/topic/33356-check-for-internet-connection/
 
         
@@ -40,27 +42,15 @@ function scene:show( event )
                 composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
                 timer.cancel( timerstart )
             end
-            --if (logado ~= true) and (tentativas >= 5) then
-            --    logado = false
-            --    composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
-            --    timer.cancel( timerstart )
-            --end
-            --tentativas = tentativas + 1
+            if (logado ~= true) and (tentativas >= 3) then
+                logado = false
+                composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
+                timer.cancel( timerstart )
+            end
+            tentativas = tentativas + 1
         end
         timerstart = timer.performWithDelay( 1000, start, -1 )
 
-        local function verificar( event )
-            if event.action == "clicked" then
-                local i = event.index
-                if i == 1 then
-                
-                elseif i == 2 then
-                    composer.gotoScene( "scripts.cenas.mainmenu",{ effect = "fade", time = 300 } )
-                    timer.cancel( timerstart )
-                end
-            end
-        end 
-        --native.showAlert( "Minigame Racer","Para que todos os recursos do jogo estejam disponíveis, é necessário fazer o login com o Google Play Games", { "Login","Cancel" }, verificar)             
     end 
 end
 
