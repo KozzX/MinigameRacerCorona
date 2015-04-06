@@ -97,7 +97,12 @@ end
 
 function loadPlayer( event )
 	setMainPlayer(event.data.playerID,event.data.alias)
-	carregado = true
+	--native.showAlert( "main", message [, { buttonLabels  [, listener]}, ] )
+	if(getMainPlayer()==nil) then
+		carregado = false
+	else
+		carregado = true
+	end
 end
 
 function logoutGooglePlay()
