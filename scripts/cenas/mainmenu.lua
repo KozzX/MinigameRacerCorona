@@ -3,6 +3,8 @@ local scene = composer.newScene()
 local Botao = require( "scripts.objetos.Botao" )
 local store = require( "plugin.google.iap.v3" )
 
+local verificou = false
+
 
 function loja( event )
 	local transaction = event.transaction
@@ -18,12 +20,22 @@ function loja( event )
         print( "Unknown event" )
     end
     store.finishTransaction( transaction )
+    verificou = true
+
 
 end
 store.init( "google", loja )
 
 store.restore( )
-showBanner()
+
+
+function verificar( event )
+	if (verificar==true) then
+		showBanner()
+		timer.cancel(timerVerificar)
+	end
+end
+timerVerificar = timer.performWithDelay( 1000, verificar, -1 )
 
 local grupoMenu
 

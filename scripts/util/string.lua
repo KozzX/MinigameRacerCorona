@@ -9,6 +9,10 @@ if(LANGUAGE == "en") then
 	S2TRACKS = "2 Pistas"
 	S3TRACKS = "3 Pistas"
 	S4TRACKS = "4 Pistas"
+	SEASY = "Facil"
+	SNORMAL = "Normal"
+	SHARD = "Dificil"
+	SINSANE = "Insano"
 elseif(LANGUAGE == "pt") then
 	SPLAY = "Jogar"
 	SOPTIONS = "Opcoes"
@@ -18,4 +22,8 @@ elseif(LANGUAGE == "pt") then
 	S2TRACKS = "2 Pistas"
 	S3TRACKS = "3 Pistas"
 	S4TRACKS = "4 Pistas"
+	SEASY = "Easy"
+	SNORMAL = "Normal"
+	SHARD = "Hard"
+	SINSANE = "Insane"
 end
