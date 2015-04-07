@@ -3,7 +3,6 @@ local scene = composer.newScene()
 local Botao = require( "scripts.objetos.Botao" )
 local store = require( "plugin.google.iap.v3" )
 
-local verificou = false
 
 
 function loja( event )
@@ -12,6 +11,7 @@ function loja( event )
     if ( transaction.state == "purchased" ) then
     	native.showAlert( "Success", "Transaction succuessful!", { "Ok"} )
     	propaganda = false
+    	hideBanner()
     elseif ( transaction.state == "cancelled" ) then
     	native.showAlert( "Cancelled", "User cancelled transaction", { "Ok"} )
     elseif ( transaction.state == "failed" ) then
@@ -20,22 +20,11 @@ function loja( event )
         print( "Unknown event" )
     end
     store.finishTransaction( transaction )
-    verificou = true
-
-
 end
 store.init( "google", loja )
 
 store.restore( )
-
-
-function verificar( event )
-	if (verificar==true) then
-		showBanner()
-		timer.cancel(timerVerificar)
-	end
-end
-timerVerificar = timer.performWithDelay( 1000, verificar, -1 )
+showBanner()
 
 local grupoMenu
 
