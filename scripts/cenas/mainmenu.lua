@@ -3,13 +3,27 @@ local scene = composer.newScene()
 local Botao = require( "scripts.objetos.Botao" )
 local store = require( "plugin.google.iap.v3" )
 
+
 function loja( event )
-    native.showAlert( "Foi", "Foi" , { "Ok"} )
+	local transaction = event.transaction
+
+    if ( transaction.state == "purchased" ) then
+    	native.showAlert( "Success", "Transaction succuessful!", { "Ok"} )
+    	propaganda = false
+    elseif ( transaction.state == "cancelled" ) then
+    	native.showAlert( "Cancelled", "User cancelled transaction", { "Ok"} )
+    elseif ( transaction.state == "failed" ) then
+    	native.showAlert( "Failed", transaction.errorType .. " " .. transaction.errorString, { "Ok"} )
+    else
+        print( "Unknown event" )
+    end
+    store.finishTransaction( transaction )
+
 end
 store.init( "google", loja )
 
-
-
+store.restore( )
+showBanner()
 
 local grupoMenu
 

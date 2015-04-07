@@ -103,6 +103,7 @@ end
 -- Called when scene is about to move offscreen:
 function scene:hide( event )
 	local group = self.view
+	hideBanner()
 	display.remove(grupoMenu)
 	timer.cancel( timerMenu )
 end

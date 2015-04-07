@@ -23,10 +23,9 @@ local Database = require "scripts.util.Database"
 local string = require( "scripts.util.string" )
 local Admob = require( "scripts.util.Admob" )
 
-local propaganda = true
+propaganda = true
 
-if(propaganda==true)then
-    init()
-end
+init()
+
 
 composer.gotoScene( "scripts.cenas.loading" )
