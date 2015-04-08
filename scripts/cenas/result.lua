@@ -85,7 +85,6 @@ function scene:show( event )
 				end
 			end
 			timerNomes = timer.performWithDelay( 50, carregarNomes ,15 )
-			GameThrive.TagPlayer( "Tipo", "1" )	
 		else
 			local labelMatch
 			local labelTotal
