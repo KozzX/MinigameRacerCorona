@@ -40,13 +40,13 @@ function scene:show( event )
 
         function carregarGame (event)
             if(carregado == true) then
-                composer.gotoScene( params.cena, {effect = "fade",time = 300, params={cena=params.retry} } )
+                composer.gotoScene( params.cena, {effect = "fade",time = 300, params={retry=params.retry, mode=params.mode} } )
                 display.remove( explosao )
                 timer.cancel( timerGame )
             end
             if (carregado ~= true) and (tentativas >= 20) then
                 carregado = false
-                composer.gotoScene( params.cena, {effect = "fade",time = 300} )
+                composer.gotoScene( params.cena, {effect = "fade",time = 300, params={retry=params.retry, mode=params.mode} } )
                 display.remove( explosao )
                 timer.cancel( timerGame )
             end

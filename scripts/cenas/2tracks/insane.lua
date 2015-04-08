@@ -129,6 +129,7 @@ function scene:show( event )
                 pontosProximo = (getPlayerByIndex(getMainPlayer()).score) 
             end   
         else
+            pontosMelhor  = buscarPontos(GAMEMODE).highScore
             pontosProximo = buscarPontos(GAMEMODE).highScore
         end
         pontosDif.text = -(pontosProximo)
@@ -249,10 +250,10 @@ function scene:show( event )
 
                     function result( event )
                         if pts > pontosMelhor then
-                            composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2insane, pontos=pts, cena="scripts.cenas.result", retry="scripts.cenas.2tracks.insane"}} )
+                            composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2insane, pontos=pts, cena="scripts.cenas.result", retry="scripts.cenas.2tracks.insane",mode=GAMEMODE}} )
                         else 
                             submitScore(IDLEADERBOARDS.tracks2insane,pts)   
-                            composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300, params={cena="scripts.cenas.2tracks.insane"}})
+                            composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300, params={retry="scripts.cenas.2tracks.insane",mode=GAMEMODE}})
                         end
                         display.remove(grupoObjetos)
                         botaoResult:removeEventListener( "tap", result )

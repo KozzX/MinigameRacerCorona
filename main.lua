@@ -27,5 +27,4 @@ propaganda = true
 
 init()
 
-
 composer.gotoScene( "scripts.cenas.loading" )

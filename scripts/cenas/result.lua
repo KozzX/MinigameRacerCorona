@@ -41,11 +41,11 @@ function scene:show( event )
 
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
-
+		print( params.retry )
 
 		if(carregado == true) then
 			local players = getPlayerList()
-			local label	
+			local labelPlayer	
 		
 			local i = 1
 			local j = 1
@@ -67,17 +67,17 @@ function scene:show( event )
 			end
 
 			local function carregarNomes (event)
-				label = display.newText( players[i].rank .. ") " .. players[i].nome .. " " .. players[i].score, display.contentWidth/2, posY(j+3.5), "Bitwise", 25)
+				labelPlayer = display.newText( players[i].rank .. ") " .. players[i].nome .. " " .. players[i].score, display.contentWidth/2, posY(j+3.5), "Bitwise", 25)
 				if(getMainPlayer() == i) then
-					label:setFillColor( 0.7,0,0 )
+					labelPlayer:setFillColor( 0.7,0,0 )
 				else
-					label:setFillColor( 0,0,0 )
+					labelPlayer:setFillColor( 0,0,0 )
 				end
-				label.anchorX = 0
-				label.alpha = 0
-				transition.moveTo( label, {x=posX(2), time=400} )
-				transition.to( label, {alpha=1, time=500} )
-				grupoMenu:insert(label)
+				labelPlayer.anchorX = 0
+				labelPlayer.alpha = 0
+				transition.moveTo( labelPlayer, {x=posX(2), time=400} )
+				transition.to( labelPlayer, {alpha=1, time=500} )
+				grupoMenu:insert(labelPlayer)
 				i = i + 1
 				j = j + 1
 				if j >= 15 then
@@ -85,7 +85,65 @@ function scene:show( event )
 				end
 			end
 			timerNomes = timer.performWithDelay( 50, carregarNomes ,15 )	
+		else
+			local labelMatch
+			local labelTotal
+			local labelAvg
+			local labelBest
+			local labelLast
+			local stats = buscarPontos(params.mode)
+
+			labelMatch = display.newText( "Matches:        " .. stats.timesPlayed, display.contentWidth/2, posY(4.5), "Bitwise", 35)
+			labelTotal = display.newText( "Total Points:    " .. stats.totalScore, display.contentWidth/2, posY(6.5), "Bitwise", 35)
+			labelAvg   = display.newText( "Average Points: " .. stats.totalScore/stats.timesPlayed, display.contentWidth/2, posY(8.5), "Bitwise", 35)
+			labelBest  = display.newText( "Best Score:      " .. stats.highScore, display.contentWidth/2, posY(10.5), "Bitwise", 35)
+			labelLast  = display.newText( "Last Score:      " .. stats.lastScore, display.contentWidth/2, posY(12.5), "Bitwise", 35)
+			
+			labelMatch.anchorX = 0
+			labelTotal.anchorX = 0 
+			labelAvg.anchorX = 0   
+			labelBest.anchorX = 0  
+			labelLast.anchorX = 0
+
+			labelMatch.alpha = 0
+			labelTotal.alpha = 0
+			labelAvg.alpha = 0  
+			labelBest.alpha = 0 
+			labelLast.alpha = 0 
+
+			labelMatch:setFillColor( 0,0,0 )
+			labelTotal:setFillColor( 0,0,0 )
+			labelAvg:setFillColor( 0,0,0 )
+			labelBest:setFillColor( 0,0,0 )
+			labelLast:setFillColor( 0,0,0 )
+
+			transition.moveTo( labelMatch, {x=posX(2), time=400} )
+			transition.moveTo( labelTotal, {x=posX(2), time=400} )
+			transition.moveTo( labelAvg  , {x=posX(2), time=400} )
+			transition.moveTo( labelBest , {x=posX(2), time=400} )
+			transition.moveTo( labelLast , {x=posX(2), time=400} )
+			
+			transition.to( labelMatch, {alpha=1, time=500} )
+			transition.to( labelTotal, {alpha=1, time=500} )
+			transition.to( labelAvg  , {alpha=1, time=500} )
+			transition.to( labelBest , {alpha=1, time=500} )
+			transition.to( labelLast , {alpha=1, time=500} )
+
+
+			grupoMenu:insert(labelMatch)
+			grupoMenu:insert(labelTotal)
+			grupoMenu:insert(labelAvg)
+			grupoMenu:insert(labelBest)
+			grupoMenu:insert(labelLast)
+
+
+
+			local function carregarStats(event)
+
+			end
 		end 
+
+
 		local btn
 		local btn2
 		local i = 1
@@ -98,7 +156,8 @@ function scene:show( event )
 		end
 
 		local function retry( event )
-  			composer.gotoScene( params.cena, {effect = "fade",time = 300} )
+			
+  			composer.gotoScene( params.retry, {effect = "fade",time = 300} )
   			btn2:removeEventListener( "tap", retry )
   			timer.cancel( timerMenu )
   			display.remove( btn2 )
