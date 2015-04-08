@@ -49,21 +49,25 @@ function scene:show( event )
 			--submitHighScore(IDLEADERBOARDS.tracks2easy,0)
   			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2easy, pontos=0, cena="scripts.cenas.2tracks.easy"}} )
   			btn:removeEventListener( "tap", easy )
+  			hideBanner()
 		end
 		local function normal( event )
 			--submitHighScore(IDLEADERBOARDS.tracks2normal,0)
   			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2normal,cena="scripts.cenas.2tracks.normal"}} )
   			btn2:removeEventListener( "tap", normal )
+  			hideBanner()
 		end
 		local function hard( event )
 			--submitHighScore(IDLEADERBOARDS.tracks2hard,0)
   			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2hard,cena="scripts.cenas.2tracks.hard"}} )
   			btn3:removeEventListener( "tap", hard )
+  			hideBanner()
 		end
 		local function insane( event )
 			--submitHighScore(IDLEADERBOARDS.tracks2insane,0)
   			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2insane,cena="scripts.cenas.2tracks.insane"}} )
   			btn4:removeEventListener( "tap", insane )
+  			hideBanner()
 		end
 		local function back( event )
   			composer.gotoScene( "scripts.cenas.menutrack", {effect = "slideRight",time = 300} )
@@ -103,7 +107,6 @@ end
 -- Called when scene is about to move offscreen:
 function scene:hide( event )
 	local group = self.view
-	hideBanner()
 	display.remove(grupoMenu)
 	timer.cancel( timerMenu )
 end

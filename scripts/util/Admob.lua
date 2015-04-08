@@ -23,7 +23,7 @@ end
 
 function showBanner( )
 	if(propaganda==true) then
-		ads.show( "banner", {x=0, y=display.contentHeight-65, appId=bannerId} )
+		ads.show( "banner", {x=0, y=display.contentHeight-66, appId=bannerId} )
 	end
 end
 
