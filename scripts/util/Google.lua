@@ -10,7 +10,7 @@ local rank = {}
 
 
 IDLEADERBOARDS = {
-	tracks2easy="CgkIi7_A79oJEAIQGA",
+	tracks2easy="CgkIi7_A79oJEAIQGw",
   	tracks2normal="CgkIi7_A79oJEAIQEw",
   	tracks2hard="CgkIi7_A79oJEAIQGQ",
   	tracks2insane="CgkIi7_A79oJEAIQGg",

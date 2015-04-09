@@ -23,6 +23,8 @@ local Database = require "scripts.util.Database"
 local string = require( "scripts.util.string" )
 local Admob = require( "scripts.util.Admob" )
 
+native.setProperty( "androidSystemUiVisibility", "immersiveSticky" )
+
 propaganda = true
 
 init()

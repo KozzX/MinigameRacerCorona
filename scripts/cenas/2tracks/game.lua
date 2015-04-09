@@ -5,6 +5,7 @@ local Botao = require( "scripts.objetos.Botao" )
 local Explosao = require( "scripts.objetos.Explosao" )
 local Pista = require( "scripts.objetos.Pista" )
 local Pontos = require( "scripts.objetos.PontosHUD" )
+local dificuldade = require( "scripts.util.dificuldade" )
 
 local scene = composer.newScene(  )
 
@@ -16,7 +17,6 @@ local pista1
 local pista2
 local telaX = display.contentWidth
 local telaY = display.contentHeight
-local GAMEMODE = "2TRACKS-INSANE"
 
 ---------------------------------------------------------------------------------
 
@@ -29,6 +29,7 @@ end
 
 function scene:show( event )
     local sceneGroup = self.view
+    local params = event.params
 
     if event.phase == "will" then
         tap = display.newImage( "images/tap.png", display.contentCenterX,display.contentCenterY )
@@ -36,8 +37,10 @@ function scene:show( event )
         pista2 = Pista.new(posX(11),posY(0))
 
     elseif event.phase == "did" then
-        
-        
+    	local GAMEMODE = params.mode 
+        local level = getLevel(GAMEMODE)
+        print( GAMEMODE,"GAME" )
+    	
         local i = 1
         local j = 1
         local grupoObjetos = display.newGroup( )
@@ -56,7 +59,7 @@ function scene:show( event )
         local pontosMelhor = 0
         local xCarro = 5
         local contObs = 0
-        local velocidade = 1200
+        local velocidade = level.speed
         local tempo = 0
         local target = 100
         local comecou = false
@@ -145,6 +148,7 @@ function scene:show( event )
 
             if tempo == target then
                 obstaculo1[i] = Carro.newObstaculo(math.random(2,3),velocidade)
+                --obstaculo1[i]:setFillColor( 0.8,0,0.2 )
                 grupoObjetos:insert( obstaculo1[i] )
                 faixa:toFront( )
                 pontos:toFront( )
@@ -156,17 +160,17 @@ function scene:show( event )
                 i = i + 1
                 tempo = 0
                 if(contObs == 1) then
-                    target = 35
+                    target = level.target
                 end
                 if((contObs%1)==0) then
                     target = target - 1
                     velocidade = velocidade - 20
                 end
-                if (velocidade <= 900) then
-                    velocidade = 900
+                if (velocidade <= level.speedLimit) then
+                    velocidade = level.speedLimit
                 end
-                if (target <= 19) then
-                    target = 19
+                if (target <= level.targetLimit) then
+                    target = level.targetLimit
                 end
                 
             end
@@ -187,8 +191,8 @@ function scene:show( event )
                         faixa:setFillColor(0,1,0)
                         pontosDif.text = "SUCCESS"
                     else
-                        pontosDif.text = pontos.text - pontosProximo
-                        pontosDif.text = string.format( "%6.0f", pontosDif.text )
+                    	pontosDif.text = pontos.text - pontosProximo
+                    	pontosDif.text = string.format( "%6.0f", pontosDif.text )
 
                     end
                 end
@@ -202,7 +206,8 @@ function scene:show( event )
                 local hit = event.object2
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
-                    local pts = tonumber(pontos.text)
+                    system.vibrate()
+                	local pts = tonumber(pontos.text)
                     Runtime:removeEventListener( "touch", onTouch )
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )
                     Runtime:removeEventListener( "enterFrame", carregarObstaculo )
@@ -215,31 +220,31 @@ function scene:show( event )
                     carro.isVisible = false
                     grupoObjetos:insert(explosao)
                     local table = display.newRoundedRect( display.contentWidth,display.contentHeight / 25 * 4,display.contentWidth / 16 * 14, display.contentHeight/25*15,10 )
-                    table.anchorY = 0
-                    table.stroke = {0,0,0}
-                    table.strokeWidth = 4
-                    table:setFillColor( 0.7,0.7,0.7 )
+					table.anchorY = 0
+					table.stroke = {0,0,0}
+					table.strokeWidth = 4
+					table:setFillColor( 0.7,0.7,0.7 )
                     transition.to( table, {x=display.contentCenterX,alpha=0.85, time=400} )
 
-                    local scoreLabel = display.newText( "Score", display.contentWidth + posX(5), posY(6), "Bitwise", 40)
-                    scoreLabel:setFillColor( 0,0,0 )
-                    local bestLabel = display.newText( "Best", display.contentWidth + posX(11), posY(6), "Bitwise", 40)
-                    bestLabel:setFillColor( 0,0,0 )
+					local scoreLabel = display.newText( "Score", display.contentWidth + posX(5), posY(6), "Bitwise", 40)
+					scoreLabel:setFillColor( 0,0,0 )
+					local bestLabel = display.newText( "Best", display.contentWidth + posX(11), posY(6), "Bitwise", 40)
+					bestLabel:setFillColor( 0,0,0 )
 
-                    local score = display.newText( buscarPontos(GAMEMODE).lastScore, display.contentWidth + posX(5), posY(10), "Bitwise", 70)
-                    score:setFillColor( 0,0,0 )
-                    local best = display.newText( buscarPontos(GAMEMODE).highScore, display.contentWidth + posX(11), posY(10), "Bitwise", 70)
-                    best:setFillColor( 0,0,0 )
+					local score = display.newText( buscarPontos(GAMEMODE).lastScore, display.contentWidth + posX(5), posY(10), "Bitwise", 70)
+					score:setFillColor( 0,0,0 )
+					local best = display.newText( buscarPontos(GAMEMODE).highScore, display.contentWidth + posX(11), posY(10), "Bitwise", 70)
+					best:setFillColor( 0,0,0 )
 
-                    bestLabel.alpha,best.alpha,scoreLabel.alpha,score.alpha = 0,0,0,0
-                    transition.moveTo( scoreLabel, {x=posX(5), time=400} )
-                    transition.moveTo( bestLabel, {x=posX(11), time=400} )
-                    transition.moveTo( score, {x=posX(5), time=400} )
-                    transition.moveTo( best, {x=posX(11), time=400} )
-                    transition.to( scoreLabel, {alpha=1, time=1000} )
-                    transition.to( bestLabel, {alpha=1, time=1000} )
-                    transition.to( score, {alpha=1, time=1000} )
-                    transition.to( best, {alpha=1, time=1000} )
+					bestLabel.alpha,best.alpha,scoreLabel.alpha,score.alpha = 0,0,0,0
+					transition.moveTo( scoreLabel, {x=posX(5), time=400} )
+					transition.moveTo( bestLabel, {x=posX(11), time=400} )
+					transition.moveTo( score, {x=posX(5), time=400} )
+					transition.moveTo( best, {x=posX(11), time=400} )
+					transition.to( scoreLabel, {alpha=1, time=1000} )
+					transition.to( bestLabel, {alpha=1, time=1000} )
+					transition.to( score, {alpha=1, time=1000} )
+					transition.to( best, {alpha=1, time=1000} )
 
                     grupoObjetos:insert(table)
                     grupoObjetos:insert(scoreLabel)
@@ -250,10 +255,10 @@ function scene:show( event )
 
                     function result( event )
                         if pts > pontosMelhor then
-                            composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2insane, pontos=pts, cena="scripts.cenas.result", retry="scripts.cenas.2tracks.insane",mode=GAMEMODE}} )
+                            composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2easy, pontos=pts, cena="scripts.cenas.result", retry="scripts.cenas.2tracks.game",mode=GAMEMODE}} )
                         else 
-                            submitScore(IDLEADERBOARDS.tracks2insane,pts)   
-                            composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300, params={retry="scripts.cenas.2tracks.insane",mode=GAMEMODE}})
+                            submitScore(IDLEADERBOARDS.tracks2easy,pts)   
+                            composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300, params={retry="scripts.cenas.2tracks.game",mode=GAMEMODE}})
                         end
                         display.remove(grupoObjetos)
                         botaoResult:removeEventListener( "tap", result )

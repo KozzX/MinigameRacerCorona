@@ -93,9 +93,12 @@ function scene:show( event )
 			local labelLast
 			local stats = buscarPontos(params.mode)
 
-			labelMatch = display.newText( "Matches:        " .. stats.timesPlayed, display.contentWidth/2, posY(4.5), "Bitwise", 35)
+			local avg = stats.totalScore/stats.timesPlayed
+			avg = string.format( "%3.0f", avg )
+
+			labelMatch = display.newText( "Matches:         " .. stats.timesPlayed, display.contentWidth/2, posY(4.5), "Bitwise", 35)
 			labelTotal = display.newText( "Total Points:    " .. stats.totalScore, display.contentWidth/2, posY(6.5), "Bitwise", 35)
-			labelAvg   = display.newText( "Average Points: " .. stats.totalScore/stats.timesPlayed, display.contentWidth/2, posY(8.5), "Bitwise", 35)
+			labelAvg   = display.newText( "Average Points:" .. avg, display.contentWidth/2, posY(8.5), "Bitwise", 35)
 			labelBest  = display.newText( "Best Score:      " .. stats.highScore, display.contentWidth/2, posY(10.5), "Bitwise", 35)
 			labelLast  = display.newText( "Last Score:      " .. stats.lastScore, display.contentWidth/2, posY(12.5), "Bitwise", 35)
 			
@@ -150,32 +153,46 @@ function scene:show( event )
 
 		local function back( event )
   			composer.gotoScene( "scripts.cenas.menutrack", {effect = "fade",time = 300} )
-  			btn:removeEventListener( "tap", back )
+  			btn3:removeEventListener( "tap", back )
   			timer.cancel( timerMenu )
   			display.remove( btn )
 		end
 
 		local function retry( event )
 			
-  			composer.gotoScene( params.retry, {effect = "fade",time = 300} )
+  			composer.gotoScene( params.retry, {effect = "fade",time = 300,params={mode=params.mode}} )
   			btn2:removeEventListener( "tap", retry )
   			timer.cancel( timerMenu )
   			display.remove( btn2 )
 		end
 
+		local function stats( event )
+			
+  			composer.gotoScene( "scripts.cenas.stats", {effect = "fade",time = 300,params={mode=params.mode}} )
+  			btn:removeEventListener( "tap", stats )
+  			timer.cancel( timerMenu )
+  			display.remove( btn3 )
+		end
+
 		local function criarMenu (event)
 			if i == 1 then
-				btn = Botao.newPlayButton("Retry",display.contentHeight / 25 * 16.5)
-				btn:addEventListener( "tap", retry )
-				grupoMenu:insert( btn )
+				if(carregado == true) then
+					btn = Botao.newPlayButton("Stats",display.contentHeight / 25 * 14.2)
+					btn:addEventListener( "tap", stats )
+					grupoMenu:insert( btn )
+				end
 			elseif i == 2 then
-				btn2 = Botao.newPlayButton("Menu",display.contentHeight / 25 * 18.8)
-				btn2:addEventListener( "tap", back )
+				btn2 = Botao.newPlayButton("Retry",display.contentHeight / 25 * 16.5)
+				btn2:addEventListener( "tap", retry )
 				grupoMenu:insert( btn2 )
+			elseif i == 3 then
+				btn3 = Botao.newPlayButton("Back",display.contentHeight / 25 * 18.8)
+				btn3:addEventListener( "tap", back )
+				grupoMenu:insert( btn3 )
 			end
 			i = i + 1
 		end
-		timerMenu = timer.performWithDelay( 50, criarMenu ,2 )	
+		timerMenu = timer.performWithDelay( 50, criarMenu ,3 )	
 	end
 end
 

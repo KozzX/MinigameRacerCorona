@@ -44,16 +44,19 @@ function scene:show( event )
 		local btn2
 		local btn3
 		local i = 1
+		
 		local function tracks2( event )
   			composer.gotoScene( "scripts.cenas.2tracks.menu", {effect = "slideLeft",time = 300} )
   			btn:removeEventListener( "tap", tracks2 )
 		end
 		local function tracks3( event )
-  			composer.gotoScene( "scripts.cenas.3tracks.menu", {effect = "slideLeft",time = 300} )
+			native.showAlert( "Alert", "New mode comming soon", { "Ok" })
+  			--composer.gotoScene( "scripts.cenas.3tracks.menu", {effect = "slideLeft",time = 300} )
   			btn2:removeEventListener( "tap", tracks3 )
 		end
 		local function tracks4( event )
-  			composer.gotoScene( "scripts.cenas.4tracks.menu", {effect = "slideLeft",time = 300} )
+			native.showAlert( "Alert", "New mode comming soon", { "Ok" })
+  			--composer.gotoScene( "scripts.cenas.4tracks.menu", {effect = "slideLeft",time = 300} )
   			btn3:removeEventListener( "tap", tracks4 )
 		end
 		local function back( event )

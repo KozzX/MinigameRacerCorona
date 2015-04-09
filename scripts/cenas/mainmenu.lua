@@ -74,6 +74,7 @@ function scene:show( event )
   			composer.gotoScene( "scripts.cenas.menutrack", {effect = "slideLeft",time = 300} )
   			btn:removeEventListener( "tap", play )
 		end
+
 		local function leaderboards ( event )
 			showLeaderboards()
 		end
