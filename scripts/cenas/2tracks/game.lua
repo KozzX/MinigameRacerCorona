@@ -255,9 +255,9 @@ function scene:show( event )
 
                     function result( event )
                         if pts > pontosMelhor then
-                            composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2easy, pontos=pts, cena="scripts.cenas.result", retry="scripts.cenas.2tracks.game",mode=GAMEMODE}} )
+                            composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=params.tabela, pontos=pts, cena="scripts.cenas.result", retry="scripts.cenas.2tracks.game",mode=GAMEMODE}} )
                         else 
-                            submitScore(IDLEADERBOARDS.tracks2easy,pts)   
+                            submitScore(params.tabela,pts)   
                             composer.gotoScene( "scripts.cenas.result", { effect = "slideLeft", time = 300, params={retry="scripts.cenas.2tracks.game",mode=GAMEMODE}})
                         end
                         display.remove(grupoObjetos)
