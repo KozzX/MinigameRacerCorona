@@ -43,6 +43,7 @@ function scene:show( event )
 
         local windSound = audio.loadSound( "audio/sfx_wing.ogg" )
         local crashSound = audio.loadSound( "audio/metal_glass_crash_short.mp3" )
+        audio.setMaxVolume( 1, { channel=0 } )
     	
         local i = 1
         local j = 1
@@ -210,8 +211,8 @@ function scene:show( event )
                 local hit = event.object2
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
-                    system.vibrate()
                     audio.play( crashSound )
+                    system.vibrate()
                 	local pts = tonumber(pontos.text)
                     Runtime:removeEventListener( "touch", onTouch )
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )
