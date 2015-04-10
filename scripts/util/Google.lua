@@ -35,7 +35,7 @@ end
 function loginGooglePlayCallback( event )
 	if event.isError then 
 		logado = false
-		native.showAlert( "Error", "Não foi possível conectar ao Google Play Services. Favor verificar sua conexão e tentar novamente", { 'Ok' } )		
+		native.showAlert( "Error", "Unable to connect to Google Play Services. Please check you internet connection and try again.", { 'Ok' } )		
 	else
 		logado = true
 	end

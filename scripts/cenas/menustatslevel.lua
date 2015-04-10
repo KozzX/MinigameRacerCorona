@@ -4,7 +4,6 @@ local Botao = require( "scripts.objetos.Botao" )
 
 local grupoMenu
 
-
 ---------------------------------------------------------------------------------
 -- SCENE EVENTS
 ---------------------------------------------------------------------------------
@@ -14,7 +13,7 @@ function scene:create( event )
 	local group = self.view
 	local bg = display.newImage( "images/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( "PLAY", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+	local title1 = display.newText( "STATS", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
 	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
 	title1:setFillColor( 0,0,0 )
 	--title2:setFillColor( 0,0,0 )
@@ -37,48 +36,70 @@ function scene:show( event )
 	local group = self.view
 
 	if event.phase == "will" then
-		loadInter()
 
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
 		local btn
 		local btn2
 		local btn3
+		local btn4
+		local btn5
 		local i = 1
-		local function arcade( event )
-  			composer.gotoScene( "scripts.cenas.arcade2-1.menu", {effect = "fade",time = 300} )
-  			btn:removeEventListener( "tap", arcade )
+		local function easy( event )
+			--submitHighScore(IDLEADERBOARDS.tracks2easy,0)
+			composer.gotoScene( "scripts.cenas.stats", {effect = "slideLeft",time = 300,params={mode="2TRACKS-EASY",origem="menu"}} )
+  			btn:removeEventListener( "tap", easy )
+  			hideBanner()
 		end
-		local function leaderboards ( event )
-			showLeaderboards()
+		local function normal( event )
+			--submitHighScore(IDLEADERBOARDS.tracks2normal,0)
+			composer.gotoScene( "scripts.cenas.stats", {effect = "slideLeft",time = 300,params={mode="2TRACKS-NORMAL",origem="menu"}} )
+  			btn2:removeEventListener( "tap", normal )
+  			hideBanner()
 		end
-		local function achievements ( event )
-			showAchievements()
+		local function hard( event )
+			--submitHighScore(IDLEADERBOARDS.tracks2hard,0)
+			composer.gotoScene( "scripts.cenas.stats", {effect = "slideLeft",time = 300,params={mode="2TRACKS-HARD",origem="menu"}} )
+  			btn3:removeEventListener( "tap", hard )
+  			hideBanner()
 		end
-		local function buy ( event )
-			
+		local function insane( event )
+			--submitHighScore(IDLEADERBOARDS.tracks2insane,0)
+			composer.gotoScene( "scripts.cenas.stats", {effect = "slideLeft",time = 300,params={mode="2TRACKS-INSANE",origem="menu"}} )
+  			btn4:removeEventListener( "tap", insane )
+  			hideBanner()
 		end
+		local function back( event )
+  			composer.gotoScene( "scripts.cenas.menustatstrack", {effect = "slideRight",time = 300} )
+  			btn5:removeEventListener( "tap", back )
+		end
+		
 		
 		function criarMenu (event)
 			if i == 1 then
-				btn = Botao.newPlayButton("Arcade",display.contentHeight / 25 * 5)
-				btn:addEventListener( "tap", arcade )
+				btn = Botao.newPlayButton("Easy",display.contentHeight / 25 * 5)
+				btn:addEventListener( "tap", easy )
 				grupoMenu:insert( btn )
 			elseif i == 2 then
-				btn2 = Botao.newPlayButton("Story",display.contentHeight / 25 * 8.3)
+				btn2 = Botao.newPlayButton("Normal",display.contentHeight / 25 * 7.3)
+				btn2:addEventListener( "tap", normal )
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
-				btn3 = Botao.newPlayButton("Multiplayer",display.contentHeight / 25 * 11.6)
-				btn3:addEventListener( "tap", buy )
+				btn3 = Botao.newPlayButton("Hard",display.contentHeight / 25 * 9.6)
+				btn3:addEventListener( "tap", hard )
 				grupoMenu:insert( btn3 )
 			elseif i == 4 then
-				btn4 = Botao.newPlayButton("Back",display.contentHeight / 25 * 14.9)
-				btn4:addEventListener( "tap", leaderboards )
+				btn4 = Botao.newPlayButton("Insane",display.contentHeight / 25 * 11.9)
+				btn4:addEventListener( "tap", insane )
 				grupoMenu:insert( btn4 )
+			elseif i == 5 then
+				btn5 = Botao.newPlayButton("Back",display.contentHeight / 25 * 18.8)
+				btn5:addEventListener( "tap", back )
+				grupoMenu:insert( btn5 )
 			end
 			i = i + 1
 		end
-		timerMenu = timer.performWithDelay( 100, criarMenu ,5 )	
+		timerMenu = timer.performWithDelay( 50, criarMenu ,5 )	
 	end 	
 end
 
@@ -86,7 +107,6 @@ end
 -- Called when scene is about to move offscreen:
 function scene:hide( event )
 	local group = self.view
-	hideBanner()
 	display.remove(grupoMenu)
 	timer.cancel( timerMenu )
 end

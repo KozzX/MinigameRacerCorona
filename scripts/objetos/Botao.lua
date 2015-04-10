@@ -1,4 +1,5 @@
 local widget = require("widget")
+local Posicionamento = require( "scripts.util.posicionamento" )
 
 
 function newPlayButton(texto,y)

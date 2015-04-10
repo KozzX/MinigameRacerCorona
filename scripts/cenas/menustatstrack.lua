@@ -14,7 +14,7 @@ function scene:create( event )
 	local group = self.view
 	local bg = display.newImage( "images/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( "PLAY", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+	local title1 = display.newText( "STATS", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
 	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
 	title1:setFillColor( 0,0,0 )
 	--title2:setFillColor( 0,0,0 )
@@ -46,7 +46,7 @@ function scene:show( event )
 		local i = 1
 		
 		local function tracks2( event )
-  			composer.gotoScene( "scripts.cenas.2tracks.menu", {effect = "slideLeft",time = 300} )
+  			composer.gotoScene( "scripts.cenas.menustatslevel", {effect = "slideLeft",time = 300} )
   			btn:removeEventListener( "tap", tracks2 )
 		end
 		local function tracks3( event )

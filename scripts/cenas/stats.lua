@@ -100,13 +100,17 @@ function scene:show( event )
 		local btn
 
 		local function back( event )
-  			composer.gotoScene( "scripts.cenas.menutrack", {effect = "fade",time = 300} )
+			if(params.origem == "result") then
+  				composer.gotoScene( "scripts.cenas.2tracks.menu", {effect = "fade",time = 300} )
+  			elseif (params.origem == "menu") then
+  				composer.gotoScene( "scripts.cenas.menustatslevel", {effect = "slideRight",time = 300} )	
+  			end
   			btn:removeEventListener( "tap", back )
   			timer.cancel( timerMenu )
   			display.remove( btn )
 		end
 
-		btn = Botao.newPlayButton("Menu",display.contentHeight / 25 * 18.8)
+		btn = Botao.newPlayButton("Back",display.contentHeight / 25 * 18.8)
 		btn:addEventListener( "tap", back )
 		grupoMenu:insert( btn )
 

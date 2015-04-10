@@ -40,6 +40,9 @@ function scene:show( event )
     	local GAMEMODE = params.mode 
         local level = getLevel(GAMEMODE)
         print( GAMEMODE,"GAME" )
+
+        local windSound = audio.loadSound( "audio/sfx_wing.ogg" )
+        local crashSound = audio.loadSound( "audio/metal_glass_crash_short.mp3" )
     	
         local i = 1
         local j = 1
@@ -183,6 +186,7 @@ function scene:show( event )
             if obstaculo1[j] ~= nil then
                 if(obstaculo1[j].y) >= carro.y then
                     j = j + 1 
+                    audio.play( windSound )
                     pontos.text = pontos.text + (1)
                     pontos.text = string.format( "%6.0f", pontos.text )
                     pontos:toFront( )
@@ -207,6 +211,7 @@ function scene:show( event )
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
                     system.vibrate()
+                    audio.play( crashSound )
                 	local pts = tonumber(pontos.text)
                     Runtime:removeEventListener( "touch", onTouch )
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )

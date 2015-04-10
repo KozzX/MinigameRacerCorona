@@ -74,15 +74,23 @@ function scene:show( event )
   			composer.gotoScene( "scripts.cenas.menutrack", {effect = "slideLeft",time = 300} )
   			btn:removeEventListener( "tap", play )
 		end
+		local function stats( event )
+			composer.gotoScene( "scripts.cenas.menustatstrack", {effect = "slideLeft",time = 300} )
+			btn2:removeEventListener( "tap", stats )
+		end
 
 		local function leaderboards ( event )
 			showLeaderboards()
+			--btn4:removeEventListener( "tap", leaderboards )
 		end
+
 		local function achievements ( event )
 			showAchievements()
 		end
+
 		local function buy ( event )
 			store.purchase("remover_ads")
+			--btn3:removeEventListener( "tap", buy )
 		end
 		
 		function criarMenu (event)
@@ -91,7 +99,8 @@ function scene:show( event )
 				btn:addEventListener( "tap", play )
 				grupoMenu:insert( btn )
 			elseif i == 2 then
-				btn2 = Botao.newPlayButton(SOPTIONS,display.contentHeight / 25 * 7.3)
+				btn2 = Botao.newPlayButton("Stats",display.contentHeight / 25 * 7.3)
+				btn2:addEventListener( "tap", stats )
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
 				btn3 = Botao.newPlayButton(SSTORE,display.contentHeight / 25 * 9.6)
@@ -101,14 +110,10 @@ function scene:show( event )
 				btn4 = Botao.newPlayButton(SLEADERBOARD,display.contentHeight / 25 * 11.9)
 				btn4:addEventListener( "tap", leaderboards )
 				grupoMenu:insert( btn4 )
-			elseif i == 5 then
-				btn5 = Botao.newPlayButton(SACHIEVEMENTS,display.contentHeight / 25 * 14.2)
-				btn5:addEventListener( "tap", achievements )
-				grupoMenu:insert( btn5 )
 			end
 			i = i + 1
 		end
-		timerMenu = timer.performWithDelay( 50, criarMenu ,5 )	
+		timerMenu = timer.performWithDelay( 50, criarMenu ,4 )	
 	end 	
 end
 
