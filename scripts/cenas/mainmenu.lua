@@ -9,7 +9,6 @@ function loja( event )
 	local transaction = event.transaction
 
     if ( transaction.state == "purchased" ) then
-    	native.showAlert( "Success", "Transaction succuessful!", { "Ok"} )
     	propaganda = false
     	hideBanner()
     elseif ( transaction.state == "cancelled" ) then
@@ -24,7 +23,7 @@ end
 store.init( "google", loja )
 
 store.restore( )
-showBanner()
+
 
 local grupoMenu
 
@@ -62,13 +61,16 @@ function scene:show( event )
 	local group = self.view
 
 	if event.phase == "will" then
+		showBanner()		
 		
-
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
 		local btn
 		local btn2
 		local btn3
+		local btn4
+		local btn5
+		local btn6
 		local i = 1
 		local function play( event )
   			composer.gotoScene( "scripts.cenas.menutrack", {effect = "slideLeft",time = 300} )
@@ -81,7 +83,12 @@ function scene:show( event )
 
 		local function leaderboards ( event )
 			showLeaderboards()
+			--system.openURL("https://play.google.com/store/apps/details?id=com.andre.minigameracer") 
 			--btn4:removeEventListener( "tap", leaderboards )
+		end
+
+		local function rate (event)
+			system.openURL("https://play.google.com/store/apps/details?id=com.andre.minigameracer")
 		end
 
 		local function achievements ( event )
@@ -92,6 +99,21 @@ function scene:show( event )
 			store.purchase("remover_ads")
 			--btn3:removeEventListener( "tap", buy )
 		end
+
+		local function exit ( event )
+			local function sair( event )
+				if event.action == "clicked" then
+        			local i = event.index
+        			if i == 1 then
+	            		native.requestExit()
+        			elseif i == 2 then
+
+        			end
+    			end
+			end
+			native.showAlert( SALERT, SMSGEXIT, { SYES,SNO }, sair )
+			
+		end
 		
 		function criarMenu (event)
 			if i == 1 then
@@ -99,7 +121,7 @@ function scene:show( event )
 				btn:addEventListener( "tap", play )
 				grupoMenu:insert( btn )
 			elseif i == 2 then
-				btn2 = Botao.newPlayButton("Stats",display.contentHeight / 25 * 7.3)
+				btn2 = Botao.newPlayButton(SSTATS,display.contentHeight / 25 * 7.3)
 				btn2:addEventListener( "tap", stats )
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
@@ -110,10 +132,18 @@ function scene:show( event )
 				btn4 = Botao.newPlayButton(SLEADERBOARD,display.contentHeight / 25 * 11.9)
 				btn4:addEventListener( "tap", leaderboards )
 				grupoMenu:insert( btn4 )
+			elseif i == 5 then
+				btn5 = Botao.newPlayButton(SRATE,display.contentHeight / 25 * 14.2)
+				btn5:addEventListener( "tap", rate )
+				grupoMenu:insert( btn5 )
+			elseif i == 6 then
+				btn6 = Botao.newPlayButton(SEXIT,display.contentHeight / 25 * 18.8)
+				btn6:addEventListener( "tap", exit )
+				grupoMenu:insert( btn6 )
 			end
 			i = i + 1
 		end
-		timerMenu = timer.performWithDelay( 50, criarMenu ,4 )	
+		timerMenu = timer.performWithDelay( 50, criarMenu ,6 )	
 	end 	
 end
 

@@ -14,7 +14,7 @@ function scene:create( event )
 	local group = self.view
 	local bg = display.newImage( "images/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( "RESULTS", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+	local title1 = display.newText( SRESULT, display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
 	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
 	title1:setFillColor( 0,0,0 )
 	--title2:setFillColor( 0,0,0 )
@@ -38,6 +38,7 @@ function scene:show( event )
 	local params = event.params
 
 	if event.phase == "will" then
+		showBanner()
 
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
@@ -93,14 +94,20 @@ function scene:show( event )
 			local labelLast
 			local stats = buscarPontos(params.mode)
 
-			local avg = stats.totalScore/stats.timesPlayed
-			avg = string.format( "%3.0f", avg )
+			local avg
+			if(stats.timesPlayed > 0)then
+				avg = stats.totalScore/stats.timesPlayed
+				avg = string.format( "%0.0f", avg )
+			else
+				avg = 0
+				avg = string.format( "%0.0f", avg )
+			end
 
-			labelMatch = display.newText( "Matches:         " .. stats.timesPlayed, display.contentWidth/2, posY(4.5), "Bitwise", 35)
-			labelTotal = display.newText( "Total Points:    " .. stats.totalScore, display.contentWidth/2, posY(6.5), "Bitwise", 35)
-			labelAvg   = display.newText( "Average Points:" .. avg, display.contentWidth/2, posY(8.5), "Bitwise", 35)
-			labelBest  = display.newText( "Best Score:      " .. stats.highScore, display.contentWidth/2, posY(10.5), "Bitwise", 35)
-			labelLast  = display.newText( "Last Score:      " .. stats.lastScore, display.contentWidth/2, posY(12.5), "Bitwise", 35)
+			labelMatch = display.newText( SMATCH .. stats.timesPlayed, display.contentWidth/2, posY(4.5), "Bitwise", 35)
+			labelTotal = display.newText( STOTAL .. stats.totalScore, display.contentWidth/2, posY(6.5), "Bitwise", 35)
+			labelAvg   = display.newText( SAVG .. avg, display.contentWidth/2, posY(8.5), "Bitwise", 35)
+			labelBest  = display.newText( SBESTS .. stats.highScore, display.contentWidth/2, posY(10.5), "Bitwise", 35)
+			labelLast  = display.newText( SLAST .. stats.lastScore, display.contentWidth/2, posY(12.5), "Bitwise", 35)
 			
 			labelMatch.anchorX = 0
 			labelTotal.anchorX = 0 
@@ -160,7 +167,7 @@ function scene:show( event )
 
 		local function retry( event )
 			
-  			composer.gotoScene( params.retry, {effect = "fade",time = 300,params={mode=params.mode}} )
+  			composer.gotoScene( params.retry, {effect = "fade",time = 300,params={tabela=params.tabela,mode=params.mode}} )
   			btn2:removeEventListener( "tap", retry )
   			timer.cancel( timerMenu )
   			display.remove( btn2 )
@@ -168,7 +175,7 @@ function scene:show( event )
 
 		local function stats( event )
 			
-  			composer.gotoScene( "scripts.cenas.stats", {effect = "fade",time = 300,params={mode=params.mode,origem="result"}} )
+  			composer.gotoScene( "scripts.cenas.stats", {effect = "fade",time = 300,params={tabela=params.tabela,mode=params.mode,origem="result"}} )
   			btn:removeEventListener( "tap", stats )
   			timer.cancel( timerMenu )
   			display.remove( btn3 )
@@ -177,16 +184,16 @@ function scene:show( event )
 		local function criarMenu (event)
 			if i == 1 then
 				if(carregado == true) then
-					btn = Botao.newPlayButton("Stats",display.contentHeight / 25 * 14.2)
+					btn = Botao.newPlayButton(SSTATS,display.contentHeight / 25 * 14.2)
 					btn:addEventListener( "tap", stats )
 					grupoMenu:insert( btn )
 				end
 			elseif i == 2 then
-				btn2 = Botao.newPlayButton("Retry",display.contentHeight / 25 * 16.5)
+				btn2 = Botao.newPlayButton(SRETRY,display.contentHeight / 25 * 16.5)
 				btn2:addEventListener( "tap", retry )
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
-				btn3 = Botao.newPlayButton("Back",display.contentHeight / 25 * 18.8)
+				btn3 = Botao.newPlayButton(SBACK,display.contentHeight / 25 * 18.8)
 				btn3:addEventListener( "tap", back )
 				grupoMenu:insert( btn3 )
 			end

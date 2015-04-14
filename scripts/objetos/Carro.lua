@@ -24,15 +24,25 @@ function newCarro( x,y )
 	return carro;
 end
 
-function newObstaculo( x,vel )
-	if x == 1 then
-		x = 2
-	elseif x == 2 then
-		x = 5
-	elseif x == 3 then
-		x = 8
-	elseif x == 4 then
-		x = 11
+function newObstaculo( x,vel,tracks )
+	if(tracks == "3") then
+		if (x==1) then
+			x = 3	
+		elseif x == 2 then
+			x = 6
+		elseif x == 3 then
+			x = 9
+		end
+	else
+		if x == 1 then
+			x = 2
+		elseif x == 2 then
+			x = 5
+		elseif x == 3 then
+			x = 8
+		elseif x == 4 then
+			x = 11
+		end
 	end
 	local obstaculo = new(x,-5)
 	local obstaculoShape = {-10,-65, 10,-65, -10,-30, 10,-30, -40,-30, 40,-30, -40,65, 40,65}

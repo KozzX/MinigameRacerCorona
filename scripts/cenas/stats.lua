@@ -14,7 +14,7 @@ function scene:create( event )
 	local group = self.view
 	local bg = display.newImage( "images/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( "STATS", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+	local title1 = display.newText( SSTATS, display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
 	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
 	title1:setFillColor( 0,0,0 )
 	--title2:setFillColor( 0,0,0 )
@@ -51,14 +51,21 @@ function scene:show( event )
 		local labelLast
 		local stats = buscarPontos(params.mode)
 
-		local avg = stats.totalScore/stats.timesPlayed
-		avg = string.format( "%3.0f", avg )
+		local avg
+		if(stats.timesPlayed > 0)then
+			avg = stats.totalScore/stats.timesPlayed
+			avg = string.format( "%0.0f", avg )
+		else
+			avg = 0
+			avg = string.format( "%0.0f", avg )
+		end
+		
 
-		labelMatch = display.newText( "Matches:        " .. stats.timesPlayed, display.contentWidth/2, posY(4.5), "Bitwise", 35)
-		labelTotal = display.newText( "Total Points:    " .. stats.totalScore, display.contentWidth/2, posY(6.5), "Bitwise", 35)
-		labelAvg   = display.newText( "Average Points:" .. avg, display.contentWidth/2, posY(8.5), "Bitwise", 35)
-		labelBest  = display.newText( "Best Score:      " .. stats.highScore, display.contentWidth/2, posY(10.5), "Bitwise", 35)
-		labelLast  = display.newText( "Last Score:      " .. stats.lastScore, display.contentWidth/2, posY(12.5), "Bitwise", 35)
+		labelMatch = display.newText( SMATCH .. stats.timesPlayed, display.contentWidth/2, posY(4.5), "Bitwise", 35)
+		labelTotal = display.newText( STOTAL .. stats.totalScore, display.contentWidth/2, posY(6.5), "Bitwise", 35)
+		labelAvg   = display.newText( SAVG .. avg, display.contentWidth/2, posY(8.5), "Bitwise", 35)
+		labelBest  = display.newText( SBESTS .. stats.highScore, display.contentWidth/2, posY(10.5), "Bitwise", 35)
+		labelLast  = display.newText( SLAST .. stats.lastScore, display.contentWidth/2, posY(12.5), "Bitwise", 35)
 			
 		labelMatch.anchorX = 0
 		labelTotal.anchorX = 0 

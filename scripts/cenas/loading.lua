@@ -26,6 +26,7 @@ function scene:show( event )
     local phase = event.phase
 
     if phase == "will" then
+        loadInter()
         
         
     elseif phase == "did" then

@@ -38,7 +38,7 @@ function newPontosNome(  )
 		end
 		pontosNome.text = getPlayerByIndex(getMainPlayer()).rank .. ") " .. nome		
 	else
-		pontosNome.text = "You"
+		pontosNome.text = SYOU
 	end
 	pontosNome:setFillColor( 0,0,0 )
 
@@ -81,7 +81,7 @@ function newPontosDifNome( )
 		end
 		pontosDifNome.text = getPlayerByIndex(mainPlayerIndex).rank .. ") " .. nome
 	else
-		pontosDifNome.text = "Best"
+		pontosDifNome.text = SBEST
 	end
 	pontosDifNome:setFillColor( 0, 0, 0 )
 

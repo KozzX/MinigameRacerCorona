@@ -23,7 +23,7 @@ function scene:show( event )
     local params = event.params
 
     if phase == "will" then
-        
+        hideBanner()   
         
     elseif phase == "did" then
         local tentativas = 0
@@ -40,19 +40,19 @@ function scene:show( event )
 
         function carregarGame (event)
             if(carregado == true) then
-                composer.gotoScene( params.cena, {effect = "fade",time = 300, params={retry=params.retry, mode=params.mode} } )
+                composer.gotoScene( params.cena, {effect = "fade",time = 300, params={tabela=params.tabela,retry=params.retry, mode=params.mode} } )
                 display.remove( explosao )
                 timer.cancel( timerGame )
             end
-            if (carregado ~= true) and (tentativas >= 20) then
+            if (carregado ~= true) and (tentativas >= 7) then
                 carregado = false
-                composer.gotoScene( params.cena, {effect = "fade",time = 300, params={retry=params.retry, mode=params.mode} } )
+                composer.gotoScene( params.cena, {effect = "fade",time = 300, params={tabela=params.tabela,retry=params.retry, mode=params.mode} } )
                 display.remove( explosao )
                 timer.cancel( timerGame )
             end
             tentativas = tentativas + 1
         end
-        timerGame = timer.performWithDelay( 200, carregarGame, -1 )
+        timerGame = timer.performWithDelay( 1000, carregarGame, -1 )
     end 
 end
 

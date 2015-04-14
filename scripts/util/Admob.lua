@@ -10,23 +10,26 @@ end
 
 function loadInter( )
 	if(propaganda==true) then
+		print( "loadInter" )
 		ads.load("interstitial", { appId = interId})
 	end
 end
 
-
 function showInter()
 	if(propaganda==true) then
+		print( "showInter" )
 		ads.show( "interstitial", { appId=interId } )	
 	end
 end
 
 function showBanner( )
 	if(propaganda==true) then
-		ads.show( "banner", {x=0, y=display.contentHeight-66, appId=bannerId} )
+		print( "showBanner" )
+		ads.show( "banner", {x=0, y=100000, appId=bannerId} )
 	end
 end
 
 function hideBanner( )
+	print( "hideBanner" )
 	ads.hide()
 end

@@ -14,7 +14,7 @@ function scene:create( event )
 	local group = self.view
 	local bg = display.newImage( "images/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( "PLAY", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+	local title1 = display.newText( SPLAY, display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
 	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
 	title1:setFillColor( 0,0,0 )
 	--title2:setFillColor( 0,0,0 )
@@ -50,12 +50,12 @@ function scene:show( event )
   			btn:removeEventListener( "tap", tracks2 )
 		end
 		local function tracks3( event )
-			native.showAlert( "Alert", "New mode coming soon", { "Ok" })
+			native.showAlert( SALERT, SSOON, { "Ok" })
   			--composer.gotoScene( "scripts.cenas.3tracks.menu", {effect = "slideLeft",time = 300} )
   			btn2:removeEventListener( "tap", tracks3 )
 		end
 		local function tracks4( event )
-			native.showAlert( "Alert", "New mode coming soon", { "Ok" })
+			native.showAlert( SALERT, SSOON, { "Ok" })
   			--composer.gotoScene( "scripts.cenas.4tracks.menu", {effect = "slideLeft",time = 300} )
   			btn3:removeEventListener( "tap", tracks4 )
 		end
@@ -67,19 +67,19 @@ function scene:show( event )
 		
 		function criarMenu (event)
 			if i == 1 then
-				btn = Botao.newPlayButton("2 Tracks",display.contentHeight / 25 * 5)
+				btn = Botao.newPlayButton(S2TRACKS,display.contentHeight / 25 * 5)
 				btn:addEventListener( "tap", tracks2 )
 				grupoMenu:insert( btn )
 			elseif i == 2 then
-				btn2 = Botao.newPlayButton("3 Tracks",display.contentHeight / 25 * 7.3)
+				btn2 = Botao.newPlayButton(S3TRACKS,display.contentHeight / 25 * 7.3)
 				btn2:addEventListener( "tap", tracks3 )
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
-				btn3 = Botao.newPlayButton("4 Tracks",display.contentHeight / 25 * 9.6)
+				btn3 = Botao.newPlayButton(S4TRACKS,display.contentHeight / 25 * 9.6)
 				btn3:addEventListener( "tap", tracks4 )
 				grupoMenu:insert( btn3 )
 			elseif i == 4 then
-				btn4 = Botao.newPlayButton("Back",display.contentHeight / 25 * 18.8)
+				btn4 = Botao.newPlayButton(SBACK,display.contentHeight / 25 * 18.8)
 				btn4:addEventListener( "tap", back )
 				grupoMenu:insert( btn4 )
 			end
