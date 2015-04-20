@@ -47,17 +47,17 @@ function scene:show( event )
 		
 		local function tracks2( event )
   			composer.gotoScene( "scripts.cenas.2tracks.menu", {effect = "slideLeft",time = 300} )
-  			btn:removeEventListener( "tap", tracks2 )
+  			btn3:removeEventListener( "tap", tracks2 )
 		end
 		local function tracks3( event )
-			native.showAlert( SALERT, SSOON, { "Ok" })
-  			--composer.gotoScene( "scripts.cenas.3tracks.menu", {effect = "slideLeft",time = 300} )
+			--native.showAlert( SALERT, SSOON, { "Ok" })
+  			composer.gotoScene( "scripts.cenas.3tracks.menu", {effect = "slideLeft",time = 300} )
   			btn2:removeEventListener( "tap", tracks3 )
 		end
 		local function tracks4( event )
-			native.showAlert( SALERT, SSOON, { "Ok" })
-  			--composer.gotoScene( "scripts.cenas.4tracks.menu", {effect = "slideLeft",time = 300} )
-  			btn3:removeEventListener( "tap", tracks4 )
+			--native.showAlert( SALERT, SSOON, { "Ok" })
+  			composer.gotoScene( "scripts.cenas.4tracks.menu", {effect = "slideLeft",time = 300} )
+  			btn:removeEventListener( "tap", tracks4 )
 		end
 		local function back( event )
   			composer.gotoScene( "scripts.cenas.mainmenu", {effect = "slideRight",time = 300} )
@@ -67,16 +67,16 @@ function scene:show( event )
 		
 		function criarMenu (event)
 			if i == 1 then
-				btn = Botao.newPlayButton(S2TRACKS,display.contentHeight / 25 * 5)
-				btn:addEventListener( "tap", tracks2 )
+				btn = Botao.newPlayButton(S4TRACKS,display.contentHeight / 25 * 5)
+				btn:addEventListener( "tap", tracks4 )
 				grupoMenu:insert( btn )
 			elseif i == 2 then
 				btn2 = Botao.newPlayButton(S3TRACKS,display.contentHeight / 25 * 7.3)
 				btn2:addEventListener( "tap", tracks3 )
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
-				btn3 = Botao.newPlayButton(S4TRACKS,display.contentHeight / 25 * 9.6)
-				btn3:addEventListener( "tap", tracks4 )
+				btn3 = Botao.newPlayButton(S2TRACKS,display.contentHeight / 25 * 9.6)
+				btn3:addEventListener( "tap", tracks2 )
 				grupoMenu:insert( btn3 )
 			elseif i == 4 then
 				btn4 = Botao.newPlayButton(SBACK,display.contentHeight / 25 * 18.8)

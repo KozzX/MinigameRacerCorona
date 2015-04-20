@@ -159,7 +159,7 @@ function scene:show( event )
 		local i = 1
 
 		local function back( event )
-  			composer.gotoScene( "scripts.cenas.2tracks.menu", {effect = "fade",time = 300} )
+  			composer.gotoScene( "scripts.cenas.3tracks.menu", {effect = "fade",time = 300} )
   			btn3:removeEventListener( "tap", back )
   			timer.cancel( timerMenu )
   			display.remove( btn )
@@ -175,7 +175,7 @@ function scene:show( event )
 
 		local function stats( event )
 			
-  			composer.gotoScene( "scripts.cenas.stats", {effect = "fade",time = 300,params={tabela=params.tabela,mode=params.mode,origem="result"}} )
+  			composer.gotoScene( "scripts.cenas.3tracks.stats", {effect = "fade",time = 300,params={tabela=params.tabela,mode=params.mode,origem="result"}} )
   			btn:removeEventListener( "tap", stats )
   			timer.cancel( timerMenu )
   			display.remove( btn3 )

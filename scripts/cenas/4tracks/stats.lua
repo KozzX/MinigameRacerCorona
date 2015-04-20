@@ -108,9 +108,9 @@ function scene:show( event )
 
 		local function back( event )
 			if(params.origem == "result") then
-  				composer.gotoScene( "scripts.cenas.2tracks.menu", {effect = "fade",time = 300} )
+  				composer.gotoScene( "scripts.cenas.4tracks.menu", {effect = "fade",time = 300} )
   			elseif (params.origem == "menu") then
-  				composer.gotoScene( "scripts.cenas.menustatslevel", {effect = "slideRight",time = 300} )	
+  				composer.gotoScene( "scripts.cenas.4tracks.menustatslevel", {effect = "slideRight",time = 300} )	
   			end
   			btn:removeEventListener( "tap", back )
   			timer.cancel( timerMenu )

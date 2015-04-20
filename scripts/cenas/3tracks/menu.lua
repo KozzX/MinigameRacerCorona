@@ -13,7 +13,7 @@ function scene:create( event )
 	local group = self.view
 	local bg = display.newImage( "images/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( "3 Tracks", display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+	local title1 = display.newText( S3TRACKS, display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
 	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
 	title1:setFillColor( 0,0,0 )
 	--title2:setFillColor( 0,0,0 )
@@ -37,27 +37,33 @@ function scene:show( event )
 
 	if event.phase == "will" then
 
+
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
 		local btn
 		local btn2
 		local btn3
+		local btn4
+		local btn5
 		local i = 1
 		local function easy( event )
-			--native.showAlert( "Alert", message [, { buttonLabels  [, listener]}, ] )
-  			composer.gotoScene( "scripts.cenas.3tracks.easy", {effect = "fade",time = 300} )
+			--submitHighScore(IDLEADERBOARDS.tracks2easy,0)
+  			composer.gotoScene( "scripts.cenas.3tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks3easy, pontos=0, cena="scripts.cenas.3tracks.game",mode="3TRACKS-EASY"}} )
   			btn:removeEventListener( "tap", easy )
 		end
 		local function normal( event )
-  			composer.gotoScene( "scripts.cenas.3tracks.normal", {effect = "fade",time = 300} )
+			--submitHighScore(IDLEADERBOARDS.tracks2normal,0)
+  			composer.gotoScene( "scripts.cenas.3tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks3normal, pontos=0,cena="scripts.cenas.3tracks.game",mode="3TRACKS-NORMAL"}} )
   			btn2:removeEventListener( "tap", normal )
 		end
 		local function hard( event )
-  			composer.gotoScene( "scripts.cenas.3tracks.hard", {effect = "fade",time = 300} )
+			--submitHighScore(IDLEADERBOARDS.tracks2hard,0)
+  			composer.gotoScene( "scripts.cenas.3tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks3hard, pontos=0,cena="scripts.cenas.3tracks.game",mode="3TRACKS-HARD"}} )
   			btn3:removeEventListener( "tap", hard )
 		end
 		local function insane( event )
-  			composer.gotoScene( "scripts.cenas.3tracks.insane", {effect = "fade",time = 300} )
+			--submitHighScore(IDLEADERBOARDS.tracks2insane,0)
+  			composer.gotoScene( "scripts.cenas.3tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks3insane, pontos=0,cena="scripts.cenas.3tracks.game",mode="3TRACKS-INSANE"}} )
   			btn4:removeEventListener( "tap", insane )
 		end
 		local function back( event )
@@ -68,23 +74,23 @@ function scene:show( event )
 		
 		function criarMenu (event)
 			if i == 1 then
-				btn = Botao.newPlayButton("Easy",display.contentHeight / 25 * 5)
-				btn:addEventListener( "tap", easy )
-				grupoMenu:insert( btn )
-			elseif i == 2 then
-				btn2 = Botao.newPlayButton("Normal",display.contentHeight / 25 * 7.3)
-				btn2:addEventListener( "tap", normal )
-				grupoMenu:insert( btn2 )
-			elseif i == 3 then
-				btn3 = Botao.newPlayButton("Hard",display.contentHeight / 25 * 9.6)
-				btn3:addEventListener( "tap", hard )
-				grupoMenu:insert( btn3 )
-			elseif i == 4 then
-				btn4 = Botao.newPlayButton("Insane",display.contentHeight / 25 * 11.9)
+				btn4 = Botao.newPlayButton(SINSANE,display.contentHeight / 25 * 5)
 				btn4:addEventListener( "tap", insane )
 				grupoMenu:insert( btn4 )
+			elseif i == 2 then
+				btn3 = Botao.newPlayButton(SHARD,display.contentHeight / 25 * 7.3)
+				btn3:addEventListener( "tap", hard )
+				grupoMenu:insert( btn3 )
+			elseif i == 3 then
+				btn2 = Botao.newPlayButton(SNORMAL,display.contentHeight / 25 * 9.6)
+				btn2:addEventListener( "tap", normal )
+				grupoMenu:insert( btn2 )
+			elseif i == 4 then
+				btn = Botao.newPlayButton(SEASY,display.contentHeight / 25 * 11.9)
+				btn:addEventListener( "tap", easy )
+				grupoMenu:insert( btn )
 			elseif i == 5 then
-				btn5 = Botao.newPlayButton("Back",display.contentHeight / 25 * 18.8)
+				btn5 = Botao.newPlayButton(SBACK,display.contentHeight / 25 * 18.8)
 				btn5:addEventListener( "tap", back )
 				grupoMenu:insert( btn5 )
 			end

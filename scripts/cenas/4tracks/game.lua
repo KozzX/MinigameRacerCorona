@@ -36,8 +36,8 @@ function scene:show( event )
         --tap = display.newImage( "images/tap.png", display.contentCenterX,display.contentCenterY )
         tap = display.newText( STAP, display.contentCenterX,display.contentCenterY, "Bitwise", 40 )
         tap:setFillColor( 0.7,0,0 )
-        pista1 = Pista.new(posX(4),posY(0))
-        pista2 = Pista.new(posX(11),posY(0))
+        pista1 = Pista.new(posX(1),posY(0))
+        pista2 = Pista.new(posX(14),posY(0))
 
     elseif event.phase == "did" then
     	local GAMEMODE = params.mode 
@@ -113,12 +113,12 @@ function scene:show( event )
 
         function onTouch(event)
             if(event.phase == "began") then
-                if (event.x < telaX / 2) and (xCarro > 5) then
+                if (event.x < telaX / 2) and (xCarro > 2) then
                     xCarro = xCarro - 3
                     pontos.text = pontos.text + (1)
                     pontosDif.text = pontos.text - pontosProximo
                     transition.moveTo( carro, {x = posX(xCarro), y = carro.y, time = 50} )
-                elseif (event.x > telaX / 2) and (xCarro < 8) then
+                elseif (event.x > telaX / 2) and (xCarro < 11) then
                     xCarro = xCarro + 3
                     pontos.text = pontos.text + (1)
                     pontosDif.text = pontos.text - pontosProximo
@@ -154,9 +154,12 @@ function scene:show( event )
             end
 
             if tempo == target then
-                obstaculo1[i] = Carro.newObstaculo(math.random(2,3),velocidade,"2")
-                --obstaculo1[i]:setFillColor( 0.8,0,0.2 )
+                obstaculo1[i] = Carro.newObstaculo(math.random(1,4),velocidade,"4")
+                obstaculo2[i] = Carro.newObstaculo(math.random(1,4),velocidade,"4")
+                obstaculo3[i] = Carro.newObstaculo(math.random(1,4),velocidade,"4")
                 grupoObjetos:insert( obstaculo1[i] )
+                grupoObjetos:insert( obstaculo2[i] )
+                grupoObjetos:insert( obstaculo3[i] )
                 faixa:toFront( )
                 pontos:toFront( )
                 pontosDif:toFront( )
@@ -268,10 +271,10 @@ function scene:show( event )
 
                     function result( event )
                         if pts > pontosMelhor then
-                        composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=params.tabela, pontos=pts, cena="scripts.cenas.2tracks.result", retry="scripts.cenas.2tracks.game",mode=GAMEMODE}} )
+                        composer.gotoScene( "scripts.cenas.4tracks.loading", {effect = "fade",time = 300, params={tabela=params.tabela, pontos=pts, cena="scripts.cenas.4tracks.result", retry="scripts.cenas.4tracks.game",mode=GAMEMODE}} )
                         else 
                            submitScore(params.tabela,pts)   
-                           composer.gotoScene( "scripts.cenas.2tracks.result", { effect = "slideLeft", time = 300, params={tabela=params.tabela, retry="scripts.cenas.2tracks.game",mode=GAMEMODE}})
+                           composer.gotoScene( "scripts.cenas.4tracks.result", { effect = "slideLeft", time = 300, params={tabela=params.tabela, retry="scripts.cenas.4tracks.game",mode=GAMEMODE}})
                         end
                         display.remove(grupoObjetos)
                         botaoResult:removeEventListener( "tap", result )
