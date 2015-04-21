@@ -11,22 +11,7 @@ local grupoMenu
 -- Called when the scene's view does not exist:
 function scene:create( event )
 	local group = self.view
-	local bg = display.newImage( "images/background.png", true)
-	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( S2TRACKS, display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
-	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
-	title1:setFillColor( 0,0,0 )
-	--title2:setFillColor( 0,0,0 )
-	local table = display.newRoundedRect( display.contentCenterX,display.contentHeight / 25 * 1 ,display.contentWidth / 16 * 14, display.viewableContentHeight-100,10 )
-	table.anchorY = 0
-	table.stroke = {0,0,0}
-	table.strokeWidth = 4
-	table:setFillColor( 0.7,0.7,0.7 )
-	
-	group:insert( bg )
-	group:insert( table )
-	group:insert( title1 )
-	--group:insert( title2 )
+
 
 end
 
@@ -36,7 +21,22 @@ function scene:show( event )
 	local group = self.view
 
 	if event.phase == "will" then
-
+		local bg = display.newImage( "images/background.png", true)
+		bg.anchorX, bg.anchorY = 0, 0
+		local title1 = display.newText( S2TRACKS, display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+		--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
+		title1:setFillColor( 0,0,0 )
+		--title2:setFillColor( 0,0,0 )
+		local table = display.newRoundedRect( display.contentCenterX,display.contentHeight / 25 * 1 ,display.contentWidth / 16 * 14, display.viewableContentHeight-100,10 )
+		table.anchorY = 0
+		table.stroke = {0,0,0}
+		table.strokeWidth = 4
+		table:setFillColor( 0.7,0.7,0.7 )
+		
+		group:insert( bg )
+		group:insert( table )
+		group:insert( title1 )
+		--group:insert( title2 )
 
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
@@ -50,25 +50,35 @@ function scene:show( event )
 			--submitHighScore(IDLEADERBOARDS.tracks2easy,0)
   			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2easy, pontos=0, cena="scripts.cenas.2tracks.game",mode="2TRACKS-EASY"}} )
   			btn:removeEventListener( "tap", easy )
+  			zerarPlayers( )
+  			composer.removeScene( scene )
 		end
 		local function normal( event )
 			--submitHighScore(IDLEADERBOARDS.tracks2normal,0)
   			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2normal, pontos=0,cena="scripts.cenas.2tracks.game",mode="2TRACKS-NORMAL"}} )
   			btn2:removeEventListener( "tap", normal )
+  			zerarPlayers( )
+  			composer.removeScene( scene )
 		end
 		local function hard( event )
 			--submitHighScore(IDLEADERBOARDS.tracks2hard,0)
   			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2hard, pontos=0,cena="scripts.cenas.2tracks.game",mode="2TRACKS-HARD"}} )
   			btn3:removeEventListener( "tap", hard )
+  			zerarPlayers( )
+  			composer.removeScene( scene )
 		end
 		local function insane( event )
 			--submitHighScore(IDLEADERBOARDS.tracks2insane,0)
   			composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=IDLEADERBOARDS.tracks2insane, pontos=0,cena="scripts.cenas.2tracks.game",mode="2TRACKS-INSANE"}} )
   			btn4:removeEventListener( "tap", insane )
+  			zerarPlayers( )
+  			composer.removeScene( scene )
 		end
 		local function back( event )
   			composer.gotoScene( "scripts.cenas.menutrack", {effect = "slideRight",time = 300} )
   			btn5:removeEventListener( "tap", back )
+  			zerarPlayers( )
+  			composer.removeScene( scene )
 		end
 		
 		

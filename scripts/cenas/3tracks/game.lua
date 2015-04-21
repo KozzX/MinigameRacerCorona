@@ -42,10 +42,6 @@ function scene:show( event )
     elseif event.phase == "did" then
     	local GAMEMODE = params.mode 
         local level = getLevel(GAMEMODE)
-
-        local windSound = audio.loadSound( "audio/sfx_wing.ogg" )
-        local crashSound = audio.loadSound( "audio/metal_glass_crash_short.mp3" )
-        audio.setMaxVolume( 1, { channel=0 } )
     	
         local i = 1
         local j = 1
@@ -114,11 +110,13 @@ function scene:show( event )
             if(event.phase == "began") then
                 if (event.x < telaX / 2) and (xCarro > 5) then
                     xCarro = xCarro - 3
+                    audio.play( POINT )
                     pontos.text = pontos.text + (1)
                     pontosDif.text = pontos.text - pontosProximo
                     transition.moveTo( carro, {x = posX(xCarro), y = carro.y, time = 50} )
                 elseif (event.x > telaX / 2) and (xCarro < 8) then
                     xCarro = xCarro + 3
+                    audio.play( POINT )
                     pontos.text = pontos.text + (1)
                     pontosDif.text = pontos.text - pontosProximo
                     transition.moveTo( carro, {x = posX(xCarro), y = carro.y, time = 50} )
@@ -189,7 +187,7 @@ function scene:show( event )
         function somarPontos( event )
             if obstaculo1[j] ~= nil then
                 if(obstaculo1[j].y) >= carro.y then
-                    audio.play( windSound )
+                    audio.play( POINTPASS )
                     j = j + 1 
                     pontos.text = pontos.text + (1)
                     pontos.text = string.format( "%6.0f", pontos.text )
@@ -214,8 +212,14 @@ function scene:show( event )
                 local hit = event.object2
      
                 if agro.type == "carro" and hit.type == "obstaculo" then
-                    audio.play( crashSound )
+                    audio.play( EXPLOSION )
                     system.vibrate()
+                    local function mostrarAds( event )
+                        if((buscarPontos(GAMEMODE).timesPlayed % 3) == 0) then
+                            showInter( )
+                            loadInter( )
+                        end
+                    end
                 	local pts = tonumber(pontos.text)
                     Runtime:removeEventListener( "touch", onTouch )
                     Runtime:removeEventListener( "enterFrame", enterFrameListener )
@@ -223,10 +227,7 @@ function scene:show( event )
                     Runtime:removeEventListener("enterFrame",somarPontos)
                     transition.pause(obstaculo1[i])
                     submeterPontos(GAMEMODE,pts)
-                    if((buscarPontos(GAMEMODE).timesPlayed % 4) == 0) then
-                        showInter( )
-                        loadInter( )
-                    end
+                    
                     pista1:pause( )
                     pista2:pause( )
                     explosao = Explosao.new(carro.x,carro.y)
@@ -237,7 +238,7 @@ function scene:show( event )
 					table.stroke = {0,0,0}
 					table.strokeWidth = 4
 					table:setFillColor( 0.7,0.7,0.7 )
-                    transition.to( table, {x=display.contentCenterX,alpha=0.85, time=400} )
+                    transition.to( table, {x=display.contentCenterX,alpha=0.85, time=400, onComplete=mostrarAds} )
 
 					local scoreLabel = display.newText( SSCORE, display.contentWidth + posX(5), posY(6), "Bitwise", 40)
 					scoreLabel:setFillColor( 0,0,0 )
@@ -268,10 +269,12 @@ function scene:show( event )
 
                     function result( event )
                         if pts > pontosMelhor then
-                        composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=params.tabela, pontos=pts, cena="scripts.cenas.3tracks.result", retry="scripts.cenas.3tracks.game",mode=GAMEMODE}} )
+                            composer.gotoScene( "scripts.cenas.2tracks.loading", {effect = "fade",time = 300, params={tabela=params.tabela, pontos=pts, cena="scripts.cenas.3tracks.result", retry="scripts.cenas.3tracks.game",mode=GAMEMODE}} )
+                            composer.removeScene( scene )
                         else 
                            submitScore(params.tabela,pts)   
                            composer.gotoScene( "scripts.cenas.3tracks.result", { effect = "slideLeft", time = 300, params={tabela=params.tabela, retry="scripts.cenas.3tracks.game",mode=GAMEMODE}})
+                           composer.removeScene( scene )
                         end
                         display.remove(grupoObjetos)
                         botaoResult:removeEventListener( "tap", result )

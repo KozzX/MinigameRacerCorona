@@ -17,6 +17,11 @@ local explosao
 ---------------------------------------------------------------------------------
 
 function scene:create( event )
+    MUSIC = audio.loadSound( "audio/Reformat.mp3" )
+    EXPLOSION = audio.loadSound( "audio/Explosion.wav" )
+    POINT = audio.loadSound( "audio/Point.wav" )
+    POINTPASS = audio.loadSound( "audio/PointPass.wav" )
+    setLanguage(getLang())
     local sceneGroup = self.view
 
 end

@@ -12,22 +12,7 @@ local grupoMenu
 -- Called when the scene's view does not exist:
 function scene:create( event )
 	local group = self.view
-	local bg = display.newImage( "images/background.png", true)
-	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( SRESULT, display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
-	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
-	title1:setFillColor( 0,0,0 )
-	--title2:setFillColor( 0,0,0 )
-	local table = display.newRoundedRect( display.contentCenterX,display.contentHeight / 25 * 1 ,display.contentWidth / 16 * 14, display.viewableContentHeight-100,10 )
-	table.anchorY = 0
-	table.stroke = {0,0,0}
-	table.strokeWidth = 4
-	table:setFillColor( 0.7,0.7,0.7 )
-	
-	group:insert( bg )
-	group:insert( table )
-	group:insert( title1 )
-	--group:insert( title2 )
+
 
 end
 
@@ -39,6 +24,22 @@ function scene:show( event )
 
 	if event.phase == "will" then
 		showBanner()
+		local bg = display.newImage( "images/background.png", true)
+		bg.anchorX, bg.anchorY = 0, 0
+		local title1 = display.newText( SRESULT, display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+		--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
+		title1:setFillColor( 0,0,0 )
+		--title2:setFillColor( 0,0,0 )
+		local table = display.newRoundedRect( display.contentCenterX,display.contentHeight / 25 * 1 ,display.contentWidth / 16 * 14, display.viewableContentHeight-100,10 )
+		table.anchorY = 0
+		table.stroke = {0,0,0}
+		table.strokeWidth = 4
+		table:setFillColor( 0.7,0.7,0.7 )
+		
+		group:insert( bg )
+		group:insert( table )
+		group:insert( title1 )
+		--group:insert( title2 )	
 
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
@@ -163,6 +164,7 @@ function scene:show( event )
   			btn3:removeEventListener( "tap", back )
   			timer.cancel( timerMenu )
   			display.remove( btn )
+  			composer.removeScene( scene )
 		end
 
 		local function retry( event )
@@ -171,6 +173,7 @@ function scene:show( event )
   			btn2:removeEventListener( "tap", retry )
   			timer.cancel( timerMenu )
   			display.remove( btn2 )
+  			composer.removeScene( scene )
 		end
 
 		local function stats( event )
@@ -179,6 +182,7 @@ function scene:show( event )
   			btn:removeEventListener( "tap", stats )
   			timer.cancel( timerMenu )
   			display.remove( btn3 )
+  			composer.removeScene( scene )
 		end
 
 		local function criarMenu (event)

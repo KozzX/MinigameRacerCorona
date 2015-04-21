@@ -35,6 +35,13 @@ local grupoMenu
 
 -- Called when the scene's view does not exist:
 function scene:create( event )
+	local musicOptions = {
+		channel = 1,
+		loops = -1
+	}
+	audio.play( MUSIC, musicOptions)
+
+	audio.setVolume( 0.5, { channel=1 } )
 	local group = self.view
 	local bg = display.newImage( "images/background.png", true)
 	bg.anchorX, bg.anchorY = 0, 0
@@ -64,6 +71,8 @@ function scene:show( event )
 		showBanner()		
 		
 	elseif event.phase == "did" then
+
+
 		grupoMenu = display.newGroup( )
 		local btn
 		local btn2
@@ -75,10 +84,18 @@ function scene:show( event )
 		local function play( event )
   			composer.gotoScene( "scripts.cenas.menutrack", {effect = "slideLeft",time = 300} )
   			btn:removeEventListener( "tap", play )
+  			composer.removeScene( scene )
 		end
-		local function stats( event )
+		local function options( event )
+			composer.gotoScene( "scripts.cenas.options", {effect = "slideLeft",time = 300} )
+			btn2:removeEventListener( "tap", options )
+			composer.removeScene( scene )
+		end
+
+		local function status( event )
 			composer.gotoScene( "scripts.cenas.menustatstrack", {effect = "slideLeft",time = 300} )
-			btn2:removeEventListener( "tap", stats )
+			btn5:removeEventListener( "tap", status )
+			composer.removeScene( scene )
 		end
 
 		local function leaderboards ( event )
@@ -121,8 +138,8 @@ function scene:show( event )
 				btn:addEventListener( "tap", play )
 				grupoMenu:insert( btn )
 			elseif i == 2 then
-				btn2 = Botao.newPlayButton(SSTATS,display.contentHeight / 25 * 7.3)
-				btn2:addEventListener( "tap", stats )
+				btn2 = Botao.newPlayButton(SOPTIONS,display.contentHeight / 25 * 7.3)
+				btn2:addEventListener( "tap", options )
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
 				btn3 = Botao.newPlayButton(SSTORE,display.contentHeight / 25 * 9.6)
@@ -133,17 +150,22 @@ function scene:show( event )
 				btn4:addEventListener( "tap", leaderboards )
 				grupoMenu:insert( btn4 )
 			elseif i == 5 then
-				btn5 = Botao.newPlayButton(SRATE,display.contentHeight / 25 * 14.2)
-				btn5:addEventListener( "tap", rate )
+				btn5 = Botao.newPlayButton(SSTATS,display.contentHeight / 25 * 14.2)
+				btn5:addEventListener( "tap", status )
 				grupoMenu:insert( btn5 )
 			elseif i == 6 then
-				btn6 = Botao.newPlayButton(SEXIT,display.contentHeight / 25 * 18.8)
-				btn6:addEventListener( "tap", exit )
-				grupoMenu:insert( btn6 )
+				btn5 = Botao.newPlayButton(SRATE,display.contentHeight / 25 * 16.5)
+				btn5:addEventListener( "tap", rate )
+				grupoMenu:insert( btn5 )
+
+			elseif i == 7 then
+				btn7 = Botao.newPlayButton(SEXIT,display.contentHeight / 25 * 18.8)
+				btn7:addEventListener( "tap", exit )
+				grupoMenu:insert( btn7 )
 			end
 			i = i + 1
 		end
-		timerMenu = timer.performWithDelay( 50, criarMenu ,6 )	
+		timerMenu = timer.performWithDelay( 50, criarMenu ,7 )	
 	end 	
 end
 

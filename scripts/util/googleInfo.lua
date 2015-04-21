@@ -12,6 +12,16 @@ function setPlayer( index,ids,nomes,ranks,scores )
 	scorePlayer[index] = scores
 end
 
+function zerarPlayers( )
+	for i=1,tamanho() do
+		idPlayer[i] = nil
+		nomePlayer[i] = nil
+		rankPlayer[i] = nil
+		scorePlayer[i] = nil	
+	end
+	player = nil
+end
+
 function setMainPlayer( ids,nomes )
 	mainPlayer.id = ids
 	mainPlayer.nome = nomes

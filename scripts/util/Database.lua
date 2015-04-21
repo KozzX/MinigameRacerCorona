@@ -53,6 +53,19 @@ function submeterPontos(gameMode, ponto)
 	db:exec( tableupdate )
 end
 
+function getLang( )
+	for row in db:nrows("SELECT NOMPLA FROM PLAYER") do
+		print( row.NOMPLA )
+		return row.NOMPLA
+	end		
+end
+
+function saveLang( lang )
+	local tableupdate = [[UPDATE PLAYER SET NOMPLA=']]..lang..[[';]]
+	print(tableupdate)
+	db:exec( tableupdate )	
+end
+
 function getHighScore( gameMode, player )
 	for row in db:nrows("SELECT HIGHSCORE FROM SCORE WHERE CODPLA = "..player.." AND CODMOD = '" .. gameMode .. "';") do
 		print( row.HIGHSCORE)
@@ -62,7 +75,7 @@ end
 
 
 function preencherTabelas(  )
-	local tablefill = [[INSERT INTO PLAYER VALUES(1, 'Nome', 0, 0, 0);
+	local tablefill = [[INSERT INTO PLAYER VALUES(1, 'en', 0, 0, 0);
 						INSERT INTO SCORE VALUES('2TRACKS-EASY', 1, 0, 0, 0, 0);
 						INSERT INTO SCORE VALUES('2TRACKS-NORMAL', 1, 0, 0, 0, 0);
 						INSERT INTO SCORE VALUES('2TRACKS-HARD', 1, 0, 0, 0, 0);

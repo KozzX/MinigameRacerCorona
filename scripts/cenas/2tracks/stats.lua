@@ -12,22 +12,7 @@ local grupoMenu
 -- Called when the scene's view does not exist:
 function scene:create( event )
 	local group = self.view
-	local bg = display.newImage( "images/background.png", true)
-	bg.anchorX, bg.anchorY = 0, 0
-	local title1 = display.newText( SSTATS, display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
-	--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
-	title1:setFillColor( 0,0,0 )
-	--title2:setFillColor( 0,0,0 )
-	local table = display.newRoundedRect( display.contentCenterX,display.contentHeight / 25 * 1 ,display.contentWidth / 16 * 14, display.viewableContentHeight-100,10 )
-	table.anchorY = 0
-	table.stroke = {0,0,0}
-	table.strokeWidth = 4
-	table:setFillColor( 0.7,0.7,0.7 )
-	
-	group:insert( bg )
-	group:insert( table )
-	group:insert( title1 )
-	--group:insert( title2 )
+
 
 end
 
@@ -38,7 +23,23 @@ function scene:show( event )
 	local params = event.params
 
 	if event.phase == "will" then
-
+		local bg = display.newImage( "images/background.png", true)
+		bg.anchorX, bg.anchorY = 0, 0
+		local title1 = display.newText( SSTATS, display.contentCenterX, display.contentHeight / 25 * 2.5, "Bitwise", 50)
+		--local title2 = display.newText( "RACER", display.contentCenterX, display.contentHeight / 25 * 4, "Bitwise", 50)
+		title1:setFillColor( 0,0,0 )
+		--title2:setFillColor( 0,0,0 )
+		local table = display.newRoundedRect( display.contentCenterX,display.contentHeight / 25 * 1 ,display.contentWidth / 16 * 14, display.viewableContentHeight-100,10 )
+		table.anchorY = 0
+		table.stroke = {0,0,0}
+		table.strokeWidth = 4
+		table:setFillColor( 0.7,0.7,0.7 )
+		
+		group:insert( bg )
+		group:insert( table )
+		group:insert( title1 )
+		--group:insert( title2 )
+		
 	elseif event.phase == "did" then
 		grupoMenu = display.newGroup( )
 		print( params.retry )
@@ -109,8 +110,10 @@ function scene:show( event )
 		local function back( event )
 			if(params.origem == "result") then
   				composer.gotoScene( "scripts.cenas.2tracks.menu", {effect = "fade",time = 300} )
+  				composer.removeScene( scene )
   			elseif (params.origem == "menu") then
   				composer.gotoScene( "scripts.cenas.2tracks.menustatslevel", {effect = "slideRight",time = 300} )	
+  				composer.removeScene( scene )
   			end
   			btn:removeEventListener( "tap", back )
   			timer.cancel( timerMenu )
