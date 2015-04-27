@@ -25,6 +25,7 @@ local Admob = require( "scripts.util.Admob" )
 
 native.setProperty( "androidSystemUiVisibility", "immersiveSticky" )
 
+
 propaganda = true
 
 init()

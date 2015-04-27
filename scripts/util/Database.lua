@@ -92,6 +92,24 @@ function preencherTabelas(  )
 	db:exec( tablefill )
 end
 
+function buscarTotal(  )
+	local i = 0
+	local player = 1
+	local result = {}
+	--local score = 0
+	local played = 0
+	for row in db:nrows("SELECT TIMESPLAYED FROM SCORE") do
+		--score = score + row.TOTALSCORE
+		played = played + row.TIMESPLAYED
+	end
+	result = 
+	{
+		--totalScore=score,
+		timesPlayed=played
+	}
+	return result
+end
+
 function buscarPontos( gameMode )
 	local i = 0
 	local player = 1
