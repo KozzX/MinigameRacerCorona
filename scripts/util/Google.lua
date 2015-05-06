@@ -10,18 +10,18 @@ local rank = {}
 
 
 IDLEADERBOARDS = {
-	tracks2easy="CgkIi7_A79oJEAIQGw",
-  	tracks2normal="CgkIi7_A79oJEAIQEw",
-  	tracks2hard="CgkIi7_A79oJEAIQGQ",
-  	tracks2insane="CgkIi7_A79oJEAIQGg",
-  	tracks3easy="CgkIi7_A79oJEAIQDw",
-  	tracks3normal="CgkIi7_A79oJEAIQEQ",
-  	tracks3hard="CgkIi7_A79oJEAIQEA",
-  	tracks3insane="CgkIi7_A79oJEAIQEg",
-  	tracks4easy="CgkIi7_A79oJEAIQFA",
-  	tracks4normal="CgkIi7_A79oJEAIQFQ",
-  	tracks4hard="CgkIi7_A79oJEAIQFg",
-  	tracks4insane="CgkIi7_A79oJEAIQFw"
+	tracks2easy="CgkIhaCr_6ofEAIQAA",
+  	tracks2normal="CgkIhaCr_6ofEAIQAQ",
+  	tracks2hard="CgkIhaCr_6ofEAIQAg",
+  	tracks2insane="CgkIhaCr_6ofEAIQAw",
+  	tracks3easy="CgkIhaCr_6ofEAIQBA",
+  	tracks3normal="CgkIhaCr_6ofEAIQBQ",
+  	tracks3hard="CgkIhaCr_6ofEAIQBg",
+  	tracks3insane="CgkIhaCr_6ofEAIQBw",
+  	tracks4easy="CgkIhaCr_6ofEAIQCA",
+  	tracks4normal="CgkIhaCr_6ofEAIQCQ",
+  	tracks4hard="CgkIhaCr_6ofEAIQCg",
+  	tracks4insane="CgkIhaCr_6ofEAIQCw"
 }
 
 function gameNetworkSetup()

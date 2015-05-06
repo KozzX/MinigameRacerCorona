@@ -7,7 +7,7 @@ settings =
 	},
 	android =
 	{
-		googlePlayGamesAppId = "333630676875", -- Your Google Play Games App Id
+		googlePlayGamesAppId = "1076693225477", -- Your Google Play Games App Id
 		usesPermissions =
         {
             "com.android.vending.BILLING",

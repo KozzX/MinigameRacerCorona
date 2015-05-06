@@ -17,10 +17,6 @@ local explosao
 ---------------------------------------------------------------------------------
 
 function scene:create( event )
-    MUSIC = audio.loadSound( "audio/Reformat.mp3" )
-    EXPLOSION = audio.loadSound( "audio/Explosion.wav" )
-    POINT = audio.loadSound( "audio/Point.wav" )
-    POINTPASS = audio.loadSound( "audio/PointPass.wav" )
     setLanguage(getLang())
     local sceneGroup = self.view
 
@@ -39,7 +35,12 @@ function scene:show( event )
         explosao = Explosao.newLoad(display.contentWidth / 2, display.contentHeight / 2)
         sceneGroup:insert(explosao) 
         --if(connected()) and ( system.getInfo("platformName") == "Android" )  then
-            gameNetworkSetup()
+        gameNetworkSetup()
+        
+        MUSIC = audio.loadSound( "audio/Reformat.mp3" )
+        EXPLOSION = audio.loadSound( "audio/Explosion.wav" )
+        POINT = audio.loadSound( "audio/Point.wav" )
+        POINTPASS = audio.loadSound( "audio/PointPass.wav" )
         --end
         --http://forums.coronalabs.com/topic/33356-check-for-internet-connection/
 

@@ -15,7 +15,7 @@ function DidReceiveRemoteNotification(message, additionalData, isActive)
 end
 
 local GameThrive = require("plugin.GameThrivePushNotifications")
-GameThrive.Init("ffbb533a-cda8-11e4-b6af-57b077da72ef", "333630676875", DidReceiveRemoteNotification)
+GameThrive.Init("4d708592-f314-11e4-a82c-67b5c2fe0555", "1076693225477", DidReceiveRemoteNotification)
 
 
 local composer = require "composer"
