@@ -215,7 +215,7 @@ function scene:show( event )
                     audio.play( EXPLOSION )
                     system.vibrate()
                     local function mostrarAds( event )
-                        if((buscarTotal().timesPlayed % 3) == 0) then
+                        if((buscarTotal().timesPlayed % 2) == 0) then
                             showInter( )
                             loadInter( )
                         end

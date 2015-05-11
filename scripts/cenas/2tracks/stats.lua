@@ -109,9 +109,13 @@ function scene:show( event )
 
 		local function back( event )
 			if(params.origem == "result") then
+				showInter( )
+            	loadInter( )
   				composer.gotoScene( "scripts.cenas.2tracks.menu", {effect = "fade",time = 300} )
   				composer.removeScene( scene )
   			elseif (params.origem == "menu") then
+  				showInter( )
+            	loadInter( )
   				composer.gotoScene( "scripts.cenas.2tracks.menustatslevel", {effect = "slideRight",time = 300} )	
   				composer.removeScene( scene )
   			end

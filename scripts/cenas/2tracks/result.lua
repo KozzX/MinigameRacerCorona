@@ -160,6 +160,8 @@ function scene:show( event )
 		local i = 1
 
 		local function back( event )
+			showInter( )
+            loadInter( )
   			composer.gotoScene( "scripts.cenas.2tracks.menu", {effect = "fade",time = 300} )
   			btn3:removeEventListener( "tap", back )
   			timer.cancel( timerMenu )
