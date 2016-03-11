@@ -1,6 +1,6 @@
 local ads = require( "ads" )
-local interId = "ca-app-pub-9005728002485631/8527216704"
-local bannerId = "ca-app-pub-9005728002485631/2620283901"
+local interId = "ca-app-pub-5977631144089571/5770354445"
+local bannerId = "ca-app-pub-5977631144089571/4293621247"
 
 function init(  )
 	if(propaganda==true) then

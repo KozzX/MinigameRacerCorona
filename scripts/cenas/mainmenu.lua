@@ -105,7 +105,7 @@ function scene:show( event )
 		end
 
 		local function rate (event)
-			system.openURL("https://play.google.com/store/apps/details?id=com.heagames.minigameracer")
+			system.openURL("https://play.google.com/store/apps/details?id=com.athgames.minigameracer")
 		end
 
 		local function achievements ( event )

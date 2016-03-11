@@ -10,18 +10,18 @@ local rank = {}
 
 
 IDLEADERBOARDS = {
-	tracks2easy="CgkIhaCr_6ofEAIQAA",
-  	tracks2normal="CgkIhaCr_6ofEAIQAQ",
-  	tracks2hard="CgkIhaCr_6ofEAIQAg",
-  	tracks2insane="CgkIhaCr_6ofEAIQAw",
-  	tracks3easy="CgkIhaCr_6ofEAIQBA",
-  	tracks3normal="CgkIhaCr_6ofEAIQBQ",
-  	tracks3hard="CgkIhaCr_6ofEAIQBg",
-  	tracks3insane="CgkIhaCr_6ofEAIQBw",
-  	tracks4easy="CgkIhaCr_6ofEAIQCA",
-  	tracks4normal="CgkIhaCr_6ofEAIQCQ",
-  	tracks4hard="CgkIhaCr_6ofEAIQCg",
-  	tracks4insane="CgkIhaCr_6ofEAIQCw"
+	tracks2easy="CgkIvIfq79UZEAIQAA",
+  	tracks2normal="CgkIvIfq79UZEAIQAQ",
+  	tracks2hard="CgkIvIfq79UZEAIQAg",
+  	tracks2insane="CgkIvIfq79UZEAIQAw",
+  	tracks3easy="CgkIvIfq79UZEAIQBA",
+  	tracks3normal="CgkIvIfq79UZEAIQBQ",
+  	tracks3hard="CgkIvIfq79UZEAIQBg",
+  	tracks3insane="CgkIvIfq79UZEAIQBw",
+  	tracks4easy="CgkIvIfq79UZEAIQCA",
+  	tracks4normal="CgkIvIfq79UZEAIQCQ",
+  	tracks4hard="CgkIvIfq79UZEAIQCg",
+  	tracks4insane="CgkIvIfq79UZEAIQCw"
 }
 
 function gameNetworkSetup()
