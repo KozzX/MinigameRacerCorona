@@ -13,7 +13,6 @@ settings =
             "com.android.vending.BILLING",
             "android.permission.INTERNET",
             "android.permission.ACCESS_NETWORK_STATE",
-            "android.permission.WRITE_EXTERNAL_STORAGE",
         },
 
 	},
@@ -26,11 +25,12 @@ settings =
 			publisherId = "com.coronalabs",
 			supportedPlatforms = { android = true }
 		},
-        ["plugin.google.iap.v3"] =
+		["plugin.google.iap.v3"] =
         {
             publisherId = "com.coronalabs",
             supportedPlatforms = { android=true }
         },
+        
         ["plugin.GameThrivePushNotifications"] =
     	{
         	publisherId = "com.gamethrive",

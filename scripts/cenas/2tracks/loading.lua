@@ -44,7 +44,7 @@ function scene:show( event )
                 display.remove( explosao )
                 timer.cancel( timerGame )
             end
-            if (carregado ~= true) and (tentativas >= 7) then
+            if (carregado ~= true) and (tentativas >= 5) then
                 carregado = false
                 composer.gotoScene( params.cena, {effect = "fade",time = 300, params={tabela=params.tabela,retry=params.retry, mode=params.mode} } )
                 display.remove( explosao )

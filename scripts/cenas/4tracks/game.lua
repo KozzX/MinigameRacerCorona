@@ -218,7 +218,7 @@ function scene:show( event )
                     audio.play( EXPLOSION )
                     system.vibrate()
                 	local function mostrarAds( event )
-                        if((buscarTotal().timesPlayed % 2) == 0) then
+                        if((buscarTotal().timesPlayed % 5) == 0) then
                             showInter( )
                             loadInter( )
                         end
@@ -300,6 +300,9 @@ function scene:hide( event )
     local phase = event.phase
 
     if event.phase == "will" then
+        display.remove( grupoObjetos )
+        display.remove( grupoPistas )
+        display.remove( grupoHUD )
         
     elseif phase == "did" then
 
