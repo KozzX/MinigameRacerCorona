@@ -87,7 +87,7 @@ function scene:show( event )
 				btn2:addEventListener( "tap", hard )
 				grupoMenu:insert( btn2 )
 			elseif i == 3 then
-				btn3 = Botao.newPlayButton(SNROMAL,display.contentHeight / 25 * 9.6)
+				btn3 = Botao.newPlayButton(SNORMAL,display.contentHeight / 25 * 9.6)
 				btn3:addEventListener( "tap", normal )
 				grupoMenu:insert( btn3 )
 			elseif i == 4 then
